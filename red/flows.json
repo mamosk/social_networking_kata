@@ -25,7 +25,9 @@
             "22058781.155308",
             "455f371.6aa1bc8",
             "9f7a5d30.244ab",
-            "7c1a4a6c.b27384"
+            "7c1a4a6c.b27384",
+            "d0cf1ef7.7e44d",
+            "4e5fa64d.519678"
         ],
         "x": 14,
         "y": 19,
@@ -91,8 +93,8 @@
         "y": 60,
         "wires": [
             [
-                "7c1a4a6c.b27384",
-                "f690820.3c8258"
+                "f690820.3c8258",
+                "4e5fa64d.519678"
             ]
         ]
     },
@@ -106,7 +108,7 @@
         "measurement": "timeline",
         "precision": "s",
         "retentionPolicy": "",
-        "x": 740,
+        "x": 680,
         "y": 120,
         "wires": []
     },
@@ -121,7 +123,7 @@
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
-        "x": 740,
+        "x": 680,
         "y": 640,
         "wires": [
             [
@@ -316,7 +318,7 @@
                 "t": "set",
                 "p": "userRegex",
                 "pt": "msg",
-                "to": "'/^(?:'&$join(payload.users,'|')&')/'",
+                "to": "'/^(?:'&$join(payload.users,'|')&')$/'",
                 "tot": "jsonata"
             }
         ],
@@ -406,7 +408,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
+        "x": 690,
         "y": 180,
         "wires": [
             [
@@ -421,7 +423,7 @@
         "z": "api",
         "g": "e021e50b.e51468",
         "name": "posting message",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -439,7 +441,7 @@
         "z": "api",
         "g": "5948f0b5.c6f51",
         "name": "reading message",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -460,7 +462,7 @@
         "headers": {
             "content-type": "application/json"
         },
-        "x": 960,
+        "x": 660,
         "y": 780,
         "wires": []
     },
@@ -484,7 +486,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
+        "x": 690,
         "y": 700,
         "wires": [
             [
@@ -501,7 +503,7 @@
             "de841478.6cecd8",
             "d0cf1ef7.7e44d"
         ],
-        "x": 595,
+        "x": 75,
         "y": 780,
         "wires": [
             [
@@ -519,19 +521,20 @@
             "63bd52dd.7812ac"
         ],
         "x": 915,
-        "y": 640,
+        "y": 700,
         "wires": []
     },
     {
         "id": "d0cf1ef7.7e44d",
         "type": "link out",
         "z": "api",
+        "g": "e021e50b.e51468",
         "name": "posting response",
         "links": [
             "63bd52dd.7812ac"
         ],
-        "x": 935,
-        "y": 200,
+        "x": 915,
+        "y": 180,
         "wires": []
     },
     {
@@ -551,7 +554,7 @@
         "checkall": "false",
         "repair": true,
         "outputs": 1,
-        "x": 740,
+        "x": 380,
         "y": 780,
         "wires": [
             [
@@ -593,7 +596,7 @@
         "type": "debug",
         "z": "api",
         "name": "reading users",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -603,6 +606,39 @@
         "statusType": "auto",
         "x": 980,
         "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4e5fa64d.519678",
+        "type": "no-op",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "forward",
+        "x": 815,
+        "y": 60,
+        "wires": [
+            [
+                "7c1a4a6c.b27384",
+                "3e736678.ed7a3a"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "3e736678.ed7a3a",
+        "type": "debug",
+        "z": "api",
+        "name": "posting payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 120,
         "wires": []
     }
 ]
