@@ -1,4 +1,8 @@
-version: "2"
+version: "2.1"
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: 5m
 services:
   influxdb:
     image: influxdb:1.8
@@ -12,6 +16,7 @@ services:
       - "18086:8086"
     volumes:
       - influxdb_data:/var/lib/influxdb
+    logging: *logging
   chronograf:
     image: chronograf:1.8
     container_name: ${KATA}_chronograf
@@ -26,6 +31,7 @@ services:
       - chronograf_data:/var/lib/chronograf
     depends_on:
       - influxdb
+    logging: *logging
   nodered:
     image: mamosk/nodered-kata:1.0.0
     container_name: ${KATA}_nodered
@@ -41,6 +47,7 @@ services:
       - ./red:/kata/flows
     depends_on:
       - influxdb
+    logging: *logging
 volumes:
   influxdb_data:
   chronograf_data:
