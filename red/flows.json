@@ -27,9 +27,9 @@
             "9f7a5d30.244ab",
             "7c1a4a6c.b27384"
         ],
-        "x": 34,
-        "y": 39,
-        "w": 1092,
+        "x": 14,
+        "y": 19,
+        "w": 1112,
         "h": 210
     },
     {
@@ -57,12 +57,13 @@
             "f7d73811.6adc08",
             "1748215a.5ae18f",
             "90d7df3a.de6fd",
-            "de841478.6cecd8"
+            "de841478.6cecd8",
+            "32d739f5.8eaa96"
         ],
-        "x": 34,
-        "y": 279,
-        "w": 1092,
-        "h": 450
+        "x": 14,
+        "y": 239,
+        "w": 1112,
+        "h": 510
     },
     {
         "id": "ae6c1944.f60ee8",
@@ -82,12 +83,12 @@
         "z": "api",
         "g": "e021e50b.e51468",
         "name": "posting request",
-        "url": "/",
+        "url": "/api/v1/posting",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 140,
-        "y": 80,
+        "x": 120,
+        "y": 60,
         "wires": [
             [
                 "7c1a4a6c.b27384",
@@ -105,8 +106,8 @@
         "measurement": "timeline",
         "precision": "s",
         "retentionPolicy": "",
-        "x": 760,
-        "y": 140,
+        "x": 740,
+        "y": 120,
         "wires": []
     },
     {
@@ -120,8 +121,8 @@
         "rawOutput": false,
         "precision": "",
         "retentionPolicy": "",
-        "x": 760,
-        "y": 620,
+        "x": 740,
+        "y": 640,
         "wires": [
             [
                 "1748215a.5ae18f",
@@ -152,8 +153,8 @@
         "topic": "",
         "payload": "{\"users\":[\"mario\",\"luigi\"]}",
         "payloadType": "json",
-        "x": 150,
-        "y": 440,
+        "x": 130,
+        "y": 460,
         "wires": [
             [
                 "fba1db7d.82b218"
@@ -174,8 +175,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 620,
+        "x": 980,
+        "y": 640,
         "wires": []
     },
     {
@@ -190,8 +191,8 @@
         "syntax": "mustache",
         "template": "[{\"post\":\"{{{payload.text}}}\"},{\"user\":\"{{{payload.user}}}\"}]",
         "output": "json",
-        "x": 420,
-        "y": 140,
+        "x": 400,
+        "y": 120,
         "wires": [
             [
                 "31282668.c851fa",
@@ -222,8 +223,8 @@
         "topic": "",
         "payload": "{\"user\":\"mario\",\"text\":\"let's-a go\"}",
         "payloadType": "json",
-        "x": 150,
-        "y": 140,
+        "x": 130,
+        "y": 120,
         "wires": [
             [
                 "f690820.3c8258"
@@ -242,8 +243,8 @@
         "syntax": "mustache",
         "template": "SELECT \"post\" FROM {{{measurement}}} WHERE time > now() - {{{limit.t}}} AND \"user\"=~{{{userRegex}}} GROUP BY \"user\" ORDER BY desc LIMIT {{{limit.n}}}",
         "output": "str",
-        "x": 420,
-        "y": 560,
+        "x": 400,
+        "y": 580,
         "wires": [
             [
                 "69499045.fa6ec",
@@ -278,8 +279,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 420,
-        "y": 500,
+        "x": 400,
+        "y": 520,
         "wires": [
             [
                 "b5806876.da5228"
@@ -300,8 +301,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 560,
+        "x": 980,
+        "y": 580,
         "wires": []
     },
     {
@@ -324,8 +325,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 440,
+        "x": 420,
+        "y": 460,
         "wires": [
             [
                 "660a9b67.1d7c14"
@@ -338,12 +339,12 @@
         "z": "api",
         "g": "5948f0b5.c6f51",
         "name": "reading request",
-        "url": "/",
-        "method": "post",
+        "url": "/api/v1/reading",
+        "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 140,
-        "y": 320,
+        "x": 120,
+        "y": 280,
         "wires": [
             [
                 "1a7a81f3.bfa44e",
@@ -356,14 +357,14 @@
         "type": "change",
         "z": "api",
         "g": "5948f0b5.c6f51",
-        "name": "set influx default measurement",
+        "name": "get users from url parameters",
         "rules": [
             {
                 "t": "set",
-                "p": "measurement",
+                "p": "payload.users",
                 "pt": "msg",
-                "to": "timeline",
-                "tot": "env"
+                "to": "req.query.users~>$split(',')",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -371,11 +372,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 450,
-        "y": 380,
+        "x": 430,
+        "y": 340,
         "wires": [
             [
-                "fba1db7d.82b218"
+                "32d739f5.8eaa96",
+                "e75cb519.4e6518"
             ]
         ]
     },
@@ -404,8 +406,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
-        "y": 200,
+        "x": 750,
+        "y": 180,
         "wires": [
             [
                 "d0cf1ef7.7e44d"
@@ -418,7 +420,7 @@
         "type": "debug",
         "z": "api",
         "g": "e021e50b.e51468",
-        "name": "posting payload",
+        "name": "posting message",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -427,8 +429,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 80,
+        "x": 990,
+        "y": 60,
         "wires": []
     },
     {
@@ -436,7 +438,7 @@
         "type": "debug",
         "z": "api",
         "g": "5948f0b5.c6f51",
-        "name": "reading payload",
+        "name": "reading message",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -445,8 +447,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 320,
+        "x": 990,
+        "y": 280,
         "wires": []
     },
     {
@@ -458,7 +460,7 @@
         "headers": {
             "content-type": "application/json"
         },
-        "x": 980,
+        "x": 960,
         "y": 780,
         "wires": []
     },
@@ -482,8 +484,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
-        "y": 680,
+        "x": 750,
+        "y": 700,
         "wires": [
             [
                 "de841478.6cecd8"
@@ -499,7 +501,7 @@
             "de841478.6cecd8",
             "d0cf1ef7.7e44d"
         ],
-        "x": 615,
+        "x": 595,
         "y": 780,
         "wires": [
             [
@@ -516,8 +518,8 @@
         "links": [
             "63bd52dd.7812ac"
         ],
-        "x": 935,
-        "y": 680,
+        "x": 915,
+        "y": 640,
         "wires": []
     },
     {
@@ -549,7 +551,7 @@
         "checkall": "false",
         "repair": true,
         "outputs": 1,
-        "x": 760,
+        "x": 740,
         "y": 780,
         "wires": [
             [
@@ -557,5 +559,50 @@
             ]
         ],
         "icon": "font-awesome/fa-question"
+    },
+    {
+        "id": "32d739f5.8eaa96",
+        "type": "change",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "set influx measurement",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "timeline",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "fba1db7d.82b218"
+            ]
+        ]
+    },
+    {
+        "id": "e75cb519.4e6518",
+        "type": "debug",
+        "z": "api",
+        "name": "reading users",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.users",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 340,
+        "wires": []
     }
 ]
