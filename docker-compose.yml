@@ -3,6 +3,7 @@ services:
   influxdb:
     image: influxdb:1.8
     container_name: ${KATA}_influxdb
+    restart: &restart-policy on-failure
     environment:
       - INFLUXDB_DB=kata
       - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
@@ -14,6 +15,7 @@ services:
   chronograf:
     image: chronograf:1.8
     container_name: ${KATA}_chronograf
+    restart: *restart-policy
     environment:
       - INFLUXDB_URL=http://influxdb:8086
       - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
@@ -27,6 +29,7 @@ services:
   nodered:
     image: mamosk/nodered-kata:1.0.0
     container_name: ${KATA}_nodered
+    restart: *restart-policy
     build:
       context: .
     environment:
