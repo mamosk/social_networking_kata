@@ -193,6 +193,9 @@ $RECYCLE.BIN/
 ### following section is specific for Social Network Kata ###
 #############################################################
 
+### Docker ###
+!.env
+
 ### Node-RED ###
 # Backup files
 red/*.backup
