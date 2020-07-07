@@ -1,0 +1,14 @@
+{
+    "name": "node-red-kata",
+    "description": "Node-RED flows for Social Network Kata",
+    "version": "1.0.0",
+    "license": "MIT",
+    "private": true,
+    "author": {
+        "name": "Fabio Michelini",
+        "email": "fabio.michelini@gmail.com"
+    },
+    "dependencies": {
+        "node-red-contrib-noop": "^1"
+    }
+}
