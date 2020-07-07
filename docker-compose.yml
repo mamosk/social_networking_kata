@@ -43,9 +43,7 @@ services:
     restart: *restart-policy
     build:
       context: .
-    environment:
-      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
-      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+    env_file: .env
     ports:
       - 11881:1881
     volumes:

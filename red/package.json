@@ -9,6 +9,7 @@
         "email": "fabio.michelini@gmail.com"
     },
     "dependencies": {
+        "node-red-contrib-influxdb": "~0.4.1",
         "node-red-contrib-noop": "^1"
     }
 }

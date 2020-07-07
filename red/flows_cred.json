@@ -1,0 +1,6 @@
+{
+    "ae6c1944.f60ee8": {
+        "username": "${INFLUXDB_USERNAME}",
+        "password": "${INFLUXDB_PASSWORD}"
+    }
+}
