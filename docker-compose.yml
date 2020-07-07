@@ -1,19 +1,24 @@
 version: "2.1"
+
+# default configurations
 x-logging: &logging
   driver: json-file
   options:
     max-size: 5m
+x-restart: &restart-policy on-failure
+
+# docker-compose services
 services:
   influxdb:
     image: influxdb:1.8
     container_name: ${KATA}_influxdb
-    restart: &restart-policy on-failure
+    restart: *restart-policy
     environment:
       - INFLUXDB_DB=kata
       - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
     ports:
-      - "18086:8086"
+      - 18086:8086
     volumes:
       - influxdb_data:/var/lib/influxdb
     logging: *logging
@@ -26,7 +31,7 @@ services:
       - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
     ports:
-      - "127.0.0.1:18888:8888"
+      - 127.0.0.1:18888:8888
     volumes:
       - chronograf_data:/var/lib/chronograf
     depends_on:
@@ -42,12 +47,14 @@ services:
       - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
     ports:
-      - "11881:1881"
+      - 11881:1881
     volumes:
       - ./red:/kata/flows
     depends_on:
       - influxdb
     logging: *logging
+
+# docker-managed volumes
 volumes:
   influxdb_data:
   chronograf_data:
