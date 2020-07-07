@@ -21,7 +21,6 @@ module.exports = {
     flowFilePretty: true,
     credentialSecret: false,
     userDir: flowsDir,
-    exportGlobalContextKeys: true,
     adminAuth: {
         type: 'credentials',
         users: authUsers,
