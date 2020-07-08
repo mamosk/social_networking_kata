@@ -27,7 +27,8 @@
             "9f7a5d30.244ab",
             "7c1a4a6c.b27384",
             "d0cf1ef7.7e44d",
-            "4e5fa64d.519678"
+            "4e5fa64d.519678",
+            "6509d394.cda4dc"
         ],
         "x": 14,
         "y": 19,
@@ -639,6 +640,37 @@
         "statusType": "auto",
         "x": 980,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6509d394.cda4dc",
+        "type": "comment",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "API that writes a user text to zir timeline.",
+        "info": "",
+        "x": 190,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "876fe9b0.b685d8",
+        "type": "comment",
+        "z": "api",
+        "name": "API that returns texts from timeline of multiple users.",
+        "info": "",
+        "x": 230,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "c76d925d.db76a",
+        "type": "comment",
+        "z": "api",
+        "name": "every API returns an HTTP response to its caller",
+        "info": "",
+        "x": 940,
+        "y": 780,
         "wires": []
     }
 ]
