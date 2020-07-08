@@ -1,14 +1,35 @@
 version: "2.1"
 
-# default configurations
+##############################
+### default configurations ###
+##############################
 x-logging: &logging
   driver: json-file
   options:
     max-size: 5m
 x-restart: &restart-policy on-failure
 
-# docker-compose services
+###############################
+### docker-compose services ###
+###############################
 services:
+  # timelines api service
+  nodered:
+    image: mamosk/nodered-kata:1.0.0
+    container_name: ${KATA}_nodered
+    restart: *restart-policy
+    build:
+      context: ./build/nodered
+    env_file: .env
+    ports:
+      - 11881:1881
+    volumes:
+      - ./nodered:/kata/flows
+    depends_on:
+      - influxdb
+    logging: *logging
+
+  # timelines db service
   influxdb:
     image: influxdb:1.8
     container_name: ${KATA}_influxdb
@@ -22,6 +43,8 @@ services:
     volumes:
       - influxdb_data:/var/lib/influxdb
     logging: *logging
+
+  # timeline db configuration service
   chronograf:
     image: chronograf:1.8
     container_name: ${KATA}_chronograf
@@ -37,22 +60,10 @@ services:
     depends_on:
       - influxdb
     logging: *logging
-  nodered:
-    image: mamosk/nodered-kata:1.0.0
-    container_name: ${KATA}_nodered
-    restart: *restart-policy
-    build:
-      context: .
-    env_file: .env
-    ports:
-      - 11881:1881
-    volumes:
-      - ./red:/kata/flows
-    depends_on:
-      - influxdb
-    logging: *logging
 
-# docker-managed volumes
+############################
+### docker-managed stuff ###
+############################
 volumes:
   influxdb_data:
   chronograf_data:
