@@ -1,4 +1,4 @@
-FROM nodered/node-red:1.1.0
+FROM nodered/node-red:1.1.1
 LABEL maintainer="fabio.michelini@gmail.com"
 USER root
 ENV KATA_PATH_FLOWS=/kata/flows
