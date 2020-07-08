@@ -1,5 +1,12 @@
 version: "2.1"
 
+##################
+### DISCLAIMER ###
+##################
+# Services ports are exposed to the host machine in order to quickly inspect what's going on.
+# There's a '1' digit prepended to all standard ports: this hopefully will prevent port conflicts.
+# In production environments ports should not be exposed (they're accessed within Docker networks).
+
 ##############################
 ### default configurations ###
 ##############################
