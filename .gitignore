@@ -10,14 +10,15 @@ target/
 .classpath
 
 ### Node-RED ###
+
 # Backup files
-red/*.backup
+nodered/*.backup
 
 # User configuration file
-red/.config.json
+nodered/.config.json
 
 # Session manager file
-red/.sessions.json
+nodered/.sessions.json
 
 ##########################################################################################################################################################
 ### Created by https://www.toptal.com/developers/gitignore/api/java,node,macos,linux,eclipse,windows,aspnetcore,visualstudio,visualstudiocode,maven    ###
