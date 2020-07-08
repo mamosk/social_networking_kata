@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "node-red-contrib-influxdb": "~0.4.1",
-        "node-red-contrib-noop": "^1"
+        "node-red-contrib-noop": "^1",
+        "node-red-node-data-generator": "~0.1.1"
     }
 }
