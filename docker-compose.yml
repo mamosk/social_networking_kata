@@ -61,9 +61,25 @@ services:
       - influxdb
     logging: *logging
 
+  # followers db service
+  postgres:
+    image: postgres:13
+    container_name: ${KATA}_postgres
+    restart: *restart-policy
+    environment:
+      - POSTGRES_DB=kata
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 15432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    logging: *logging
+
 ############################
 ### docker-managed stuff ###
 ############################
 volumes:
   influxdb_data:
   chronograf_data:
+  postgres_data:
