@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.val;
 import net.bytebuddy.utility.RandomString;
 
-class ModelTests {
+class CoverterTests {
 
 	// *******************************************************************
 	// *******************************************************************
@@ -37,14 +37,22 @@ class ModelTests {
 		val name = newName();
 		val user = new User(name);
 		val userDto = convert(user);
-		assertEquals(user.getName(), userDto.getName());
+		assertEquals( //
+				user.getName(), //
+				userDto.getName(), //
+				"the DTO name is not equals to entity name" //
+		);
 	}
 
 	@Test
 	void modelMapperMany() {
 		val users = Stream.generate(this::newName).limit(3).collect(toMap(identity(), User::new));
 		val usersDto = users.values().stream().map(this::convert).collect(toList());
-		usersDto.forEach(userDto -> assertEquals(userDto.getName(), users.get(userDto.getName()).getName()));
+		usersDto.forEach(userDto -> assertEquals( //
+				userDto.getName(), //
+				users.get(userDto.getName()).getName(), //
+				"at least one of the DTO names is not equals to its corresponding entity name")//
+		);
 	}
 
 	// *******************************************************************
