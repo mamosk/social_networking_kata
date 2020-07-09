@@ -8,6 +8,7 @@ class KataTests {
 
 	@Test
 	void contextLoads() {
+		// no further operation needed: test is passed if context does load :)
 	}
 
 }
