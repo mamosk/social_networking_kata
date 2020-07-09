@@ -1,9 +1,9 @@
 spring:
   # PostgreSQL (data source)
   datasource:
-    username: K
-    password: villaggio
-    url: jdbc:postgresql://localhost:15432/kata
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    url: ${POSTGRES_URL}
   # Hibernate (data management)
   jpa:
     hibernate:
@@ -12,3 +12,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+server:
+  error:
+    include-stacktrace: always
