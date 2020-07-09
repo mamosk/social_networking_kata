@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class KataTests {
 
 	@Test
-	void contextLoads() {
-		// no further operation needed: test is passed if context does load :)
+	void loads() {
+		// no further operation needed: test is passed if the application does load :)
 	}
 
 }
