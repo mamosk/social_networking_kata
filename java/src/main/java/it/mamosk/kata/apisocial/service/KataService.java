@@ -3,6 +3,7 @@ package it.mamosk.kata.apisocial.service;
 import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PROTECTED;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -38,14 +39,14 @@ public class KataService {
 	@Getter(PROTECTED)
 	private ModelMapper modelMapper; // http://modelmapper.org/
 
-	// from entity to DTO
+	// convert one
 	protected UserDto convert(User user) {
 		return getModelMapper().map(user, UserDto.class);
 	}
 
-	// from DTO to entity
-	protected User convert(UserDto user) {
-		return getModelMapper().map(user, User.class);
+	// convert many
+	protected List<UserDto> convert(final Collection<User> users) {
+		return users.stream().map(this::convert).collect(toList());
 	}
 
 	// *******************************************************************
@@ -53,43 +54,57 @@ public class KataService {
 	// *******************************************************************
 
 	public List<UserDto> getUsers() {
-		val users = getUserRepository().findAll();
-		val usersDto = users.stream().map(this::convert).collect(toList());
+		val users = find();
+		val usersDto = convert(users);
 		return usersDto;
 	}
 
-	public UserDto getUser(String name) //
-			throws UserNotFoundException {
+	public UserDto getUser(String name) throws UserNotFoundException {
 		val user = find(name);
 		val userDto = convert(user);
 		return userDto;
 	}
 
 	public UserDto createUser(@NotEmpty String name) {
-		var user = new User(name);
+		User user = save(name);
+		val userDto = convert(user);
+		return userDto;
+	}
+
+	public UserDto updateUser(@NotEmpty String name, @NotEmpty String follows) {
+		var user = findOrAdd(name);
+		val followed = findOrAdd(follows);
+		user.getFollows().add(followed);
 		user = getUserRepository().save(user);
 		val userDto = convert(user);
 		return userDto;
 	}
 
-	public UserDto updateUser(@NotEmpty String name, @NotEmpty String follows) //
-			throws UserNotFoundException {
-		var user = find(name);
-		var followed = find(follows);
-		user.getFollows().add(followed);
-		user = userRepository.save(user);
-		val userDto = convert(user);
-		return userDto;
+	// *******************************************************************
+	// *******************************************************************
+	// *******************************************************************
+
+	private List<User> find() {
+		return getUserRepository().findAll();
 	}
 
-	// *******************************************************************
-	// *******************************************************************
-	// *******************************************************************
+	private User save(String name) {
+		return save(new User(name));
+	}
 
-	// shortcut for findById(String) throwing exception
+	private User save(User user) {
+		return getUserRepository().save(user);
+	}
+
 	private User find(String name) throws UserNotFoundException {
 		return getUserRepository().findById(name).orElseThrow(() -> missing(name));
 	}
+
+	private User findOrAdd(String name) {
+		return getUserRepository().findById(name).orElseGet(() -> save(name));
+	}
+
+	// *******************************************************************
 
 	// shortcut for new exception
 	private UserNotFoundException missing(String name) {
