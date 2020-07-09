@@ -16,6 +16,15 @@ x-logging: &logging
     max-size: 5m
 x-restart: &restart-policy on-failure
 
+##########################
+### segmented networks ###
+##########################
+networks:
+  # network for users 'timelines' services
+  timelines_network:
+  # network for users 'followers' services
+  followers_network:
+
 ###############################
 ### docker-compose services ###
 ###############################
@@ -28,13 +37,15 @@ services:
     build:
       context: ./build/nodered
     env_file: .env
-    ports:
-      - 11881:1881
-    volumes:
-      - ./nodered:/kata/flows
     depends_on:
       - influxdb
     logging: *logging
+    volumes:
+      - ./nodered:/kata/flows
+    networks:
+      - timelines_network
+    ports:
+      - 11881:1881
 
   # timelines db service
   influxdb:
@@ -45,13 +56,15 @@ services:
       - INFLUXDB_DB=kata
       - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
-    ports:
-      - 18086:8086
+    logging: *logging
     volumes:
       - influxdb_data:/var/lib/influxdb
-    logging: *logging
+    networks:
+      - timelines_network
+    ports:
+      - 18086:8086
 
-  # timeline db configuration service
+  # timeline db admin service
   chronograf:
     image: chronograf:1.8
     container_name: ${KATA}_chronograf
@@ -60,13 +73,15 @@ services:
       - INFLUXDB_URL=http://influxdb:8086
       - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
-    ports:
-      - 127.0.0.1:18888:8888
-    volumes:
-      - chronograf_data:/var/lib/chronograf
     depends_on:
       - influxdb
     logging: *logging
+    volumes:
+      - chronograf_data:/var/lib/chronograf
+    networks:
+      - timelines_network
+    ports:
+      - 127.0.0.1:18888:8888
 
   # followers db service
   postgres:
@@ -77,16 +92,38 @@ services:
       - POSTGRES_DB=kata
       - POSTGRES_USER=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    ports:
-      - 15432:5432
+    logging: *logging
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    logging: *logging
+    networks:
+      - followers_network
+    ports:
+      - 15432:5432
 
-############################
-### docker-managed stuff ###
-############################
+  # followers db admin service
+  pgadmin:
+    image: dpage/pgadmin4:4
+    container_name: ${KATA}_pgadmin
+    restart: *restart-policy
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_USERNAME}
+    logging: *logging
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+      - ./postgres/servers.json:/pgadmin4/servers.json:ro
+    networks:
+      - followers_network
+    ports:
+      - 15050:80
+
+########################################
+### docker-managed persisted volumes ###
+########################################
 volumes:
+  # volumes for users 'timelines' services
   influxdb_data:
   chronograf_data:
+  # volumes for users 'followers' services
   postgres_data:
+  pgadmin_data:
