@@ -83,6 +83,10 @@ services:
     ports:
       - 127.0.0.1:18888:8888
 
+  # followers service
+  # TODO springboot
+  # TODO POSTGRES_URL=jdbc:postgresql://postgres:5432/kata
+
   # followers db service
   postgres:
     image: postgres:13
