@@ -66,7 +66,7 @@ public class KataService {
 	}
 
 	public UserDto createUser(@NotEmpty String name) {
-		User user = save(name);
+		User user = findOrAdd(name);
 		val userDto = convert(user);
 		return userDto;
 	}
@@ -74,7 +74,7 @@ public class KataService {
 	public UserDto updateUser(@NotEmpty String name, @NotEmpty String follows) {
 		var user = findOrAdd(name);
 		val followed = findOrAdd(follows);
-		user.getFollows().add(followed);
+		user.getFollows().add(followed); // no null-check needed for 'follows' set
 		user = getUserRepository().save(user);
 		val userDto = convert(user);
 		return userDto;
