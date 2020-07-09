@@ -2,43 +2,50 @@ package it.mamosk.kata.apisocial.model;
 
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = User.TABLE)
+@RequiredArgsConstructor
+@NoArgsConstructor // required by Hibernate
 public class User {
 
 	// *******************************************************************
 	// *******************************************************************
 	// *******************************************************************
 
-	// the key is the simple name of the user
-	private static final String K = "name";
+	// table
+	public static final String TABLE = "users";
+
+	// columns
+	private static final String NAME = "name";
+	private static final String FOLLOWS = "follows";
 
 	// *******************************************************************
 	// *******************************************************************
 	// *******************************************************************
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = K)
-	private final String name;
+	@Column(name = NAME)
+	private @NonNull String name;
 
+	@Column(name = FOLLOWS)
 	@OneToMany(fetch = EAGER, cascade = PERSIST)
-	@JoinColumn(name = K)
+	@JoinColumn(name = NAME)
 	private Set<User> follows;
 
 	// *******************************************************************
