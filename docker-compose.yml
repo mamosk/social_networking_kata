@@ -21,9 +21,11 @@ x-restart: &restart-policy on-failure
 ##########################
 networks:
   # network for users 'timelines' services
-  timelines_network:
+  api_timelines:
+  db_timelines:
   # network for users 'followers' services
-  followers_network:
+  api_followers:
+  db_followers:
 
 ###############################
 ### docker-compose services ###
@@ -43,7 +45,8 @@ services:
     volumes:
       - ./nodered/flows:/kata/flows
     networks:
-      - timelines_network
+      - api_timelines
+      - db_timelines
     ports:
       - 11881:1881
 
@@ -60,7 +63,7 @@ services:
     volumes:
       - influxdb_data:/var/lib/influxdb
     networks:
-      - timelines_network
+      - db_timelines
     ports:
       - 18086:8086
 
@@ -79,13 +82,31 @@ services:
     volumes:
       - chronograf_data:/var/lib/chronograf
     networks:
-      - timelines_network
+      - db_timelines
     ports:
       - 127.0.0.1:18888:8888
 
-  # followers service
-  # TODO springboot
-  # TODO POSTGRES_URL=jdbc:postgresql://postgres:5432/kata
+  # followers api service
+  java:
+    image: mamosk/java-kata:1.0.0
+    container_name: ${KATA}_java
+    restart: *restart-policy
+    build:
+      context: ./java
+    env_file: .env
+    environment:
+      - JAVA_OPTS=-Xms32m -Xmx128m
+      - POSTGRES_URL=jdbc:postgresql://postgres:5432/kata
+    depends_on:
+      - postgres
+    logging: *logging
+    volumes:
+      - ./java/src/main/resources/application.yml:/kata/config/application.yml:ro
+    networks:
+      - api_followers
+      - db_followers
+    ports:
+      - 18080:8080
 
   # followers db service
   postgres:
@@ -100,7 +121,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
-      - followers_network
+      - db_followers
     ports:
       - 15432:5432
 
@@ -117,7 +138,7 @@ services:
       - pgadmin_data:/root/.pgadmin
       - ./postgres/servers.json:/pgadmin4/servers.json:ro
     networks:
-      - followers_network
+      - db_followers
     ports:
       - 15050:80
 

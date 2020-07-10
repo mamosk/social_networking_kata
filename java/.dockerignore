@@ -1,0 +1,10 @@
+# do not load compiled classes to context
+target/
+
+# do not load IDE and project files to context
+.settings/
+.classpath
+.project
+
+# do not load volume to context
+src/main/resources/application.yml
