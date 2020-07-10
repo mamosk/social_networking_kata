@@ -1,10 +1,13 @@
 FROM nodered/node-red:1.1.1
 LABEL maintainer="fabio.michelini@gmail.com"
+
+# give node-red user rights for volume directory
 USER root
 ENV KATA_PATH_FLOWS=/kata/flows
-#COPY healthcheck.js /
 RUN mkdir -p ${KATA_PATH_FLOWS} && \
     chown node-red ${KATA_PATH_FLOWS}
+
+# kata entry point
 USER node-red
 ENTRYPOINT npm i \
     --unsafe-perm \
