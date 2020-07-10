@@ -3,7 +3,7 @@ LABEL maintainer="fabio.michelini@gmail.com"
 
 # give node-red user rights for volume directory
 USER root
-ENV KATA_PATH_FLOWS=/kata/flows
+ENV KATA_PATH_FLOWS /kata/flows
 RUN mkdir -p ${KATA_PATH_FLOWS} && \
     chown node-red ${KATA_PATH_FLOWS}
 
