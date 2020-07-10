@@ -1,6 +1,6 @@
 {
-    "name": "node-red-kata",
-    "description": "Node-RED flows for Social Network Kata",
+    "name": "node-red-kata-timelines",
+    "description": "Node-RED flows for Social Network Kata - Timelines API Service",
     "version": "1.0.0",
     "license": "MIT",
     "private": true,

@@ -1,4 +1,5 @@
-FROM openjdk:8u201-jdk-alpine
+ARG JAVA_VERSION
+FROM openjdk:${JAVA_VERSION:-8u201-jdk-alpine}
 LABEL maintainer="fabio.michelini@gmail.com"
 
 # install/update software

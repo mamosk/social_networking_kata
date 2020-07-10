@@ -99,7 +99,9 @@
             "bfa0a8e7.f33b08"
         ],
         "x": 14,
-        "y": 13
+        "y": 13,
+        "w": 1132,
+        "h": 288
     },
     {
         "id": "cb13dcf5.e8e1c",
@@ -125,7 +127,9 @@
             "310c5310.9cb4ec"
         ],
         "x": 234,
-        "y": 319
+        "y": 319,
+        "w": 912,
+        "h": 142
     },
     {
         "id": "b475d7be.499328",
@@ -149,7 +153,9 @@
             "8aa6a4f6.e8b408"
         ],
         "x": 234,
-        "y": 479
+        "y": 479,
+        "w": 912,
+        "h": 202
     },
     {
         "id": "bfa0a8e7.f33b08",
@@ -170,13 +176,15 @@
             "1362bbb0.ceb304"
         ],
         "x": 494,
-        "y": 39
+        "y": 39,
+        "w": 82,
+        "h": 202
     },
     {
         "id": "ae6c1944.f60ee8",
         "type": "influxdb",
         "z": "api",
-        "hostname": "influxdb",
+        "hostname": "${INFLUXDB_HOST}",
         "port": "8086",
         "protocol": "http",
         "database": "kata",
@@ -243,7 +251,7 @@
         "z": "api",
         "g": "5948f0b5.c6f51",
         "name": "reading result",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -643,7 +651,7 @@
         "type": "debug",
         "z": "api",
         "name": "reading users",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -676,7 +684,7 @@
         "type": "debug",
         "z": "api",
         "name": "posting payload",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,

@@ -33,6 +33,13 @@ module.exports = {
         }
     },
     editorTheme: {
+        page: {
+            title: 'Timelines API'
+        },
+        header: {
+            title: 'Node-RED Timelines API',
+            url: 'https://nodered.org/'
+        },
         projects: {
             enabled: false
         }

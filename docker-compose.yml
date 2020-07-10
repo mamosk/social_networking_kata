@@ -10,49 +10,81 @@ version: "2.1"
 ##############################
 ### default configurations ###
 ##############################
+
+# docker logging
 x-logging: &logging
   driver: json-file
   options:
     max-size: 5m
+
+# containers restart policy
 x-restart: &restart-policy on-failure
+
+# node-red is used for two services
+x-nodered:
+  image: &nodered-image mamosk/nodered-kata:${NODERED_VERSION:-1.1.1}
+  build: &nodered-build
+    context: ./nodered
+    args:
+      - NODERED_VERSION=${NODERED_VERSION:-1.1.1}
 
 ##########################
 ### segmented networks ###
 ##########################
 networks:
   # network for users 'timelines' services
-  api_timelines:
-  db_timelines:
+  timelines_api_network:
+  timelines_db_network:
   # network for users 'followers' services
-  api_followers:
-  db_followers:
+  followers_api_network:
+  followers_db_network:
 
 ###############################
 ### docker-compose services ###
 ###############################
 services:
-  # timelines api service
-  nodered:
-    image: mamosk/nodered-kata:1.0.0
-    container_name: ${KATA}_nodered
+  # api gateway service
+  api_gateway:
+    image: *nodered-image
+    container_name: ${KATA}_nodered_gateway
     restart: *restart-policy
-    build:
-      context: ./nodered
+    build: *nodered-build
     env_file: .env
     depends_on:
-      - influxdb
+      - timelines_api
+      - followers_api
     logging: *logging
     volumes:
-      - ./nodered/flows:/kata/flows
+      - ./nodered/gateway:/kata/flows
     networks:
-      - api_timelines
-      - db_timelines
+      - timelines_api_network
+      - followers_api_network
     ports:
       - 11881:1881
 
+  # timelines api service
+  timelines_api:
+    image: *nodered-image
+    container_name: ${KATA}_nodered_timelines
+    restart: *restart-policy
+    build: *nodered-build
+    env_file: .env
+    environment:
+      - INFLUXDB_HOST=timelines_db
+    depends_on:
+      - timelines_db
+    logging: *logging
+    volumes:
+      - ./nodered/timelines:/kata/flows
+    networks:
+      - timelines_api_network
+      - timelines_db_network
+    ports:
+      - 11888:1881
+
   # timelines db service
-  influxdb:
-    image: influxdb:1.8
+  timelines_db:
+    image: influxdb:${INFLUXDB_VERSION:-1.8}
     container_name: ${KATA}_influxdb
     restart: *restart-policy
     environment:
@@ -61,58 +93,59 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
     logging: *logging
     volumes:
-      - influxdb_data:/var/lib/influxdb
+      - timelines_db_data:/var/lib/influxdb
     networks:
-      - db_timelines
+      - timelines_db_network
     ports:
       - 18086:8086
 
   # timeline db admin service
-  chronograf:
-    image: chronograf:1.8
+  timelines_db_admin:
+    image: chronograf:${CHRONOGRAF_VERSION:-1.8}
     container_name: ${KATA}_chronograf
     restart: *restart-policy
     environment:
-      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_URL=http://timelines_db:8086
       - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
     depends_on:
-      - influxdb
+      - timelines_db
     logging: *logging
     volumes:
-      - chronograf_data:/var/lib/chronograf
+      - timelines_db_admin_data:/var/lib/chronograf
     networks:
-      - db_timelines
+      - timelines_db_network
     ports:
       - 127.0.0.1:18888:8888
 
   # followers api service
-  java:
-    image: mamosk/java-kata:1.0.0
+  followers_api:
+    image: mamosk/openjdk:${JAVA_VERSION:-8u201-jdk-alpine}
     container_name: ${KATA}_java
     restart: *restart-policy
     build:
       context: ./java
       args:
-        JAVA_CONFIG: ${JAVA_CONFIG}
+        - JAVA_VERSION=${JAVA_VERSION:-8u201-jdk-alpine}
+        - JAVA_CONFIG=${JAVA_CONFIG}
     env_file: .env
     environment:
       - JAVA_OPTS=-Xms32m -Xmx128m
-      - POSTGRES_URL=jdbc:postgresql://postgres:5432/kata
+      - POSTGRES_URL=jdbc:postgresql://followers_db:5432/kata
     depends_on:
-      - postgres
+      - followers_db
     logging: *logging
     volumes:
       - ./java/src/main/resources/application.yml:${JAVA_CONFIG}/application.yml:ro
     networks:
-      - api_followers
-      - db_followers
+      - followers_api_network
+      - followers_db_network
     ports:
       - 18080:8080
 
   # followers db service
-  postgres:
-    image: postgres:13
+  followers_db:
+    image: postgres:${POSTGRES_VERSION:-13}
     container_name: ${KATA}_postgres
     restart: *restart-policy
     environment:
@@ -121,26 +154,28 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     logging: *logging
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - followers_db_data:/var/lib/postgresql/data/
     networks:
-      - db_followers
+      - followers_db_network
     ports:
       - 15432:5432
 
   # followers db admin service
-  pgadmin:
-    image: dpage/pgadmin4:4
-    container_name: ${KATA}_pgadmin
+  followers_db_admin:
+    image: dpage/pgadmin4:${PGADMIN_VERSION:-4}
+    container_name: ${KATA}_followers_db_admin
     restart: *restart-policy
     environment:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_USERNAME}
+    depends_on:
+      - followers_db
     logging: *logging
     volumes:
-      - pgadmin_data:/root/.pgadmin
+      - followers_db_admin_data:/root/.pgadmin
       - ./postgres/servers.json:/pgadmin4/servers.json:ro
     networks:
-      - db_followers
+      - followers_db_network
     ports:
       - 15050:80
 
@@ -149,8 +184,8 @@ services:
 ########################################
 volumes:
   # volumes for users 'timelines' services
-  influxdb_data:
-  chronograf_data:
+  timelines_db_data:
+  timelines_db_admin_data:
   # volumes for users 'followers' services
-  postgres_data:
-  pgadmin_data:
+  followers_db_data:
+  followers_db_admin_data:
