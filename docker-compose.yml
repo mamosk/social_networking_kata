@@ -93,6 +93,8 @@ services:
     restart: *restart-policy
     build:
       context: ./java
+      args:
+        JAVA_CONFIG: ${JAVA_CONFIG}
     env_file: .env
     environment:
       - JAVA_OPTS=-Xms32m -Xmx128m
@@ -101,7 +103,7 @@ services:
       - postgres
     logging: *logging
     volumes:
-      - ./java/src/main/resources/application.yml:/kata/config/application.yml:ro
+      - ./java/src/main/resources/application.yml:${JAVA_CONFIG}/application.yml:ro
     networks:
       - api_followers
       - db_followers
