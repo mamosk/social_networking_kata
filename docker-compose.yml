@@ -35,13 +35,13 @@ services:
     container_name: ${KATA}_nodered
     restart: *restart-policy
     build:
-      context: ./build/nodered
+      context: ./nodered
     env_file: .env
     depends_on:
       - influxdb
     logging: *logging
     volumes:
-      - ./nodered:/kata/flows
+      - ./nodered/flows:/kata/flows
     networks:
       - timelines_network
     ports:

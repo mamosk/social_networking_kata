@@ -1,0 +1,1372 @@
+[
+    {
+        "id": "api",
+        "type": "tab",
+        "label": "API",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ce63d646.1b7968",
+        "type": "tab",
+        "label": "TEST",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e021e50b.e51468",
+        "type": "group",
+        "z": "api",
+        "name": "POSTING",
+        "style": {
+            "stroke": "#3f93cf",
+            "fill": "#bfdbef",
+            "fill-opacity": "0.23",
+            "label": true,
+            "label-position": "sw",
+            "color": "#3f93cf"
+        },
+        "nodes": [
+            "31282668.c851fa",
+            "f690820.3c8258",
+            "22058781.155308",
+            "9f7a5d30.244ab",
+            "7c1a4a6c.b27384",
+            "d0cf1ef7.7e44d",
+            "4e5fa64d.519678",
+            "6509d394.cda4dc",
+            "366700fd.ebb8c"
+        ],
+        "x": 14,
+        "y": 19,
+        "w": 1132,
+        "h": 210
+    },
+    {
+        "id": "5948f0b5.c6f51",
+        "type": "group",
+        "z": "api",
+        "name": "READING",
+        "style": {
+            "stroke": "#92d04f",
+            "fill": "#e3f3d3",
+            "label": true,
+            "label-position": "sw",
+            "color": "#92d04f",
+            "fill-opacity": "0.23"
+        },
+        "nodes": [
+            "dd1ceea5.447d9",
+            "c614c8bc.fd1cc8",
+            "1a7a81f3.bfa44e",
+            "fba1db7d.82b218",
+            "660a9b67.1d7c14",
+            "b5806876.da5228",
+            "69499045.fa6ec",
+            "f7d73811.6adc08",
+            "1748215a.5ae18f",
+            "90d7df3a.de6fd",
+            "de841478.6cecd8",
+            "32d739f5.8eaa96",
+            "7bc491f6.e0727"
+        ],
+        "x": 14,
+        "y": 239,
+        "w": 1132,
+        "h": 510
+    },
+    {
+        "id": "bfa0a8e7.f33b08",
+        "type": "group",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "3X",
+        "style": {
+            "fill": "#d1d1d1",
+            "fill-opacity": "0.23",
+            "label": true,
+            "label-position": "n",
+            "color": "#777777"
+        },
+        "nodes": [
+            "cbcc41f2.f8f9e",
+            "c97dbf49.d36cd",
+            "1362bbb0.ceb304"
+        ],
+        "x": 494,
+        "y": 39,
+        "w": 82,
+        "h": 202
+    },
+    {
+        "id": "2a44f6a7.544a6a",
+        "type": "group",
+        "z": "ce63d646.1b7968",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "6dbc5aea.d7f034",
+            "cbc68a78.5aa2a8",
+            "f6b0be1d.3fb5f",
+            "c9b6d941.97cd08",
+            "2bd7aa5c.f2b576",
+            "e4aeccbf.1cc66",
+            "7ff1328c.3fbd2c",
+            "bfa0a8e7.f33b08"
+        ],
+        "x": 14,
+        "y": 13,
+        "w": 1132,
+        "h": 288
+    },
+    {
+        "id": "cb13dcf5.e8e1c",
+        "type": "group",
+        "z": "ce63d646.1b7968",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "6b2aa337.17978c",
+            "2795e8d9.4e5a28",
+            "2c52d2c9.9d858e",
+            "6bdb8d1a.c1e044",
+            "e2565e4f.2380a",
+            "5253702d.8bf6e",
+            "a7ff2007.fd2b5",
+            "310c5310.9cb4ec"
+        ],
+        "x": 234,
+        "y": 319,
+        "w": 912,
+        "h": 142
+    },
+    {
+        "id": "b475d7be.499328",
+        "type": "group",
+        "z": "ce63d646.1b7968",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "15570816.988f98",
+            "cbe6226a.99662",
+            "edd2d2a0.34afe",
+            "db6a683e.0e3f88",
+            "dc306ea2.4c4c7",
+            "8aa6a4f6.e8b408"
+        ],
+        "x": 234,
+        "y": 479,
+        "w": 912,
+        "h": 202
+    },
+    {
+        "id": "ae6c1944.f60ee8",
+        "type": "influxdb",
+        "z": "api",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "kata",
+        "name": "",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "22058781.155308",
+        "type": "http in",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "posting request",
+        "url": "/api/v1/posting",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "f690820.3c8258",
+                "4e5fa64d.519678"
+            ]
+        ]
+    },
+    {
+        "id": "31282668.c851fa",
+        "type": "influxdb out",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "influxdb": "ae6c1944.f60ee8",
+        "name": "write to timeline",
+        "measurement": "timeline",
+        "precision": "s",
+        "retentionPolicy": "",
+        "x": 680,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "69499045.fa6ec",
+        "type": "influxdb in",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "influxdb": "ae6c1944.f60ee8",
+        "name": "query timelines",
+        "query": "",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 680,
+        "y": 640,
+        "wires": [
+            [
+                "1748215a.5ae18f",
+                "90d7df3a.de6fd"
+            ]
+        ]
+    },
+    {
+        "id": "1748215a.5ae18f",
+        "type": "debug",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "reading result",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "f690820.3c8258",
+        "type": "template",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "convert to influx point",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "[{\"post\":\"{{{payload.text}}}\"},{\"user\":\"{{{payload.user}}}\"}]",
+        "output": "json",
+        "x": 400,
+        "y": 120,
+        "wires": [
+            [
+                "31282668.c851fa",
+                "9f7a5d30.244ab",
+                "daad552b.4bbfc8"
+            ]
+        ]
+    },
+    {
+        "id": "b5806876.da5228",
+        "type": "template",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "convert to influx query",
+        "field": "query",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "SELECT \"post\" FROM {{{measurement}}} WHERE time > now() - {{{limit.t}}} AND \"user\"=~{{{userRegex}}} GROUP BY \"user\" ORDER BY desc LIMIT {{{limit.n}}}",
+        "output": "str",
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "69499045.fa6ec",
+                "f7d73811.6adc08"
+            ]
+        ]
+    },
+    {
+        "id": "660a9b67.1d7c14",
+        "type": "change",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "set influx query limits",
+        "rules": [
+            {
+                "t": "set",
+                "p": "limit.t",
+                "pt": "msg",
+                "to": "INFLUXDB_LIMIT_TIME",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "limit.n",
+                "pt": "msg",
+                "to": "INFLUXDB_LIMIT_COUNT",
+                "tot": "env"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "b5806876.da5228"
+            ]
+        ]
+    },
+    {
+        "id": "f7d73811.6adc08",
+        "type": "debug",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "reading query",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "query",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "fba1db7d.82b218",
+        "type": "change",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "set influx query users regex",
+        "rules": [
+            {
+                "t": "set",
+                "p": "userRegex",
+                "pt": "msg",
+                "to": "'/^(?:'&$join(payload.users,'|')&')$/'",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 460,
+        "wires": [
+            [
+                "660a9b67.1d7c14"
+            ]
+        ]
+    },
+    {
+        "id": "c614c8bc.fd1cc8",
+        "type": "http in",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "reading request",
+        "url": "/api/v1/reading",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "1a7a81f3.bfa44e",
+                "dd1ceea5.447d9"
+            ]
+        ]
+    },
+    {
+        "id": "1a7a81f3.bfa44e",
+        "type": "change",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "get users from url parameters",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.users",
+                "pt": "msg",
+                "to": "req.query.users~>$split(',')",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "32d739f5.8eaa96",
+                "e75cb519.4e6518"
+            ]
+        ]
+    },
+    {
+        "id": "9f7a5d30.244ab",
+        "type": "change",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "posting response",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "204",
+                "tot": "num"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 180,
+        "wires": [
+            [
+                "d0cf1ef7.7e44d"
+            ]
+        ],
+        "icon": "font-awesome/fa-eraser"
+    },
+    {
+        "id": "7c1a4a6c.b27384",
+        "type": "debug",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "posting full message",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "dd1ceea5.447d9",
+        "type": "debug",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "reading full message",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "401fa361.8215ec",
+        "type": "http response",
+        "z": "api",
+        "name": "response",
+        "statusCode": "",
+        "headers": {
+            "content-type": "application/json"
+        },
+        "x": 1080,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "90d7df3a.de6fd",
+        "type": "change",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "reading response",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 700,
+        "wires": [
+            [
+                "de841478.6cecd8"
+            ]
+        ]
+    },
+    {
+        "id": "63bd52dd.7812ac",
+        "type": "link in",
+        "z": "api",
+        "name": "http response",
+        "links": [
+            "8aa6a4f6.e8b408",
+            "d0cf1ef7.7e44d",
+            "de841478.6cecd8"
+        ],
+        "x": 915,
+        "y": 780,
+        "wires": [
+            [
+                "b157b56a.316958"
+            ]
+        ]
+    },
+    {
+        "id": "de841478.6cecd8",
+        "type": "link out",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "reading out",
+        "links": [
+            "63bd52dd.7812ac",
+            "edd2d2a0.34afe"
+        ],
+        "x": 915,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "d0cf1ef7.7e44d",
+        "type": "link out",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "posting out response",
+        "links": [
+            "63bd52dd.7812ac"
+        ],
+        "x": 915,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "b157b56a.316958",
+        "type": "switch",
+        "z": "api",
+        "name": "response exists",
+        "property": "res",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "res~>$exists and test~>$exists~>$not",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": true,
+        "outputs": 1,
+        "x": 975,
+        "y": 780,
+        "wires": [
+            [
+                "401fa361.8215ec"
+            ]
+        ],
+        "icon": "font-awesome/fa-question",
+        "l": false
+    },
+    {
+        "id": "32d739f5.8eaa96",
+        "type": "change",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "set influx measurement",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "timeline",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "fba1db7d.82b218"
+            ]
+        ]
+    },
+    {
+        "id": "e75cb519.4e6518",
+        "type": "debug",
+        "z": "api",
+        "name": "reading users",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.users",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4e5fa64d.519678",
+        "type": "no-op",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "forward",
+        "x": 815,
+        "y": 60,
+        "wires": [
+            [
+                "7c1a4a6c.b27384",
+                "3e736678.ed7a3a"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "3e736678.ed7a3a",
+        "type": "debug",
+        "z": "api",
+        "name": "posting payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "6509d394.cda4dc",
+        "type": "comment",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "API that writes a user text to zir timeline.",
+        "info": "",
+        "x": 190,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "876fe9b0.b685d8",
+        "type": "comment",
+        "z": "api",
+        "name": "API that returns texts from timeline of multiple users.",
+        "info": "",
+        "x": 230,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "cbcc41f2.f8f9e",
+        "type": "no-op",
+        "z": "ce63d646.1b7968",
+        "g": "bfa0a8e7.f33b08",
+        "name": "forward",
+        "x": 535,
+        "y": 200,
+        "wires": [
+            [
+                "7ff1328c.3fbd2c"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "c97dbf49.d36cd",
+        "type": "no-op",
+        "z": "ce63d646.1b7968",
+        "g": "bfa0a8e7.f33b08",
+        "name": "forward",
+        "x": 535,
+        "y": 80,
+        "wires": [
+            [
+                "7ff1328c.3fbd2c"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "1362bbb0.ceb304",
+        "type": "no-op",
+        "z": "ce63d646.1b7968",
+        "g": "bfa0a8e7.f33b08",
+        "name": "forward",
+        "x": 535,
+        "y": 140,
+        "wires": [
+            [
+                "7ff1328c.3fbd2c"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "6b2aa337.17978c",
+        "type": "link in",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "posting test done",
+        "links": [
+            "daad552b.4bbfc8"
+        ],
+        "x": 340,
+        "y": 360,
+        "wires": [
+            [
+                "2795e8d9.4e5a28"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "366700fd.ebb8c",
+        "type": "link in",
+        "z": "api",
+        "g": "e021e50b.e51468",
+        "name": "posting test",
+        "links": [
+            "6dbc5aea.d7f034"
+        ],
+        "x": 175,
+        "y": 120,
+        "wires": [
+            [
+                "f690820.3c8258"
+            ]
+        ]
+    },
+    {
+        "id": "6dbc5aea.d7f034",
+        "type": "link out",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "posting test",
+        "links": [
+            "366700fd.ebb8c"
+        ],
+        "x": 970,
+        "y": 260,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "2795e8d9.4e5a28",
+        "type": "switch",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "is test",
+        "property": "test",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "test~>$exists",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": true,
+        "outputs": 1,
+        "x": 530,
+        "y": 360,
+        "wires": [
+            [
+                "5253702d.8bf6e"
+            ]
+        ],
+        "icon": "font-awesome/fa-question"
+    },
+    {
+        "id": "2c52d2c9.9d858e",
+        "type": "join",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "join",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "3",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 690,
+        "y": 420,
+        "wires": [
+            [
+                "6bdb8d1a.c1e044"
+            ]
+        ]
+    },
+    {
+        "id": "6bdb8d1a.c1e044",
+        "type": "change",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "users",
+        "rules": [
+            {
+                "t": "set",
+                "p": "test",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"users\":payload.user}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 420,
+        "wires": [
+            [
+                "e2565e4f.2380a"
+            ]
+        ]
+    },
+    {
+        "id": "e2565e4f.2380a",
+        "type": "link out",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "reading test",
+        "links": [
+            "7bc491f6.e0727"
+        ],
+        "x": 970,
+        "y": 420,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "7bc491f6.e0727",
+        "type": "link in",
+        "z": "api",
+        "g": "5948f0b5.c6f51",
+        "name": "reading test",
+        "links": [
+            "e2565e4f.2380a"
+        ],
+        "x": 175,
+        "y": 460,
+        "wires": [
+            [
+                "fba1db7d.82b218"
+            ]
+        ]
+    },
+    {
+        "id": "cbc68a78.5aa2a8",
+        "type": "change",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "set test payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "test",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 200,
+        "wires": [
+            [
+                "6dbc5aea.d7f034",
+                "f6b0be1d.3fb5f"
+            ]
+        ]
+    },
+    {
+        "id": "f6b0be1d.3fb5f",
+        "type": "debug",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "test posting payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "daad552b.4bbfc8",
+        "type": "link out",
+        "z": "api",
+        "name": "posting out test",
+        "links": [
+            "6b2aa337.17978c"
+        ],
+        "x": 415,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "edd2d2a0.34afe",
+        "type": "link in",
+        "z": "ce63d646.1b7968",
+        "g": "b475d7be.499328",
+        "name": "reading test done",
+        "links": [
+            "de841478.6cecd8"
+        ],
+        "x": 340,
+        "y": 520,
+        "wires": [
+            [
+                "cbe6226a.99662"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "cbe6226a.99662",
+        "type": "switch",
+        "z": "ce63d646.1b7968",
+        "g": "b475d7be.499328",
+        "name": "is test",
+        "property": "test",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "test~>$exists",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "false",
+        "repair": true,
+        "outputs": 1,
+        "x": 530,
+        "y": 520,
+        "wires": [
+            [
+                "15570816.988f98",
+                "db6a683e.0e3f88"
+            ]
+        ],
+        "icon": "font-awesome/fa-question"
+    },
+    {
+        "id": "15570816.988f98",
+        "type": "debug",
+        "z": "ce63d646.1b7968",
+        "g": "b475d7be.499328",
+        "name": "test reading payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5253702d.8bf6e",
+        "type": "change",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "keep test for comparison",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "test",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 360,
+        "wires": [
+            [
+                "a7ff2007.fd2b5",
+                "310c5310.9cb4ec"
+            ]
+        ]
+    },
+    {
+        "id": "db6a683e.0e3f88",
+        "type": "change",
+        "z": "ce63d646.1b7968",
+        "g": "b475d7be.499328",
+        "name": "match timelines",
+        "rules": [
+            {
+                "t": "set",
+                "p": "result",
+                "pt": "msg",
+                "to": "[(\t    (\t       test~>$map(\t           function($t){\t               payload~>$filter(\t                    function($p){\t                        $t.user=$p.user and\t                        $t.text=$p.post\t                    }\t               )\t           }\t       )\t    ).time\t)\t~>$distinct]",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "test",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "limit",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "measurement",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "userRegex",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "statusCode",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 580,
+        "wires": [
+            [
+                "dc306ea2.4c4c7"
+            ]
+        ]
+    },
+    {
+        "id": "a7ff2007.fd2b5",
+        "type": "delay",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "2c52d2c9.9d858e"
+            ]
+        ]
+    },
+    {
+        "id": "c9b6d941.97cd08",
+        "type": "http in",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "test request",
+        "url": "/api/v1/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "2bd7aa5c.f2b576"
+            ]
+        ]
+    },
+    {
+        "id": "2bd7aa5c.f2b576",
+        "type": "change",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "measurement",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "test",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "c97dbf49.d36cd",
+                "1362bbb0.ceb304",
+                "cbcc41f2.f8f9e"
+            ]
+        ]
+    },
+    {
+        "id": "8780f5a5.ee8c08",
+        "type": "inject",
+        "z": "api",
+        "name": "test",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 370,
+        "y": 780,
+        "wires": [
+            [
+                "663411f.e6627f"
+            ]
+        ]
+    },
+    {
+        "id": "8aa6a4f6.e8b408",
+        "type": "link out",
+        "z": "ce63d646.1b7968",
+        "g": "b475d7be.499328",
+        "name": "test result",
+        "links": [
+            "5a48149f.1bceec",
+            "63bd52dd.7812ac"
+        ],
+        "x": 960,
+        "y": 640,
+        "wires": [],
+        "l": true
+    },
+    {
+        "id": "5a48149f.1bceec",
+        "type": "link in",
+        "z": "api",
+        "name": "test result",
+        "links": [
+            "8aa6a4f6.e8b408"
+        ],
+        "x": 615,
+        "y": 780,
+        "wires": [
+            [
+                "20358568.f27b0a"
+            ]
+        ]
+    },
+    {
+        "id": "663411f.e6627f",
+        "type": "link out",
+        "z": "api",
+        "name": "manual test",
+        "links": [
+            "e4aeccbf.1cc66"
+        ],
+        "x": 455,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "e4aeccbf.1cc66",
+        "type": "link in",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "manual test",
+        "links": [
+            "663411f.e6627f"
+        ],
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "2bd7aa5c.f2b576"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "7ff1328c.3fbd2c",
+        "type": "data-generator",
+        "z": "ce63d646.1b7968",
+        "g": "2a44f6a7.544a6a",
+        "name": "dummy",
+        "field": "test",
+        "fieldType": "msg",
+        "syntax": "json",
+        "template": "{\n    \"user\": \"{{firstName}}\",\n    \"text\": \"{{lorem 10}}\"\n}",
+        "x": 700,
+        "y": 140,
+        "wires": [
+            [
+                "cbc68a78.5aa2a8"
+            ]
+        ]
+    },
+    {
+        "id": "20358568.f27b0a",
+        "type": "function",
+        "z": "api",
+        "name": "test result",
+        "func": "var fill, text;\nswitch (msg.statusCode) {\n  case 200:\n      fill = \"green\";\n      text = \"pass\";\n    break;\n  case 418:\n      fill = \"red\";\n      text = \"fail\";\n    break;\n}\nnode.log(text);\nnode.status({fill:fill,shape:\"dot\",text:text});",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 720,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "dc306ea2.4c4c7",
+        "type": "function",
+        "z": "ce63d646.1b7968",
+        "g": "b475d7be.499328",
+        "name": "test recent",
+        "func": "const millis = Date.now() - 3000;\nconst isRecent = r => {\n    const d = Date.parse(r);\n    const ok = d > millis;\n    node.log(`${d} > ${millis} ? ${ok}`);\n    return ok;\n}\nmsg.statusCode = msg.result.every(isRecent) ? 200 : 418;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 710,
+        "y": 640,
+        "wires": [
+            [
+                "8aa6a4f6.e8b408"
+            ]
+        ]
+    },
+    {
+        "id": "310c5310.9cb4ec",
+        "type": "debug",
+        "z": "ce63d646.1b7968",
+        "g": "cb13dcf5.e8e1c",
+        "name": "test posted message",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "c7e48026.d863d",
+        "type": "comment",
+        "z": "api",
+        "name": "Test both manual and with API",
+        "info": "",
+        "x": 160,
+        "y": 780,
+        "wires": []
+    }
+]
