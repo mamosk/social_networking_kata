@@ -7,6 +7,9 @@ ENV KATA_PATH_FLOWS=/kata/flows
 RUN mkdir -p ${KATA_PATH_FLOWS} && \
     chown node-red ${KATA_PATH_FLOWS}
 
+# replace default healthcheck
+COPY healthcheck.js /
+
 # kata entry point
 USER node-red
 ENTRYPOINT npm i \

@@ -13,7 +13,7 @@ if (!authUsers) {
 }
 
 module.exports = {
-    uiPort: 1881,
+    uiPort: process.env.PORT || 1881,
     httpRequestTimeout: 500,
     debugMaxLength: 100,
     debugUseColors: true,
