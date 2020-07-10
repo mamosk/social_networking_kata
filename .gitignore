@@ -12,13 +12,13 @@ target/
 ### Node-RED ###
 
 # Backup files
-nodered/*.backup
+*.backup
 
 # User configuration file
-nodered/.config.json
+./nodered/.config.json
 
 # Session manager file
-nodered/.sessions.json
+./nodered/.sessions.json
 
 ##########################################################################################################################################################
 ### Created by https://www.toptal.com/developers/gitignore/api/java,node,macos,linux,eclipse,windows,aspnetcore,visualstudio,visualstudiocode,maven    ###
