@@ -14,7 +14,26 @@ To spin up the services:
 
 ## Services
 
-### Timeline API
+If you have services running on your `localhost` you can **[view]** them.
+
+- [API gateway](#api-gateway)
+  [**[view]**](http://localhost:11881/)
+- [Timelines](#timelines)
+  - [API](#timelines-api)
+    [**[view]**](http://localhost:11888/)
+  - [db](#timelines-db)
+  - [db admin](#timelines-db-admin)
+    [**[view]**](http://localhost:18888/)
+- [Followers](#followers)
+  - [API](#followers-api)
+    [**[view]**](http://localhost:18080/api/v1/users)
+  - [db](#followers-db)
+  - [db admin](#followers-db-admin)
+    [**[view]**](http://localhost:15050/)
+
+### Timelines
+
+#### Timelines API
 Users timelines are written (_posting_ kata) and read (_reading_ kata) using [Node-RED](https://nodered.org/).
 > Only last 5 posts within last 24h are read for each user.
 
@@ -29,7 +48,7 @@ Exposed endpoints are:
   ```
 - `GET` http://localhost:11881/api/v1/test
 
-### Timeline db
+### Timelines db
 Users timelines are stored using [InfluxDB](https://www.influxdata.com/products/influxdb-overview/).
 > Posts are stored with `1s` precision.
 
