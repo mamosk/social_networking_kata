@@ -22,7 +22,7 @@ x-restart: &restart-policy on-failure
 
 # node-red is used for two services
 x-nodered:
-  image: &nodered-image mamosk/nodered-kata:${NODERED_VERSION:-1.1.2}
+  image: &nodered-image mamosk/nodered:${NODERED_VERSION:-1.1.2}
   build: &nodered-build
     context: ./nodered
     args:
