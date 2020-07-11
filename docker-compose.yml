@@ -20,6 +20,29 @@ x-logging: &logging
 # containers restart policy
 x-restart: &restart-policy on-failure
 
+# aliases for hosts in docker networks
+x-networks:
+  api-netwok:
+    - &gateway
+      aliases:
+        - gateway
+    - &timelines
+      aliases:
+        - timelines
+    - &followers
+      aliases:
+        - followers
+  db-network:
+    - &api
+      aliases:
+        - api
+    - &db
+      aliases:
+        - db
+    - &admin
+      aliases:
+        - admin
+
 # node-red is used for two services
 x-nodered:
   image: &nodered-image mamosk/nodered:${NODERED_VERSION:-1.1.2}
@@ -50,6 +73,9 @@ services:
     restart: *restart-policy
     build: *nodered-build
     env_file: .env
+    environment:
+      - TIMELINES_API=http://timelines:1881/api/v1/
+      - FOLLOWERS_API=http://followers:8080/api/v1/
     depends_on:
       - timelines_api
       - followers_api
@@ -57,8 +83,8 @@ services:
     volumes:
       - ./nodered/gateway:/kata/flows
     networks:
-      - timelines_api_network
-      - followers_api_network
+      timelines_api_network: *gateway
+      followers_api_network: *gateway
     ports:
       - 11881:1881
 
@@ -70,15 +96,15 @@ services:
     build: *nodered-build
     env_file: .env
     environment:
-      - INFLUXDB_HOST=timelines_db
+      - INFLUXDB_HOST=db
     depends_on:
       - timelines_db
     logging: *logging
     volumes:
       - ./nodered/timelines:/kata/flows
     networks:
-      - timelines_api_network
-      - timelines_db_network
+      timelines_api_network: *timelines
+      timelines_db_network: *api
     ports:
       - 11888:1881
 
@@ -95,7 +121,7 @@ services:
     volumes:
       - timelines_db_data:/var/lib/influxdb
     networks:
-      - timelines_db_network
+      timelines_db_network: *db
     ports:
       - 18086:8086
 
@@ -105,7 +131,7 @@ services:
     container_name: ${KATA}_chronograf
     restart: *restart-policy
     environment:
-      - INFLUXDB_URL=http://timelines_db:8086
+      - INFLUXDB_URL=http://db:8086
       - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
     depends_on:
@@ -114,7 +140,7 @@ services:
     volumes:
       - timelines_db_admin_data:/var/lib/chronograf
     networks:
-      - timelines_db_network
+      timelines_db_network: *admin
     ports:
       - 127.0.0.1:18888:8888
 
@@ -131,15 +157,15 @@ services:
     env_file: .env
     environment:
       - JAVA_OPTS=-Xms32m -Xmx128m
-      - POSTGRES_URL=jdbc:postgresql://followers_db:5432/kata
+      - POSTGRES_URL=jdbc:postgresql://db:5432/kata
     depends_on:
       - followers_db
     logging: *logging
     volumes:
       - ./java/src/main/resources/application.yml:${JAVA_CONFIG}/application.yml:ro
     networks:
-      - followers_api_network
-      - followers_db_network
+      followers_api_network: *followers
+      followers_db_network: *api
     ports:
       - 18080:8080
 
@@ -156,7 +182,7 @@ services:
     volumes:
       - followers_db_data:/var/lib/postgresql/data/
     networks:
-      - followers_db_network
+      followers_db_network: *db
     ports:
       - 15432:5432
 
@@ -175,7 +201,7 @@ services:
       - followers_db_admin_data:/root/.pgadmin
       - ./postgres/servers.json:/pgadmin4/servers.json:ro
     networks:
-      - followers_db_network
+      followers_db_network: *admin
     ports:
       - 15050:80
 
