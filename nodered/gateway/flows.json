@@ -106,7 +106,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 570,
+        "x": 630,
         "y": 720,
         "wires": [
             [
@@ -128,7 +128,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 715,
+        "x": 775,
         "y": 780,
         "wires": [],
         "l": false
@@ -146,8 +146,8 @@
         "y": 720,
         "wires": [
             [
-                "a51514a9.b3e968",
-                "58dbb8cd.fb50e8"
+                "58dbb8cd.fb50e8",
+                "392df02a.5f6bf"
             ]
         ]
     },
@@ -241,7 +241,7 @@
                 "type": "env"
             }
         ],
-        "x": 370,
+        "x": 430,
         "y": 720,
         "wires": [
             [
@@ -256,7 +256,7 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 780,
+        "x": 840,
         "y": 720,
         "wires": []
     },
@@ -309,7 +309,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 515,
+        "x": 575,
         "y": 780,
         "wires": [],
         "l": false
@@ -377,8 +377,8 @@
         "y": 360,
         "wires": [
             [
-                "e3ab72b4.a5998",
-                "7f3d22e8.f114fc"
+                "7f3d22e8.f114fc",
+                "bbdc9900.aed458"
             ]
         ]
     },
@@ -394,7 +394,7 @@
                 "type": "env"
             }
         ],
-        "x": 370,
+        "x": 430,
         "y": 300,
         "wires": [
             [
@@ -416,7 +416,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 570,
+        "x": 630,
         "y": 300,
         "wires": [
             [
@@ -438,7 +438,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 515,
+        "x": 575,
         "y": 360,
         "wires": [],
         "l": false
@@ -448,7 +448,7 @@
         "type": "debug",
         "z": "37805fff.55ed7",
         "name": "following res",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -456,7 +456,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 715,
+        "x": 775,
         "y": 360,
         "wires": [],
         "l": false
@@ -467,7 +467,7 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 780,
+        "x": 840,
         "y": 300,
         "wires": []
     },
@@ -485,7 +485,7 @@
         "wires": [
             [
                 "7f3d22e8.f114fc",
-                "e3ab72b4.a5998"
+                "bbdc9900.aed458"
             ]
         ]
     },
@@ -493,7 +493,7 @@
         "id": "e3ab72b4.a5998",
         "type": "change",
         "z": "37805fff.55ed7",
-        "name": "http method",
+        "name": "following http method",
         "rules": [
             {
                 "t": "set",
@@ -508,7 +508,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 255,
+        "x": 315,
         "y": 300,
         "wires": [
             [
@@ -522,8 +522,8 @@
         "id": "a51514a9.b3e968",
         "type": "no-op",
         "z": "37805fff.55ed7",
-        "name": "",
-        "x": 255,
+        "name": "listing no-op",
+        "x": 315,
         "y": 720,
         "wires": [
             [
@@ -582,7 +582,7 @@
         "wires": [
             [
                 "7d5dff8.c4eed",
-                "1035b311.2370ed"
+                "f0a94423.c6c098"
             ]
         ]
     },
@@ -616,7 +616,7 @@
                 "type": "env"
             }
         ],
-        "x": 370,
+        "x": 430,
         "y": 60,
         "wires": [
             [
@@ -638,7 +638,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 570,
+        "x": 630,
         "y": 60,
         "wires": [
             [
@@ -660,7 +660,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 515,
+        "x": 575,
         "y": 120,
         "wires": [],
         "l": false
@@ -678,7 +678,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 715,
+        "x": 775,
         "y": 120,
         "wires": [],
         "l": false
@@ -689,7 +689,7 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 780,
+        "x": 840,
         "y": 60,
         "wires": []
     },
@@ -697,14 +697,14 @@
         "id": "1035b311.2370ed",
         "type": "template",
         "z": "37805fff.55ed7",
-        "name": "json",
+        "name": "posting json",
         "field": "payload",
         "fieldType": "msg",
         "format": "json",
         "syntax": "mustache",
         "template": "{\n    \"user\": \"{{{req.query.user}}}\",\n    \"text\": \"payload\"\n}",
         "output": "json",
-        "x": 255,
+        "x": 315,
         "y": 60,
         "wires": [
             [
@@ -728,7 +728,7 @@
         "wires": [
             [
                 "10069da2.c01af2",
-                "121e5cd0.4fdbf3"
+                "43396544.89f35c"
             ]
         ]
     },
@@ -762,7 +762,7 @@
                 "type": "env"
             }
         ],
-        "x": 370,
+        "x": 430,
         "y": 180,
         "wires": [
             [
@@ -784,7 +784,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 570,
+        "x": 630,
         "y": 180,
         "wires": [
             [
@@ -806,7 +806,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 515,
+        "x": 575,
         "y": 240,
         "wires": [],
         "l": false
@@ -824,7 +824,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 715,
+        "x": 775,
         "y": 240,
         "wires": [],
         "l": false
@@ -835,7 +835,7 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 780,
+        "x": 840,
         "y": 180,
         "wires": []
     },
@@ -843,14 +843,14 @@
         "id": "121e5cd0.4fdbf3",
         "type": "template",
         "z": "37805fff.55ed7",
-        "name": "json",
+        "name": "reading array",
         "field": "payload",
         "fieldType": "msg",
         "format": "json",
         "syntax": "mustache",
         "template": "{\n    \"users\": [\"{{{req.query.user}}}\"]\n}",
         "output": "json",
-        "x": 255,
+        "x": 315,
         "y": 180,
         "wires": [
             [
@@ -859,5 +859,125 @@
         ],
         "l": false,
         "info": "Outputs the `msg.payload.users` _array_ containing the user in the request query."
+    },
+    {
+        "id": "bbdc9900.aed458",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "name": "following topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "follow",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 255,
+        "y": 300,
+        "wires": [
+            [
+                "e3ab72b4.a5998"
+            ]
+        ],
+        "icon": "font-awesome/fa-tag",
+        "l": false,
+        "info": "Outputs `msg.method` forwarding input `msg.req.method` to _target API_."
+    },
+    {
+        "id": "43396544.89f35c",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "name": "reading topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "read",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 255,
+        "y": 180,
+        "wires": [
+            [
+                "121e5cd0.4fdbf3"
+            ]
+        ],
+        "icon": "font-awesome/fa-tag",
+        "l": false,
+        "info": "Outputs `msg.method` forwarding input `msg.req.method` to _target API_."
+    },
+    {
+        "id": "f0a94423.c6c098",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "name": "posting topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "post",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 255,
+        "y": 60,
+        "wires": [
+            [
+                "1035b311.2370ed"
+            ]
+        ],
+        "icon": "font-awesome/fa-tag",
+        "l": false,
+        "info": "Outputs `msg.method` forwarding input `msg.req.method` to _target API_."
+    },
+    {
+        "id": "392df02a.5f6bf",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "name": "listing topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "list",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 255,
+        "y": 720,
+        "wires": [
+            [
+                "a51514a9.b3e968"
+            ]
+        ],
+        "icon": "font-awesome/fa-tag",
+        "l": false,
+        "info": "Outputs `msg.method` forwarding input `msg.req.method` to _target API_."
     }
 ]
