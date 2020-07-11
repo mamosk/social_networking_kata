@@ -163,7 +163,7 @@ services:
   # followers db admin service
   followers_db_admin:
     image: dpage/pgadmin4:${PGADMIN_VERSION:-4}
-    container_name: ${KATA}_followers_db_admin
+    container_name: ${KATA}_pgadmin
     restart: *restart-policy
     environment:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
