@@ -1,5 +1,5 @@
 ARG NODERED_VERSION
-FROM nodered/node-red:${NODERED_VERSION:-1.1.1}
+FROM nodered/node-red:${NODERED_VERSION:-1.1.2}
 LABEL maintainer="fabio.michelini@gmail.com"
 
 # give node-red user rights for volume directory
