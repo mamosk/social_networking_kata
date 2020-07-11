@@ -2,7 +2,7 @@
     {
         "id": "37805fff.55ed7",
         "type": "tab",
-        "label": "ROUTES",
+        "label": "API ROUTES",
         "disabled": false,
         "info": ""
     },
@@ -97,14 +97,14 @@
         "id": "5ff429ce.281558",
         "type": "group",
         "z": "37805fff.55ed7",
+        "name": "POSTING",
         "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
             "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
+            "stroke": "#3f93cf",
+            "fill": "#bfdbef",
+            "fill-opacity": "0.23",
+            "label-position": "sw",
+            "color": "#3f93cf"
         },
         "nodes": [
             "7a9c76f7.94f6b8",
@@ -120,20 +120,20 @@
         "x": 14,
         "y": 19,
         "w": 1252,
-        "h": 142
+        "h": 150
     },
     {
         "id": "5eaa8cc2.ebc974",
         "type": "group",
         "z": "37805fff.55ed7",
+        "name": "READING",
         "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
             "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
+            "stroke": "#92d04f",
+            "fill": "#e3f3d3",
+            "fill-opacity": "0.23",
+            "label-position": "sw",
+            "color": "#92d04f"
         },
         "nodes": [
             "7af6b1b0.f09aa",
@@ -145,29 +145,27 @@
             "f331cbe7.2b19b8",
             "121e5cd0.4fdbf3",
             "43396544.89f35c",
-            "6e445f39.b5844",
             "e45eb947.f2c6e8"
         ],
         "x": 14,
         "y": 239,
         "w": 1252,
-        "h": 142
+        "h": 150
     },
     {
         "id": "e85bad7d.48621",
         "type": "group",
         "z": "37805fff.55ed7",
+        "name": "FOLLOWING",
         "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
             "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
+            "stroke": "#ff9000",
+            "fill": "#ffefbf",
+            "label-position": "sw",
+            "color": "#ff9000",
+            "fill-opacity": "0.23"
         },
         "nodes": [
-            "df3cdce3.b97f6",
             "a88bf47d.e54bf8",
             "f120c221.c47cf",
             "e07cab0.4b98658",
@@ -177,25 +175,26 @@
             "e3ab72b4.a5998",
             "7f3d22e8.f114fc",
             "bbdc9900.aed458",
-            "f0f54f17.2efec"
+            "f0f54f17.2efec",
+            "df3cdce3.b97f6"
         ],
         "x": 14,
         "y": 479,
         "w": 1252,
-        "h": 142
+        "h": 150
     },
     {
         "id": "677cd161.878b8",
         "type": "group",
         "z": "37805fff.55ed7",
+        "name": "WALL",
         "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
             "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
+            "stroke": "#6f2fa0",
+            "fill": "#dbcbe7",
+            "label-position": "sw",
+            "color": "#6f2fa0",
+            "fill-opacity": "0.23"
         },
         "nodes": [
             "213a1c71.8f6b44",
@@ -207,7 +206,7 @@
         "x": 14,
         "y": 659,
         "w": 1232,
-        "h": 142
+        "h": 150
     },
     {
         "id": "96a93ab.86c69c8",
@@ -371,25 +370,6 @@
         "y": 80,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "df3cdce3.b97f6",
-        "type": "http in",
-        "z": "37805fff.55ed7",
-        "g": "e85bad7d.48621",
-        "name": "",
-        "url": "/following",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 110,
-        "y": 580,
-        "wires": [
-            [
-                "7f3d22e8.f114fc",
-                "bbdc9900.aed458"
-            ]
         ]
     },
     {
@@ -621,7 +601,7 @@
         "g": "5ff429ce.281558",
         "name": "posting request",
         "method": "POST",
-        "ret": "obj",
+        "ret": "txt",
         "paytoqs": "ignore",
         "url": "{{{api}}}posting",
         "tls": "",
@@ -982,7 +962,7 @@
         "y": 520,
         "wires": [
             [
-                "aed52035.cbb9d"
+                "8671c5bb.6f77d8"
             ],
             [
                 "ca13274d.a705f8"
@@ -1060,35 +1040,6 @@
         "l": false
     },
     {
-        "id": "6e445f39.b5844",
-        "type": "change",
-        "z": "37805fff.55ed7",
-        "g": "5eaa8cc2.ebc974",
-        "name": "wall users",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.users",
-                "pt": "msg",
-                "to": "payload.*~>$distinct~>$join(',')",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 395,
-        "y": 340,
-        "wires": [
-            [
-                "134832d7.7af91d"
-            ]
-        ],
-        "l": false
-    },
-    {
         "id": "e45eb947.f2c6e8",
         "type": "switch",
         "z": "37805fff.55ed7",
@@ -1133,34 +1084,6 @@
         "x": 1140,
         "y": 700,
         "wires": []
-    },
-    {
-        "id": "aed52035.cbb9d",
-        "type": "no-op",
-        "z": "37805fff.55ed7",
-        "name": "wall",
-        "x": 1075,
-        "y": 420,
-        "wires": [
-            [
-                "2494d0b9.1f20e"
-            ]
-        ],
-        "l": false
-    },
-    {
-        "id": "2494d0b9.1f20e",
-        "type": "no-op",
-        "z": "37805fff.55ed7",
-        "name": "wall",
-        "x": 275,
-        "y": 420,
-        "wires": [
-            [
-                "6e445f39.b5844"
-            ]
-        ],
-        "l": false
     },
     {
         "id": "c4786fd.5d7eb9",
@@ -1241,13 +1164,92 @@
         "id": "e4b652f2.83957",
         "type": "no-op",
         "z": "37805fff.55ed7",
-        "name": "/wall is a simple API composition of /following and /reading",
-        "x": 690,
+        "name": "/wall is an API composition of /following and /reading",
+        "x": 680,
         "y": 700,
         "wires": [
             [
                 "fc94afaf.2783d",
                 "4d665580.f580ac"
+            ]
+        ]
+    },
+    {
+        "id": "8671c5bb.6f77d8",
+        "type": "function",
+        "z": "37805fff.55ed7",
+        "name": "wall clean message",
+        "func": "for (const p in msg)\n    if (!['_msgid', 'topic', 'payload', 'req', 'res'].includes(p))\n        delete msg[p];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1075,
+        "y": 420,
+        "wires": [
+            [
+                "d01b2431.e14d98"
+            ]
+        ],
+        "icon": "font-awesome/fa-eraser",
+        "l": false
+    },
+    {
+        "id": "d01b2431.e14d98",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "name": "wall users",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "follows",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.users",
+                "pt": "msg",
+                "to": "follows.*~>$distinct~>$join(',')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "follows",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 275,
+        "y": 420,
+        "wires": [
+            [
+                "134832d7.7af91d"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "df3cdce3.b97f6",
+        "type": "http in",
+        "z": "37805fff.55ed7",
+        "g": "e85bad7d.48621",
+        "name": "",
+        "url": "/following",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 580,
+        "wires": [
+            [
+                "7f3d22e8.f114fc",
+                "bbdc9900.aed458"
             ]
         ]
     }
