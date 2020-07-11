@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.mamosk.kata.apisocial.dto.UserDto;
 import it.mamosk.kata.apisocial.exception.UserNotFoundException;
-import it.mamosk.kata.apisocial.service.KataService;
+import it.mamosk.kata.apisocial.service.IKataService;
 import lombok.Getter;
 
 @RestController
@@ -30,7 +30,7 @@ public class KataController {
 
 	@Autowired
 	@Getter(PROTECTED)
-	private KataService userService;
+	private IKataService userService;
 
 	// *******************************************************************
 	// *******************************************************************
