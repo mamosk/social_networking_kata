@@ -14,7 +14,7 @@ if (!authUsers) {
 
 module.exports = {
     uiPort: process.env.PORT || 1881,
-    httpRequestTimeout: 500,
+    httpRequestTimeout: 5000,
     debugMaxLength: 100,
     debugUseColors: true,
     flowFile: 'flows.json',
