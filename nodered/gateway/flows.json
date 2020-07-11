@@ -106,7 +106,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 510,
+        "x": 690,
         "y": 60,
         "wires": [
             [
@@ -128,7 +128,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 655,
+        "x": 835,
         "y": 120,
         "wires": [],
         "l": false
@@ -146,28 +146,10 @@
         "y": 60,
         "wires": [
             [
-                "d2320d64.2f53d",
-                "72ed9f82.dd896"
+                "a51514a9.b3e968",
+                "58dbb8cd.fb50e8"
             ]
         ]
-    },
-    {
-        "id": "d2320d64.2f53d",
-        "type": "debug",
-        "z": "37805fff.55ed7",
-        "name": "listing req",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 255,
-        "y": 120,
-        "wires": [],
-        "l": false
     },
     {
         "id": "96a93ab.86c69c8",
@@ -259,7 +241,7 @@
                 "type": "env"
             }
         ],
-        "x": 310,
+        "x": 490,
         "y": 60,
         "wires": [
             [
@@ -274,7 +256,7 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 720,
+        "x": 900,
         "y": 60,
         "wires": []
     },
@@ -327,7 +309,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 455,
+        "x": 635,
         "y": 120,
         "wires": [],
         "l": false
@@ -395,28 +377,10 @@
         "y": 180,
         "wires": [
             [
-                "49718854.b9d678",
-                "a88bf47d.e54bf8"
+                "e3ab72b4.a5998",
+                "7f3d22e8.f114fc"
             ]
         ]
-    },
-    {
-        "id": "49718854.b9d678",
-        "type": "debug",
-        "z": "37805fff.55ed7",
-        "name": "following req",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 255,
-        "y": 240,
-        "wires": [],
-        "l": false
     },
     {
         "id": "a88bf47d.e54bf8",
@@ -430,7 +394,7 @@
                 "type": "env"
             }
         ],
-        "x": 310,
+        "x": 490,
         "y": 180,
         "wires": [
             [
@@ -444,7 +408,7 @@
         "type": "http request",
         "z": "37805fff.55ed7",
         "name": "",
-        "method": "GET",
+        "method": "use",
         "ret": "obj",
         "paytoqs": "ignore",
         "url": "{{{api}}}users/{{{req.query.user}}}",
@@ -452,7 +416,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 510,
+        "x": 690,
         "y": 180,
         "wires": [
             [
@@ -474,7 +438,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 455,
+        "x": 635,
         "y": 240,
         "wires": [],
         "l": false
@@ -492,7 +456,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 655,
+        "x": 835,
         "y": 240,
         "wires": [],
         "l": false
@@ -503,8 +467,102 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 720,
+        "x": 900,
         "y": 180,
         "wires": []
+    },
+    {
+        "id": "e9b3d5dc.a30f48",
+        "type": "http in",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "url": "/following",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "7f3d22e8.f114fc",
+                "e3ab72b4.a5998"
+            ]
+        ]
+    },
+    {
+        "id": "e3ab72b4.a5998",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "name": "method",
+        "rules": [
+            {
+                "t": "set",
+                "p": "method",
+                "pt": "msg",
+                "to": "req.method",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 180,
+        "wires": [
+            [
+                "a88bf47d.e54bf8"
+            ]
+        ]
+    },
+    {
+        "id": "a51514a9.b3e968",
+        "type": "no-op",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "x": 290,
+        "y": 60,
+        "wires": [
+            [
+                "72ed9f82.dd896"
+            ]
+        ]
+    },
+    {
+        "id": "7f3d22e8.f114fc",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "following req",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 255,
+        "y": 240,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "58dbb8cd.fb50e8",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "listing req",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 255,
+        "y": 120,
+        "wires": [],
+        "l": false
     }
 ]
