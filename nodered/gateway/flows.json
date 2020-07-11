@@ -107,7 +107,7 @@
         "proxy": "",
         "authType": "",
         "x": 510,
-        "y": 120,
+        "y": 60,
         "wires": [
             [
                 "6027d7ef.975098",
@@ -129,7 +129,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 655,
-        "y": 180,
+        "y": 120,
         "wires": [],
         "l": false
     },
@@ -143,7 +143,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 110,
-        "y": 120,
+        "y": 60,
         "wires": [
             [
                 "d2320d64.2f53d",
@@ -165,7 +165,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 255,
-        "y": 180,
+        "y": 120,
         "wires": [],
         "l": false
     },
@@ -260,7 +260,7 @@
             }
         ],
         "x": 310,
-        "y": 120,
+        "y": 60,
         "wires": [
             [
                 "f92aebe6.6759e8",
@@ -275,7 +275,7 @@
         "name": "",
         "env": [],
         "x": 720,
-        "y": 120,
+        "y": 60,
         "wires": []
     },
     {
@@ -328,7 +328,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 455,
-        "y": 180,
+        "y": 120,
         "wires": [],
         "l": false
     },
@@ -381,5 +381,130 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "df3cdce3.b97f6",
+        "type": "http in",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "url": "/following",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "49718854.b9d678",
+                "a88bf47d.e54bf8"
+            ]
+        ]
+    },
+    {
+        "id": "49718854.b9d678",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "following req",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 255,
+        "y": 240,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "a88bf47d.e54bf8",
+        "type": "subflow:cd495597.b925e8",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "env": [
+            {
+                "name": "api",
+                "value": "FOLLOWERS_API",
+                "type": "env"
+            }
+        ],
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "f120c221.c47cf",
+                "e07cab0.4b98658"
+            ]
+        ]
+    },
+    {
+        "id": "f120c221.c47cf",
+        "type": "http request",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{api}}}users/{{{req.query.user}}}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 510,
+        "y": 180,
+        "wires": [
+            [
+                "62ac573b.b393e8",
+                "ca13274d.a705f8"
+            ]
+        ]
+    },
+    {
+        "id": "e07cab0.4b98658",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "following route",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 455,
+        "y": 240,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "62ac573b.b393e8",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "following res",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 655,
+        "y": 240,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "ca13274d.a705f8",
+        "type": "subflow:d09151ba.102fa",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "env": [],
+        "x": 720,
+        "y": 180,
+        "wires": []
     }
 ]
