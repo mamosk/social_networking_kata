@@ -106,8 +106,8 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 690,
-        "y": 60,
+        "x": 570,
+        "y": 720,
         "wires": [
             [
                 "6027d7ef.975098",
@@ -128,8 +128,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 835,
-        "y": 120,
+        "x": 715,
+        "y": 780,
         "wires": [],
         "l": false
     },
@@ -143,7 +143,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 110,
-        "y": 60,
+        "y": 720,
         "wires": [
             [
                 "a51514a9.b3e968",
@@ -241,8 +241,8 @@
                 "type": "env"
             }
         ],
-        "x": 490,
-        "y": 60,
+        "x": 370,
+        "y": 720,
         "wires": [
             [
                 "f92aebe6.6759e8",
@@ -256,8 +256,8 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 900,
-        "y": 60,
+        "x": 780,
+        "y": 720,
         "wires": []
     },
     {
@@ -309,8 +309,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 635,
-        "y": 120,
+        "x": 515,
+        "y": 780,
         "wires": [],
         "l": false
     },
@@ -374,7 +374,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 110,
-        "y": 180,
+        "y": 240,
         "wires": [
             [
                 "e3ab72b4.a5998",
@@ -394,7 +394,7 @@
                 "type": "env"
             }
         ],
-        "x": 490,
+        "x": 370,
         "y": 180,
         "wires": [
             [
@@ -416,7 +416,7 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 690,
+        "x": 570,
         "y": 180,
         "wires": [
             [
@@ -438,7 +438,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 635,
+        "x": 515,
         "y": 240,
         "wires": [],
         "l": false
@@ -456,7 +456,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 835,
+        "x": 715,
         "y": 240,
         "wires": [],
         "l": false
@@ -467,7 +467,7 @@
         "z": "37805fff.55ed7",
         "name": "",
         "env": [],
-        "x": 900,
+        "x": 780,
         "y": 180,
         "wires": []
     },
@@ -481,7 +481,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 110,
-        "y": 240,
+        "y": 180,
         "wires": [
             [
                 "7f3d22e8.f114fc",
@@ -493,7 +493,7 @@
         "id": "e3ab72b4.a5998",
         "type": "change",
         "z": "37805fff.55ed7",
-        "name": "method",
+        "name": "http method",
         "rules": [
             {
                 "t": "set",
@@ -508,26 +508,28 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
+        "x": 255,
         "y": 180,
         "wires": [
             [
                 "a88bf47d.e54bf8"
             ]
-        ]
+        ],
+        "l": false
     },
     {
         "id": "a51514a9.b3e968",
         "type": "no-op",
         "z": "37805fff.55ed7",
         "name": "",
-        "x": 290,
-        "y": 60,
+        "x": 255,
+        "y": 720,
         "wires": [
             [
                 "72ed9f82.dd896"
             ]
-        ]
+        ],
+        "l": false
     },
     {
         "id": "7f3d22e8.f114fc",
@@ -561,8 +563,154 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 255,
+        "y": 780,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "7a9c76f7.94f6b8",
+        "type": "http in",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "url": "/posting",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "7d5dff8.c4eed",
+                "1035b311.2370ed"
+            ]
+        ]
+    },
+    {
+        "id": "7d5dff8.c4eed",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "listing req",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 255,
         "y": 120,
         "wires": [],
         "l": false
+    },
+    {
+        "id": "78a7cff4.4323e",
+        "type": "subflow:cd495597.b925e8",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "env": [
+            {
+                "name": "api",
+                "value": "TIMELINES_API",
+                "type": "env"
+            }
+        ],
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "f8d8390f.5b5518",
+                "758b7dec.740aa4"
+            ]
+        ]
+    },
+    {
+        "id": "f8d8390f.5b5518",
+        "type": "http request",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "{{{api}}}posting",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 60,
+        "wires": [
+            [
+                "ad702440.98dbf8",
+                "4c17e32a.8d95bc"
+            ]
+        ]
+    },
+    {
+        "id": "758b7dec.740aa4",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "listing route",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 515,
+        "y": 120,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "ad702440.98dbf8",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "listing res",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 715,
+        "y": 120,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "4c17e32a.8d95bc",
+        "type": "subflow:d09151ba.102fa",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "env": [],
+        "x": 780,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "1035b311.2370ed",
+        "type": "template",
+        "z": "37805fff.55ed7",
+        "name": "json",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"user\": \"{{{req.query.user}}}\",\n    \"text\": \"payload\"\n}",
+        "output": "json",
+        "x": 255,
+        "y": 60,
+        "wires": [
+            [
+                "78a7cff4.4323e"
+            ]
+        ],
+        "l": false,
+        "info": "Outputs a JSON `msg.payload` with:\n- `user` is the user in the request query,\n- `text` is the _string_ request payload."
     }
 ]
