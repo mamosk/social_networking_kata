@@ -374,7 +374,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 110,
-        "y": 240,
+        "y": 360,
         "wires": [
             [
                 "e3ab72b4.a5998",
@@ -395,7 +395,7 @@
             }
         ],
         "x": 370,
-        "y": 180,
+        "y": 300,
         "wires": [
             [
                 "f120c221.c47cf",
@@ -417,7 +417,7 @@
         "proxy": "",
         "authType": "",
         "x": 570,
-        "y": 180,
+        "y": 300,
         "wires": [
             [
                 "62ac573b.b393e8",
@@ -439,7 +439,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 515,
-        "y": 240,
+        "y": 360,
         "wires": [],
         "l": false
     },
@@ -457,7 +457,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 715,
-        "y": 240,
+        "y": 360,
         "wires": [],
         "l": false
     },
@@ -468,7 +468,7 @@
         "name": "",
         "env": [],
         "x": 780,
-        "y": 180,
+        "y": 300,
         "wires": []
     },
     {
@@ -481,7 +481,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 110,
-        "y": 180,
+        "y": 300,
         "wires": [
             [
                 "7f3d22e8.f114fc",
@@ -509,13 +509,14 @@
         "to": "",
         "reg": false,
         "x": 255,
-        "y": 180,
+        "y": 300,
         "wires": [
             [
                 "a88bf47d.e54bf8"
             ]
         ],
-        "l": false
+        "l": false,
+        "info": "Outputs `msg.method` forwarding input `msg.req.method` to _target API_."
     },
     {
         "id": "a51514a9.b3e968",
@@ -545,7 +546,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 255,
-        "y": 240,
+        "y": 360,
         "wires": [],
         "l": false
     },
@@ -711,6 +712,152 @@
             ]
         ],
         "l": false,
-        "info": "Outputs a JSON `msg.payload` with:\n- `user` is the user in the request query,\n- `text` is the _string_ request payload."
+        "info": "Outputs a JSON `msg.payload` where:\n- `user` is the user in the request query,\n- `text` is the _string_ request payload."
+    },
+    {
+        "id": "7af6b1b0.f09aa",
+        "type": "http in",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "url": "/reading",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "10069da2.c01af2",
+                "121e5cd0.4fdbf3"
+            ]
+        ]
+    },
+    {
+        "id": "10069da2.c01af2",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "listing req",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 255,
+        "y": 240,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "134832d7.7af91d",
+        "type": "subflow:cd495597.b925e8",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "env": [
+            {
+                "name": "api",
+                "value": "TIMELINES_API",
+                "type": "env"
+            }
+        ],
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "ef96add9.c06f6",
+                "28ff81a9.19c25e"
+            ]
+        ]
+    },
+    {
+        "id": "ef96add9.c06f6",
+        "type": "http request",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "query",
+        "url": "{{{api}}}reading",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "28416fdf.27feb",
+                "f331cbe7.2b19b8"
+            ]
+        ]
+    },
+    {
+        "id": "28ff81a9.19c25e",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "listing route",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 515,
+        "y": 240,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "28416fdf.27feb",
+        "type": "debug",
+        "z": "37805fff.55ed7",
+        "name": "listing res",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 715,
+        "y": 240,
+        "wires": [],
+        "l": false
+    },
+    {
+        "id": "f331cbe7.2b19b8",
+        "type": "subflow:d09151ba.102fa",
+        "z": "37805fff.55ed7",
+        "name": "",
+        "env": [],
+        "x": 780,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "121e5cd0.4fdbf3",
+        "type": "template",
+        "z": "37805fff.55ed7",
+        "name": "json",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"users\": [\"{{{req.query.user}}}\"]\n}",
+        "output": "json",
+        "x": 255,
+        "y": 180,
+        "wires": [
+            [
+                "134832d7.7af91d"
+            ]
+        ],
+        "l": false,
+        "info": "Outputs the `msg.payload.users` _array_ containing the user in the request query."
     }
 ]
