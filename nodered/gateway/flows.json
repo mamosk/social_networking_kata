@@ -176,12 +176,13 @@
             "7f3d22e8.f114fc",
             "bbdc9900.aed458",
             "f0f54f17.2efec",
-            "df3cdce3.b97f6"
+            "df3cdce3.b97f6",
+            "8b6205e5.61bd18"
         ],
         "x": 14,
-        "y": 479,
+        "y": 471.5,
         "w": 1252,
-        "h": 150
+        "h": 157.5
     },
     {
         "id": "677cd161.878b8",
@@ -796,7 +797,7 @@
         "z": "37805fff.55ed7",
         "g": "5eaa8cc2.ebc974",
         "name": "reading res",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -945,9 +946,14 @@
         "propertyType": "msg",
         "rules": [
             {
-                "t": "eq",
-                "v": "wall",
-                "vt": "str"
+                "t": "jsonata_exp",
+                "v": "topic = 'wall' and statusCode = 200",
+                "vt": "jsonata"
+            },
+            {
+                "t": "jsonata_exp",
+                "v": "statusCode != 200",
+                "vt": "jsonata"
             },
             {
                 "t": "eq",
@@ -955,14 +961,17 @@
                 "vt": "str"
             }
         ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
+        "checkall": "false",
+        "repair": true,
+        "outputs": 3,
         "x": 955,
         "y": 520,
         "wires": [
             [
                 "8671c5bb.6f77d8"
+            ],
+            [
+                "8b6205e5.61bd18"
             ],
             [
                 "ca13274d.a705f8"
@@ -1252,5 +1261,35 @@
                 "bbdc9900.aed458"
             ]
         ]
+    },
+    {
+        "id": "8b6205e5.61bd18",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "g": "e85bad7d.48621",
+        "name": "empty json",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1075,
+        "y": 520,
+        "wires": [
+            [
+                "ca13274d.a705f8"
+            ]
+        ],
+        "icon": "font-awesome/fa-eraser",
+        "l": false
     }
 ]
