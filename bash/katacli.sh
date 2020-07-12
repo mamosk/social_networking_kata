@@ -141,6 +141,7 @@ following() {
 # resp: messages, from the most recent to the oldest, in the format:
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
 wall() {
+  now
   curl -s --location --request GET "http://localhost:11881/wall?user=$1" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
