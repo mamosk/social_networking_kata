@@ -4,6 +4,7 @@ set -e -o pipefail -o noglob
 # requirements:
 # - curl
 # - jq
+# - sed
 # - pandoc
 # - lynx
 
@@ -53,6 +54,39 @@ kata full readme: https://github.com/xpeppers/social_networking_kata
 EOF
 }
 
+### STORE GLOBAL CURRENT TIME IN SECONDS ###
+now() {
+  now=$(date -u "+%s")
+}
+
+timewords=(second minute hour)
+
+ago() {
+  while read -r line
+  do
+    # extract timestamp from user posted message display string
+    local ago
+    ago=$(echo "$line" | grep -Eo '\([0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9]:[0-6][0-9](.[0-9]{3})?Z\)')
+    # remove leading '(' and trailing ')'
+    ago=${ago:1}
+    ago=${ago::-1}
+    # get old date in seconds
+    ago=$(date -u -d "$ago" "+%s")
+    # get difference in second
+    local diff
+    diff=$((now - ago))
+    # compute human-readable difference
+    local i=0
+    while [ $diff -ge 60 ] && [ $i -lt ${#timewords[@]} ]
+    do
+      i=$((i+1))
+      diff=$((diff/60))
+    done
+    local diff="$diff ${timewords[$i]}"
+    echo "$line - $diff ago"
+  done
+}
+
 ### POSTING COMMAND ###
 # cmd:  <user name> -> <message>
 # info: posts message to user timeline
@@ -74,9 +108,11 @@ posting() {
 # resp: messages, from the most recent to the oldest, in the format:
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
 reading() {
+  now
   curl -s --location --request GET "http://localhost:11881/reading?user=$1" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
+    | ago \
     | cli
 }
 
@@ -103,6 +139,7 @@ wall() {
   curl -s --location --request GET "http://localhost:11881/wall?user=$1" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
+    | ago \
     | cli
 }
 
@@ -149,7 +186,6 @@ kata () {
         help
         ;;
       # command starting with user name
-      # 
       *)
         username $REPLY
         ;;
