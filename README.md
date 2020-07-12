@@ -8,7 +8,7 @@ This is an implementation of [the social networking kata](https://github.com/xpe
 
 To spin up the services and run the CLI:
 
-1. get [Docker](https://docs.docker.com/get-docker/) 1.12.0+ if you do not have it yet,
+1. get [Docker](https://docs.docker.com/get-docker/) 1.12.0+ if you don't have it yet,
 5. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) if needed,
 3. run the `kata` script using one of following commands:
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd`
@@ -16,7 +16,7 @@ To spin up the services and run the CLI:
 
 It may take a while the first time, since it has to download several dependencies...
 
-When everything is up and running you can type `help` in the CLI to display available commands. Enjoy!
+When the CLI is ready you can type `help` to display available commands. Enjoy!
 
 ---
 
