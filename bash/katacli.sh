@@ -37,26 +37,27 @@ EOF
 }
 
 posting() {
-  curl --location --request POST "http://localhost:11881/posting?user=$1" \
+  curl -s --location --request POST "http://localhost:11881/posting?user=$1" \
     --header 'Content-Type: text/plain' \
-    --data-raw "$2"
+    --data-raw "$2" \
+    | jq .
 }
 
 reading() {
-  curl --location --request GET "http://localhost:11881/reading?user=$1"
-  echo
+  curl -s --location --request GET "http://localhost:11881/reading?user=$1" \
+    | jq .
 }
 
 following() {
-  curl --location --request PUT "http://localhost:11881/following?user=$1" \
+  curl -s --location --request PUT "http://localhost:11881/following?user=$1" \
     --header 'Content-Type: text/plain' \
-    --data-raw "$2"
-  echo
+    --data-raw "$2" \
+    | jq .
 }
 
 wall() {
-  curl --location --request GET "http://localhost:11881/wall?user=$1"
-  echo
+  curl -s --location --request GET "http://localhost:11881/wall?user=$1" \
+    | jq .
 }
 
 apicall () {
