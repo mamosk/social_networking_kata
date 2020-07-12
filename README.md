@@ -78,7 +78,7 @@ The API gateway exposes the **4 fundamental** API's using [Node-RED](https://nod
   **PUT** http://localhost:11881/following?user=Charlie `Alice`
   routes to **followers** _following_
 - _wall_
-  **GET** http://localhost:11881/wall?user=mario composes
+  **GET** http://localhost:11881/wall?user=Charlie composes
   **followers** _following_ **+**
   **timelines** _reading_
 
