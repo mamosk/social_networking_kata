@@ -8,17 +8,12 @@ This is an implementation of [the social networking kata](https://github.com/xpe
 
 To spin up the services and run the CLI:
 
-1. get [Docker](https://docs.docker.com/get-docker/) `1.12.0+` if you do not have it yet,
+1. get [Docker](https://docs.docker.com/get-docker/) 1.12.0+ if you do not have it yet,
 5. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) if needed,
 3. run the `kata` script using one of following commands:
-   - on **Windows**:
-     ```
-     %SYSTEMDRIVE%:\path\to\the\repo\kata.cmd
-     ```
-   - on **Linux**:
-     ```
-     /path/to/the/repo/kata.sh
-     ```
+   - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd`
+   - on **Linux**: `/path/to/the/repo/kata.sh`
+
 It may take a while the first time, since it has to download several dependencies...
 
 When everything is up and running you can type `help` in the CLI to display available commands. Enjoy!
@@ -36,7 +31,7 @@ When everything is up and running you can type `help` in the CLI to display avai
 >                         Followers API ---- Followers DB ---- Timelines DB admin
 >```
 ## CLI
-The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the API gateway.
+The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the [API gateway](#api-gateway).
 ```
 kata cli commands:
   <user name> -> <message>           -> post message to user timeline
@@ -85,66 +80,47 @@ The API gateway exposes the **4 fundamental** API's using [Node-RED](https://nod
 #### Timelines API
 Users timelines are written (_posting_ kata) and read (_reading_ and _wall_ kata) using [Node-RED](https://nodered.org/) with [JSONata](https://jsonata.org/).
 
-Only last 50 posts within last week are read for each user.
-
 Exposed endpoints are:
 - _reading_/_wall_:
-  `GET` http://localhost:11888/api/v1/reading?users=Alice,Bob,Charlie
+  **GET** http://localhost:11888/api/v1/reading?users=Alice,Bob,Charlie
+  > Only last 50 posts within last week are returned for each user
 - _posting_:
-  `POST` http://localhost:11888/api/v1/posting JSON, example:
-  ```
-  {
-      "user": "Alice",
-      "text": "I love the weather today."
-  }
-  ```
+  **POST** http://localhost:11888/api/v1/posting
+  `{"user":"Alice","text":"Hi!"}`
 - _testing_:
-  `GET` http://localhost:11888/api/v1/test returns:
-  - HTTP status code `200` if test is **passed**,
-  - HTTP status code `418` if test is **failed**.
+  **GET** http://localhost:11888/api/v1/test
+  returns `200` if passed or `418` if **failed**
 
 #### Timelines DB
-Users posts are stored into a _time serie_ using [InfluxDB](https://www.influxdata.com/products/influxDB-overview/).
-
-Posts are stored with `infinite` retention policy and precision of `1s`.
+Users posts are stored into a _time serie_ using [InfluxDB](https://www.influxdata.com/products/influxDB-overview/), with `infinite` _retention policy_ and `1s` _precision_.
 
 #### Timelines DB admin
 The _time serie_ database server is managed using [Chronograf](https://www.influxdata.com/time-series-platform/chronograf/). You can query the timelines [here](http://localhost:18888/sources/0/chronograf/data-explorer?query=SELECT%20%22post%22%20FROM%20%22kata%22.%22autogen%22.%22timeline%22%20WHERE%20time%20%3E%3D%20now%28%29%20-%207d%20GROUP%20BY%20%22user%22).
-
-All different timelines are stored into the same `timeline` measurement, indexed by the `user` tag.
+All different timelines are stored into the same `timeline` _measurement_, indexed by the `user` _tag_.
 
 ### Followers
 
 #### Followers API
 The information about "who-follows-who" is written (_following_ kata) and read (_wall_ kata) using a [Spring Boot](https://spring.io/projects/spring-boot) application with [Hibernate](https://hibernate.org/) and [JPA](https://spring.io/projects/spring-data-jpa)-based data repository access.
 
-No validation is performed against data, as we focus on the sunny day scenarios.
-
 Exposed endpoints are (more than necessary, for test purposes):
 - _posting_:
-  `PUT` http://localhost:18080/api/v1/users text, example:
-  ```
-  Alice
-  ```
+  **PUT** http://localhost:18080/api/v1/users `Alice`
+  > No validation is performed against data, as we focus on the sunny day scenarios.
 - _following_:
-  `PUT` http://localhost:18080/api/v1/users/Charlie text, example:
-  ```
-  Alice
-  ```
+  **PUT** http://localhost:18080/api/v1/users/Charlie `Alice`
 - _wall_:
-  `GET` http://localhost:18080/api/v1/users/Charlie
+  **GET** http://localhost:18080/api/v1/users/Charlie
 - _listing_:
-  `GET` http://localhost:18080/api/v1/users
+  **GET** http://localhost:18080/api/v1/users
 
 #### Followers DB
 The information about "who-follows-who" is stored into a [PostgreSQL](https://www.postgresql.org/) relational database.
-
-The `user` entity "follows" other `user` entities in a _unidirectional many-to-many_ relationship.
+The **user** entity "follows" other **user** entities in a _unidirectional many-to-many_ relationship.
 
 #### Followers DB admin
 The database is managed using [pgAdmin](https://www.pgadmin.org/).
-
-To view DB tables open
+>To view DB tables open
 **Servers > pgkata > Databases > kata > Schemas > public > Tables**
 
 ---
