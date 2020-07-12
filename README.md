@@ -68,12 +68,19 @@ You can find the **credentials** in the `.env` file.
 
 ### API gateway
 The API gateway exposes the **4 fundamental** API's using [Node-RED](https://nodered.org/) with [JSONata](https://jsonata.org/):
-- _posting_ is routed to **timelines** _posting_,
-- _reading_ is routed to **timelines** _reading_,
-- _following_ is routed to **followers** _following_,
-- _wall_ performs an API composition of
+- _posting_
+  **POST** http://localhost:11881/posting?user=Alice `Hi!`
+  routes to **timelines** _posting_
+- _reading_
+  **GET** http://localhost:11881/reading?user=Alice
+  routes to **timelines** _reading_
+- _following_
+  **PUT** http://localhost:11881/following?user=Charlie `Alice`
+  routes to **followers** _following_
+- _wall_
+  **GET** http://localhost:11881/wall?user=mario composes
   **followers** _following_ **+**
-  **timelines** _reading_.
+  **timelines** _reading_
 
 ### Timelines
 
@@ -81,13 +88,13 @@ The API gateway exposes the **4 fundamental** API's using [Node-RED](https://nod
 Users timelines are written (_posting_ kata) and read (_reading_ and _wall_ kata) using [Node-RED](https://nodered.org/) with [JSONata](https://jsonata.org/).
 
 Exposed endpoints are:
-- _reading_/_wall_:
+- _reading_/_wall_
   **GET** http://localhost:11888/api/v1/reading?users=Alice,Bob,Charlie
   > Only last 50 posts within last week are returned for each user
-- _posting_:
+- _posting_
   **POST** http://localhost:11888/api/v1/posting
   `{"user":"Alice","text":"Hi!"}`
-- _testing_:
+- _testing_
   **GET** http://localhost:11888/api/v1/test
   returns `200` if passed or `418` if **failed**
 
@@ -104,14 +111,14 @@ All different timelines are stored into the same `timeline` _measurement_, index
 The information about "who-follows-who" is written (_following_ kata) and read (_wall_ kata) using a [Spring Boot](https://spring.io/projects/spring-boot) application with [Hibernate](https://hibernate.org/) and [JPA](https://spring.io/projects/spring-data-jpa)-based data repository access.
 
 Exposed endpoints are (more than necessary, for test purposes):
-- _posting_:
+- _posting_
   **PUT** http://localhost:18080/api/v1/users `Alice`
   > No validation is performed against data, as we focus on the sunny day scenarios.
-- _following_:
+- _following_
   **PUT** http://localhost:18080/api/v1/users/Charlie `Alice`
-- _wall_:
+- _wall_
   **GET** http://localhost:18080/api/v1/users/Charlie
-- _listing_:
+- _listing_
   **GET** http://localhost:18080/api/v1/users
 
 #### Followers DB
