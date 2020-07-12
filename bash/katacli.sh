@@ -65,7 +65,8 @@ posting() {
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
 reading() {
   curl -s --location --request GET "http://localhost:11881/reading?user=$1" \
-    | jq '. |= sort_by(.time) | reverse'
+    | jq '. |= sort_by(.time) | reverse' \
+    | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"'
 }
 
 ### FOLLOWING COMMAND ###
@@ -89,7 +90,8 @@ following() {
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
 wall() {
   curl -s --location --request GET "http://localhost:11881/wall?user=$1" \
-    | jq '. |= sort_by(.time) | reverse'
+    | jq '. |= sort_by(.time) | reverse' \
+    | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"'
 }
 
 ### MAIN COMMAND STARTING WITH USER NAME ###
