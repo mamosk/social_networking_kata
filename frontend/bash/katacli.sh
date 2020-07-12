@@ -85,7 +85,11 @@ ago() {
       diff=$((diff/60))
     done
     local timeword
-    timeword="${TIMEWORDS[$i]}$([[ $diff -gt 1 ]] && echo s)"
+    timeword="${TIMEWORDS[$i]}"
+    if [ $diff -gt 1 ]
+    then
+      timeword="${timeword}s"
+    fi
     diff="$diff $timeword"
     echo "${line/"$zulu"/"$diff ago"}"
   done
