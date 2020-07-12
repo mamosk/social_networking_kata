@@ -21,7 +21,7 @@ To spin up the services and run the CLI:
      ```
 > It may take a while the first time, since it has to download several dependencies...
 
-When everythins is up and running you can type `help` in the CLI to display available commands. Enjoy!
+When everything is up and running you can type `help` in the CLI to display available commands. Enjoy!
 
 ---
 
