@@ -4,7 +4,6 @@ set -e -o pipefail -o noglob
 # requirements:
 # - curl
 # - jq
-# - sed
 # - pandoc
 # - lynx
 
@@ -100,7 +99,7 @@ ago() {
 #       $3... message to be posted
 # resp: silent command (no feedback)
 posting() {
-  curl -s --location --request POST "http://localhost:11881/posting?user=$1" \
+  curl -s --location --request POST "$API_BASE_URL/posting?user=$1" \
     --header 'Content-Type: text/plain' \
     --data-raw "${*:3}" \
     >/dev/null
@@ -114,7 +113,7 @@ posting() {
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
 reading() {
   now
-  curl -s --location --request GET "http://localhost:11881/reading?user=$1" \
+  curl -s --location --request GET "$API_BASE_URL/reading?user=$1" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
     | ago \
@@ -128,7 +127,7 @@ reading() {
 #       $2 another user (followed)
 # resp: silent command (no feedback)
 following() {
-  curl -s --location --request PUT "http://localhost:11881/following?user=$1" \
+  curl -s --location --request PUT "$API_BASE_URL/following?user=$1" \
     --header 'Content-Type: text/plain' \
     --data-raw "$2" \
     >/dev/null
@@ -142,7 +141,7 @@ following() {
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
 wall() {
   now
-  curl -s --location --request GET "http://localhost:11881/wall?user=$1" \
+  curl -s --location --request GET "$API_BASE_URL/wall?user=$1" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
     | ago \

@@ -1,12 +1,5 @@
 version: "2.1"
 
-##################
-### DISCLAIMER ###
-##################
-# Services ports are exposed to the host machine in order to quickly inspect what's going on.
-# There's a '1' digit prepended to all standard ports: this hopefully will prevent port conflicts.
-# In production environments ports should not be exposed (they're accessed within Docker networks).
-
 ##############################
 ### default configurations ###
 ##############################
@@ -55,6 +48,8 @@ x-nodered:
 ### segmented networks ###
 ##########################
 networks:
+  # network for backend api access
+  gateway_api_network:
   # network for users 'timelines' services
   timelines_api_network:
   timelines_db_network:
@@ -83,6 +78,7 @@ services:
     volumes:
       - ./nodered/gateway:/kata/flows
     networks:
+      gateway_api_network: *gateway
       timelines_api_network: *gateway
       followers_api_network: *gateway
     ports:
