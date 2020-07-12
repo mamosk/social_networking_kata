@@ -7,12 +7,22 @@ set -e -o pipefail -o noglob
 # - pandoc
 # - lynx
 
-# cli prefix
-KATA="kata>"
-
 #########################################
 ### ENTRY POINT IS AT THE END OF FILE ###
 #########################################
+
+# cli prefix
+PREFIX="> "
+
+### PREPEND PREFIX TO EVERY OUTPUT LINE ###
+# usage:   pipe to a command
+# example: cat file.txt | cli
+cli() {
+  while read -r line
+  do
+    echo "$PREFIX$line"
+  done
+}
 
 ### UNRECOGNIZED COMMAND ###
 unrecognized() {
@@ -66,7 +76,8 @@ posting() {
 reading() {
   curl -s --location --request GET "http://localhost:11881/reading?user=$1" \
     | jq '. |= sort_by(.time) | reverse' \
-    | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"'
+    | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
+    | cli
 }
 
 ### FOLLOWING COMMAND ###
@@ -91,7 +102,8 @@ following() {
 wall() {
   curl -s --location --request GET "http://localhost:11881/wall?user=$1" \
     | jq '. |= sort_by(.time) | reverse' \
-    | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"'
+    | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
+    | cli
 }
 
 ### MAIN COMMAND STARTING WITH USER NAME ###
@@ -122,7 +134,7 @@ username () {
 ### MAIN CLI FUNCTION ###
 kata () {
   # loop until 'exit' command
-  while read -r -e -p "$KATA "
+  while read -r -e -p "$PREFIX"
   do
     # keep command in history to be reused
     history -s "$REPLY"
