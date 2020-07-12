@@ -24,6 +24,9 @@ module.exports = {
     adminAuth: {
         type: 'credentials',
         users: authUsers,
+        default: {
+            permissions: "read"
+        }
     },
     logging: {
         console: {
