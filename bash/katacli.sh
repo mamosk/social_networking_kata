@@ -39,7 +39,7 @@ EOF
 posting() {
   curl -s --location --request POST "http://localhost:11881/posting?user=$1" \
     --header 'Content-Type: text/plain' \
-    --data-raw "$2" \
+    --data-raw "${*:3}" \
     | jq .
 }
 
@@ -64,7 +64,7 @@ apicall () {
   # return if empty line
   [ -z $1 ] && return 0
   case $2 in
-    "->") posting $1 $3;;
+    "->") posting "$@";;
     "") reading $1;;
     "follows") following $1 $3;;
     "wall") wall $1;;
