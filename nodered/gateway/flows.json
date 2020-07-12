@@ -946,13 +946,13 @@
         "propertyType": "msg",
         "rules": [
             {
-                "t": "jsonata_exp",
-                "v": "topic = 'wall' and statusCode = 200",
-                "vt": "jsonata"
+                "t": "eq",
+                "v": "wall",
+                "vt": "str"
             },
             {
                 "t": "jsonata_exp",
-                "v": "statusCode != 200",
+                "v": "topic = follow and statusCode != 200",
                 "vt": "jsonata"
             },
             {
@@ -1011,6 +1011,13 @@
                 "pt": "msg",
                 "to": "wall",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "_payload",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -1188,7 +1195,7 @@
         "type": "function",
         "z": "37805fff.55ed7",
         "name": "wall clean message",
-        "func": "for (const p in msg)\n    if (!['_msgid', 'topic', 'payload', 'req', 'res'].includes(p))\n        delete msg[p];\nreturn msg;",
+        "func": "for (const p in msg)\n    if (!['_msgid', '_payload', 'topic', 'payload', 'req', 'res'].includes(p))\n        delete msg[p];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1207,26 +1214,21 @@
         "id": "d01b2431.e14d98",
         "type": "change",
         "z": "37805fff.55ed7",
-        "name": "wall users",
+        "name": "wall follows",
         "rules": [
             {
-                "t": "move",
-                "p": "payload",
-                "pt": "msg",
-                "to": "follows",
-                "tot": "msg"
-            },
-            {
                 "t": "set",
-                "p": "payload.users",
+                "p": "follows",
                 "pt": "msg",
-                "to": "follows.*~>$distinct~>$join(',')",
+                "to": "payload.name~>$exists?payload:_payload",
                 "tot": "jsonata"
             },
             {
-                "t": "delete",
-                "p": "follows",
-                "pt": "msg"
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
             }
         ],
         "action": "",
@@ -1238,7 +1240,7 @@
         "y": 420,
         "wires": [
             [
-                "134832d7.7af91d"
+                "13366417.ce3bbc"
             ]
         ],
         "l": false
@@ -1290,6 +1292,44 @@
             ]
         ],
         "icon": "font-awesome/fa-eraser",
+        "l": false
+    },
+    {
+        "id": "13366417.ce3bbc",
+        "type": "change",
+        "z": "37805fff.55ed7",
+        "name": "wall users",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.users",
+                "pt": "msg",
+                "to": "[follows.*]~>$map($string)~>$distinct~>$join(',')",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "follows",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "_payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 395,
+        "y": 420,
+        "wires": [
+            [
+                "134832d7.7af91d"
+            ]
+        ],
         "l": false
     }
 ]
