@@ -73,9 +73,10 @@ apicall () {
 }
 
 kata () {
-  while read -r -p "$KATA "
+  while read -r -e -p "$KATA "
   do
-    case $REPLY in
+    history -s "$REPLY"
+    case "$REPLY" in
       "exit") exit 0;;
       "help") help 0;;
       *) apicall $REPLY;;
