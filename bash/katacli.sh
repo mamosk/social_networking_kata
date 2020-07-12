@@ -15,6 +15,9 @@ set -e -o pipefail -o noglob
 # cli prefix
 PREFIX="> "
 
+# words for human-readable <time> ago
+TIMEWORDS=(second minute hour)
+
 ### PREPEND PREFIX TO EVERY OUTPUT LINE ###
 # usage:   pipe to a command
 # example: cat file.txt | cli
@@ -59,8 +62,6 @@ now() {
   now=$(date -u "+%s")
 }
 
-timewords=(second minute hour)
-
 ago() {
   while read -r line
   do
@@ -77,12 +78,14 @@ ago() {
     diff=$((now - ago))
     # compute human-readable difference
     local i=0
-    while [ $diff -ge 60 ] && [ $i -lt ${#timewords[@]} ]
+    while [ $diff -ge 60 ] && [ $i -lt ${#TIMEWORDS[@]} ]
     do
       i=$((i+1))
       diff=$((diff/60))
     done
-    local diff="$diff ${timewords[$i]}"
+    local timeword
+    timeword="${TIMEWORDS[$i]}$([[ $diff -gt 1 ]] && echo s)"
+    diff="$diff $timeword"
     echo "$line - $diff ago"
   done
 }
@@ -186,6 +189,7 @@ kata () {
         help
         ;;
       # command starting with user name
+      # 
       *)
         username $REPLY
         ;;
