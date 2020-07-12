@@ -71,6 +71,8 @@ ago() {
     # remove leading '(' and trailing ')'
     ago=${ago:1}
     ago=${ago::-1}
+    # timestamp string to be replaced
+    local zulu="$ago"
     # get old date in seconds
     ago=$(date -u -d "$ago" "+%s")
     # get difference in second
@@ -86,7 +88,7 @@ ago() {
     local timeword
     timeword="${TIMEWORDS[$i]}$([[ $diff -gt 1 ]] && echo s)"
     diff="$diff $timeword"
-    echo "$line - $diff ago"
+    echo "${line/"$zulu"/"$diff ago"}"
   done
 }
 
@@ -189,7 +191,6 @@ kata () {
         help
         ;;
       # command starting with user name
-      # 
       *)
         username $REPLY
         ;;
