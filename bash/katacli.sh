@@ -49,20 +49,23 @@ EOF
 # args: $1 user name
 #       $2 -> (not used)
 #       $3... message to be posted
+# resp: silent command (no feedback)
 posting() {
   curl -s --location --request POST "http://localhost:11881/posting?user=$1" \
     --header 'Content-Type: text/plain' \
     --data-raw "${*:3}" \
-    | jq .
+    >/dev/null
 }
 
 ### READING COMMAND ###
 # cmd:  <user name>
 # info: reads messages from user timeline
 # args: $1 user name
+# resp: messages, from the most recent to the oldest, in the format:
+#       <user> - <message> (<n> <seconds|minutes|hours> ago)
 reading() {
   curl -s --location --request GET "http://localhost:11881/reading?user=$1" \
-    | jq .
+    | jq '. |= sort_by(.time) | reverse'
 }
 
 ### FOLLOWING COMMAND ###
@@ -70,20 +73,23 @@ reading() {
 # info: subscribes user to another user timeline
 # args: $1 user name (follower)
 #       $2 another user (followed)
+# resp: silent command (no feedback)
 following() {
   curl -s --location --request PUT "http://localhost:11881/following?user=$1" \
     --header 'Content-Type: text/plain' \
     --data-raw "$2" \
-    | jq .
+    >/dev/null
 }
 
 ### WALL COMMAND ###
 # cmd:  <user name> wall
 # info: read messages from user timeline and subscriptions
 # args: $1 user name
+# resp: messages, from the most recent to the oldest, in the format:
+#       <user> - <message> (<n> <seconds|minutes|hours> ago)
 wall() {
   curl -s --location --request GET "http://localhost:11881/wall?user=$1" \
-    | jq .
+    | jq '. |= sort_by(.time) | reverse'
 }
 
 ### MAIN COMMAND STARTING WITH USER NAME ###
