@@ -97,6 +97,10 @@ services:
     env_file: .env
     environment:
       - INFLUXDB_HOST=db
+      # return only messages from last week
+      - INFLUXDB_LIMIT_TIME=7d
+      # return only last 50 messages per user
+      - INFLUXDB_LIMIT_COUNT=50
     depends_on:
       - timelines_db
     logging: *logging
