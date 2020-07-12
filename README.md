@@ -123,7 +123,7 @@ Exposed endpoints are (more than necessary, for test purposes):
 
 #### Followers DB
 The information about "who-follows-who" is stored into a [PostgreSQL](https://www.postgresql.org/) relational database.
-The **user** entity "follows" other **user** entities in a _unidirectional many-to-many_ relationship.
+The **user** entity "follows" other **user** entities in an _unidirectional many-to-many_ relationship.
 
 #### Followers DB admin
 The database is managed using [pgAdmin](https://www.pgadmin.org/).
