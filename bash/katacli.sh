@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+# requirements:
+# - curl
+# - jq
+# - pandoc
+# - lynx
+
 # cli prefix
 KATA="kata>"
 
