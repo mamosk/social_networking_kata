@@ -96,7 +96,7 @@ Exposed endpoints are:
   `{"user":"Alice","text":"Hi!"}`
 - _testing_
   **GET** http://localhost:11888/api/v1/test
-  returns `200` if passed or `418` if **failed**
+  returns `200` if passed or `418` if failed
 
 #### Timelines DB
 Users posts are stored into a _time serie_ using [InfluxDB](https://www.influxdata.com/products/influxDB-overview/), with `infinite` _retention policy_ and `1s` _precision_.
