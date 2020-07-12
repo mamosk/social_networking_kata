@@ -37,6 +37,19 @@ When everything is up and running you can type `help` in the CLI to display avai
 >```
 ## CLI
 The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the API gateway.
+```
+kata cli commands:
+  <user name> -> <message>           -> post message to user timeline
+  <user name>                        -> read messages from user timeline
+  <user name> follows <another user> -> subscribe user to another user timeline
+  <user name> wall                   -> read messages from user timeline and subscriptions
+  
+  exit -> exit the cli
+  help -> read this help
+  kata -> read full readme of kata requirements
+
+kata full readme: https://github.com/xpeppers/social_networking_kata
+```
 
 ## Services
 Once the services are up and running, you can **[inspect]** them.
