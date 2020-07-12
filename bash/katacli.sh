@@ -89,7 +89,7 @@ wall() {
 ### MAIN COMMAND STARTING WITH USER NAME ###
 username () {
   # return if empty line
-  [ -z $1 ] && return 0
+  [ -z "$1" ] && return 0
   # check command after user name
   # each command calls a specific function
   case $2 in
@@ -97,16 +97,16 @@ username () {
       posting "$@"
       ;;
     "")
-      reading $1
+      reading "$1"
       ;;
     "follows")
-      following $1 $3
+      following "$1" "$3"
       ;;
     "wall")
-      wall $1
+      wall "$1"
       ;;
     *)
-      unrecognized $2
+      unrecognized "$2"
       ;;
   esac
 }
@@ -129,6 +129,7 @@ kata () {
         help
         ;;
       # command starting with user name
+      # 
       *)
         username $REPLY
         ;;
