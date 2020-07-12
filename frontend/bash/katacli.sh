@@ -194,6 +194,10 @@ kata () {
       "help")
         help
         ;;
+      # kata command to display github readme
+      "kata")
+        readme
+        ;;
       # command starting with user name
       *)
         username $REPLY
