@@ -210,6 +210,13 @@ kata () {
 ### ENTRY POINT IS DOWN HERE ###
 ################################
 
+# return if empty line
+if [ -z "$API_BASE_URL" ]
+then 
+  echo "Missing environment variable: API_BASE_URL" >&2
+  exit 1
+fi
+
 # move to script directory
 pushd "$(dirname "$0")" > /dev/null
 
