@@ -1,0 +1,727 @@
+{
+	"info": {
+		"_postman_id": "0bc2d3de-bd4e-43fd-98ed-741769e93e52",
+		"name": "kata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "timelines",
+			"item": [
+				{
+					"name": "tests",
+					"item": [
+						{
+							"name": "integration test",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c4208082-88b9-4b66-be69-ba13a6857ac5",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{timelines}}api/{{timelines_version}}/test",
+									"host": [
+										"{{timelines}}api"
+									],
+									"path": [
+										"{{timelines_version}}",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2fd16e63-0cb4-47ed-9c66-140e9714a2f2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "28600162-ece2-4766-80a1-9a7aaea813c4",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "posting",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1bd9f20c-ea10-486f-a34c-e3d312a82807",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"{{user}}\",\r\n    \"text\": \"{{post}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{timelines}}api/{{timelines_version}}/posting",
+							"host": [
+								"{{timelines}}api"
+							],
+							"path": [
+								"{{timelines_version}}",
+								"posting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reading",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a6011e08-edc3-4732-ba12-0c5055746873",
+								"exec": [
+									"var schema = {\r",
+									"  \"time\": {\r",
+									"    \"type\": \"string\"\r",
+									"  },\r",
+									"  \"post\": {\r",
+									"    \"type\": \"string\"\r",
+									"  },\r",
+									"  \"user\": {\r",
+									"    \"type\": \"string\"\r",
+									"  }\r",
+									"};\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var jsonData = pm.response.json();\r",
+									"  _.each(jsonData, (post) => pm.expect(tv4.validate(post, schema)).to.be.true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{timelines}}api/{{timelines_version}}/reading?users={{user}},{{follows}}",
+							"host": [
+								"{{timelines}}api"
+							],
+							"path": [
+								"{{timelines_version}}",
+								"reading"
+							],
+							"query": [
+								{
+									"key": "users",
+									"value": "{{user}},{{follows}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "followers",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "posting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "437f1982-2493-4314-bc35-a8a23f806390",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", function () {\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{user}}"
+								},
+								"url": {
+									"raw": "{{followers}}api/{{followers_version}}/users",
+									"host": [
+										"{{followers}}api"
+									],
+									"path": [
+										"{{followers_version}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "following",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "163b69b3-c647-40c6-9a59-09145a3275f5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Followed user is present\", function () {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  pm.expect(jsonData.follows).to.include(pm.variables.get(\"follows\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{follows}}"
+								},
+								"url": {
+									"raw": "{{followers}}api/{{followers_version}}/users/{{user}}",
+									"host": [
+										"{{followers}}api"
+									],
+									"path": [
+										"{{followers_version}}",
+										"users",
+										"{{user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "following",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b31d65d9-e558-4a59-aa7e-3d41fcb13667",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{followers}}api/{{followers_version}}/users/{{user}}",
+									"host": [
+										"{{followers}}api"
+									],
+									"path": [
+										"{{followers_version}}",
+										"users",
+										"{{user}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1732cbb9-8889-46fa-a61d-cdfc716eab90",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "393add07-3fad-43a1-ae6f-bc178af79a08",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"User name is right\", function () {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(jsonData.name).to.eql(pm.variables.get(\"user\"));",
+									"});",
+									"",
+									"var schema = {",
+									"  \"name\": {",
+									"    \"type\": \"string\"",
+									"  },",
+									"  \"follows\": {",
+									"    \"type\": \"array\"",
+									"  }",
+									"};",
+									"pm.test('Schema is valid', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"});"
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "listing",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{followers}}api/{{followers_version}}/users",
+									"host": [
+										"{{followers}}api"
+									],
+									"path": [
+										"{{followers_version}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3a04e9c8-a29f-47f6-aaf3-371cf3184a14",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "67f37b0a-e1ed-4589-ad53-a0547c022c19",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var schema = {",
+									"  \"name\": {",
+									"    \"type\": \"string\"",
+									"  },",
+									"  \"follows\": {",
+									"    \"type\": \"array\"",
+									"  }",
+									"};",
+									"pm.test('Schema is valid', function() {",
+									"  var jsonData = pm.response.json();",
+									"  _.each(jsonData, (user) => pm.expect(tv4.validate(user, schema)).to.be.true);",
+									"});"
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3560633b-08d0-4a87-9598-3a31ba3b4229",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7d41281-9571-4260-ab22-c264e7c8ab61",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "api gateway",
+			"item": [
+				{
+					"name": "timelines",
+					"item": [
+						{
+							"name": "posting",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3eacd05e-1b71-4a1f-a5c5-f13157ebe282",
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{post}}",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{gateway}}posting?user={{user}}",
+									"host": [
+										"{{gateway}}posting"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "{{user}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reading",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "193d2380-6ac0-4853-92ea-8943761e37b5",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"time\": {\r",
+											"    \"type\": \"string\"\r",
+											"  },\r",
+											"  \"post\": {\r",
+											"    \"type\": \"string\"\r",
+											"  },\r",
+											"  \"user\": {\r",
+											"    \"type\": \"string\"\r",
+											"  }\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  _.each(jsonData, (post) => pm.expect(tv4.validate(post, schema)).to.be.true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{gateway}}reading?user={{user}}",
+									"host": [
+										"{{gateway}}reading"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "{{user}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wall",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "64bffe7a-c676-4a16-9bf8-3094e2c7bc39",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var schema = {\r",
+											"  \"time\": {\r",
+											"    \"type\": \"string\"\r",
+											"  },\r",
+											"  \"post\": {\r",
+											"    \"type\": \"string\"\r",
+											"  },\r",
+											"  \"user\": {\r",
+											"    \"type\": \"string\"\r",
+											"  }\r",
+											"};\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  var jsonData = pm.response.json();\r",
+											"  _.each(jsonData, (post) => pm.expect(tv4.validate(post, schema)).to.be.true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{gateway}}wall?user={{user}}",
+									"host": [
+										"{{gateway}}wall"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "{{user}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "followers",
+					"item": [
+						{
+							"name": "following",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{{follows}}"
+								},
+								"url": {
+									"raw": "{{gateway}}following?user={{user}}",
+									"host": [
+										"{{gateway}}following"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "{{user}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "following",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{gateway}}following?user={{user}}",
+									"host": [
+										"{{gateway}}following"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "{{user}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a2fdd1a7-3faf-4dee-a3cf-57bb4a201cf6",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "82f7155a-b50d-48a8-b98f-208b92adf481",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"User name is right\", function () {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(jsonData.name).to.eql(pm.variables.get(\"user\"));",
+									"});",
+									"",
+									"var schema = {",
+									"  \"name\": {",
+									"    \"type\": \"string\"",
+									"  },",
+									"  \"follows\": {",
+									"    \"type\": \"array\"",
+									"  }",
+									"};",
+									"pm.test('Schema is valid', function() {",
+									"  var jsonData = pm.response.json();",
+									"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+									"});"
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8218d31f-f126-44fb-a62e-bc452648e3b4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "991acdcf-c77f-4440-bcfe-331a7e031fa1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "3c64f3f3-2229-453b-9910-3c7220fa29f7",
+			"key": "user",
+			"value": "Alice"
+		},
+		{
+			"id": "68373607-050c-44b7-8f76-cea4eb13ef67",
+			"key": "post",
+			"value": "I love the weather today"
+		},
+		{
+			"id": "77cde8bd-6560-4983-82a9-70fd66ee7863",
+			"key": "follows",
+			"value": "Bob"
+		},
+		{
+			"id": "247c92fe-4c42-4284-b5d0-79320890e230",
+			"key": "gateway",
+			"value": "http://localhost:11881/"
+		},
+		{
+			"id": "9e4564b0-a4c6-422d-99c6-d1562843cafc",
+			"key": "timelines",
+			"value": "http://localhost:11888/"
+		},
+		{
+			"id": "42894893-b171-4c1b-8906-0eced49af29a",
+			"key": "timelines_version",
+			"value": "v1"
+		},
+		{
+			"id": "b5741cfe-47ea-4609-8599-151b5270eef1",
+			"key": "followers",
+			"value": "http://localhost:18080/"
+		},
+		{
+			"id": "d368db16-bb35-45b3-9b43-7dfd8042034e",
+			"key": "followers_version",
+			"value": "v1"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
