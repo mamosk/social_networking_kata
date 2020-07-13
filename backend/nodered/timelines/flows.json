@@ -1313,7 +1313,7 @@
         "type": "function",
         "z": "api",
         "name": "test result",
-        "func": "var fill, text;\nswitch (msg.statusCode) {\n  case 200:\n      fill = \"green\";\n      text = \"passed\";\n    break;\n  case 418:\n      fill = \"red\";\n      text = \"failed\";\n    break;\n}\nnode.log(text);\nnode.status({fill:fill,shape:\"dot\",text:text});",
+        "func": "var fill, text;\nswitch (msg.statusCode) {\n  case 200:\n      fill = \"green\";\n      text = \"PASS\";\n    break;\n  case 418:\n      fill = \"red\";\n      text = \"FAIL\";\n    break;\n}\nnode.log(text);\nnode.status({fill:fill,shape:\"dot\",text:text});",
         "outputs": 0,
         "noerr": 0,
         "initialize": "",
