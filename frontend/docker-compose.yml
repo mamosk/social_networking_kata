@@ -47,5 +47,9 @@ services:
       - ./bash/katacli.sh:/kata/cli.sh:ro
       # demo files
       - ./bash/demo:/kata/demo:ro
+      # persisted timelines and followers if running without server
+      - cli_data:${MONO_PATH}
     networks:
       gateway_api_network:
+volumes:
+  cli_data:
