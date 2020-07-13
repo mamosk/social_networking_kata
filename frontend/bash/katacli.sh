@@ -295,10 +295,13 @@ wall_mono() {
   pushd "$MONO_PATH" > /dev/null
     # loop <user name>.follows lines: they are followed users
     local follows="$1.follows"
-    while read -r line
-    do
-      reading_mono "$line"
-    done < "$follows"
+    if [ -f "$follows" ]
+    then
+      while read -r line
+      do
+        reading_mono "$line"
+      done < "$follows"
+    fi
   popd > /dev/null
 }
 wall_switch() {
