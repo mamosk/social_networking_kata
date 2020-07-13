@@ -137,8 +137,12 @@ ago() {
   done
 }
 
+#####################
+### KATA COMMANDS ###
+#####################
+
 # jq filter to transform
-JQ_FILTER='. |= sort_by(.time) | reverse | .[] | .user + " - " + .post + " (" + .time + ")"'
+JQ_FILTER='. | flatten | sort_by(.time) | reverse | .[] | .user + " - " + .post + " (" + .time + ")"'
 
 ### POSTING COMMAND ###
 # cmd:  <user name> -> <message>
@@ -297,10 +301,20 @@ wall_mono() {
     local follows="$1.follows"
     if [ -f "$follows" ]
     then
+      # open array of array
+      local arrays='['
       while read -r line
       do
-        reading_mono "$line"
+        local array
+        array=$(reading_mono "$line")
+        # append json to jsons array
+        arrays="$arrays$array,"
       done < "$follows"
+      # remove trailing ','
+      arrays=${arrays::-1}
+      # close array
+      arrays="$arrays]"
+      echo "$arrays"
     fi
   popd > /dev/null
 }
