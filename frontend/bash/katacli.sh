@@ -104,11 +104,13 @@ ago() {
 #       $2 -> (not used)
 #       $3... message to be posted
 # resp: silent command (no feedback)
-posting() {
-  curl -s --location --request POST "${API_BASE_URL}posting?user=$1" \
+posting_api() {
+  curl -s --location --request POST "${API_BASE_URL}posting?user=$1"\
     --header 'Content-Type: text/plain' \
-    --data-raw "${*:3}" \
-    >/dev/null
+    --data-raw "${*:3}"
+}
+posting() {
+   posting_api "$@" >/dev/null
 }
 
 ### READING COMMAND ###
@@ -117,9 +119,12 @@ posting() {
 # args: $1 user name
 # resp: messages, from the most recent to the oldest, in the format:
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
+reading_api() {
+  curl -s --location --request GET "${API_BASE_URL}reading?user=$1"
+}
 reading() {
   now
-  curl -s --location --request GET "${API_BASE_URL}reading?user=$1" \
+  reading_api "$@" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
     | ago \
@@ -132,11 +137,13 @@ reading() {
 # args: $1 user name (follower)
 #       $2 another user (followed)
 # resp: silent command (no feedback)
-following() {
+following_api() {
   curl -s --location --request PUT "${API_BASE_URL}following?user=$1" \
     --header 'Content-Type: text/plain' \
-    --data-raw "$2" \
-    >/dev/null
+    --data-raw "$2"
+}
+following() {
+  following_api "$@" >/dev/null
 }
 
 ### WALL COMMAND ###
@@ -145,9 +152,12 @@ following() {
 # args: $1 user name
 # resp: messages, from the most recent to the oldest, in the format:
 #       <user> - <message> (<n> <seconds|minutes|hours> ago)
+wall_api() {
+  curl -s --location --request GET "${API_BASE_URL}wall?user=$1"
+}
 wall() {
   now
-  curl -s --location --request GET "${API_BASE_URL}wall?user=$1" \
+  wall_api "$@" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
     | ago \
