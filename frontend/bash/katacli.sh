@@ -44,7 +44,7 @@ varcheck() {
   if [ -z "$MODE" ]
   then
     echo "${PREFIX}environment variable not set: MODE" >&2
-    echo "${PREFIX}maybe you can run: export MODE=mono" >&2
+    echo "${PREFIX}maybe you can run: export MODE=full" >&2
     exit 1
   fi
   case "$MODE" in
