@@ -14,7 +14,6 @@ To spin up the services and run the CLI:
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
 
-
 It may take a while the first time, since it has to download several dependencies...
 
 When the CLI is ready you can type `help` to display available commands. Enjoy!
@@ -149,6 +148,33 @@ The **user** entity "follows" other **user** entities in an _unidirectional many
 The database is managed using [pgAdmin](https://www.pgadmin.org/).
 >To view DB tables open
 **Servers > pgkata > Databases > kata > Schemas > public > Tables**
+
+---
+
+This is the output of a `demo` run:
+```
+> Alice -> I love the weather today
+> Bob -> Damn! We lost!
+> Bob -> Good game though.
+> Alice
+> Alice - I love the weather today (5 seconds ago)
+> Bob
+> Bob - Good game though. (4 seconds ago)
+> Bob - Damn! We lost! (6 seconds ago)
+> Charlie -> I'm in New York today! Anyone wants to have a coffee?
+> Charlie follows Alice
+> Charlie wall
+> Charlie - I'm in New York today! Anyone wants to have a coffee? (4 seconds ago)
+> Bob - Good game though. (11 seconds ago)
+> Bob - Damn! We lost! (13 seconds ago)
+> Alice - I love the weather today (14 seconds ago)
+> Charlie follows Bob
+> Charlie wall
+> Charlie - I'm in New York today! Anyone wants to have a coffee? (7 seconds ago)
+> Bob - Good game though. (14 seconds ago)
+> Bob - Damn! We lost! (16 seconds ago)
+> Alice - I love the weather today (17 seconds ago)
+```
 
 ---
 Made with ❤️ by [Fabio Michelini](https://www.linkedin.com/in/fabio-michelini/)
