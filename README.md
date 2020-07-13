@@ -31,26 +31,44 @@ When the CLI is ready you can type `help` to display available commands. Enjoy!
 >                       \
 >                         Followers API ---- Followers DB ---- Timelines DB admin
 >```
+
 ## CLI
+
 The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the [API gateway](#api-gateway).
+
+### CLI mode
+You can edit the _CLI mode_,
+it's the last line of the [/frontend/.env](/frontend/.env) file.
+Available modes are:
+- **`full`** - user data is managed by [services](#services)
+- **`mono`** - user data is managed by the CLI itself, using its file system
+
+### CLI help
+You can type `help` in the CLI in order to display following help:
 ```
-kata cli commands:
+kata commands:
   <user name> -> <message>           -> post message to user timeline
   <user name>                        -> read messages from user timeline
   <user name> follows <another user> -> subscribe user to another user timeline
   <user name> wall                   -> read messages from user timeline and subscriptions
-  
+
+utility commands:
   exit -> exit the cli
   help -> read this help
   kata -> read full readme of kata requirements
+  mode -> tell if running in:
+          - 'full' mode: attached to an API server which handles user data
+          - 'mono' mode: handling user data using the file system
 
-kata full readme: https://github.com/xpeppers/social_networking_kata
+kata readme: https://github.com/xpeppers/social_networking_kata
 ```
+
+---
 
 ## Services
 Once the services are up and running, you can **[inspect]** them.
 
-You can find the **credentials** in the `.env` file.
+You can find the **credentials** in the [/backend/.env](/backend/.env) file.
 
 - [API gateway](#api-gateway)
   [**[inspect]**](http://localhost:11881/)
