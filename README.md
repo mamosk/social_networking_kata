@@ -8,7 +8,7 @@ This is an implementation of [the social networking kata](https://github.com/xpe
 
 To spin up the services and run the CLI:
 
-1. get [Docker](https://docs.docker.com/get-docker/) 1.12.0+ if you don't have it yet,
+1. make sure you have [Docker](https://docs.docker.com/get-docker/) 1.12.0 or higher,
 5. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) if needed,
 3. run the `kata` script (adding `demo` to run a _non-interactive_ session):
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
@@ -50,7 +50,7 @@ Available modes are:
 - **`mono`** - user data is managed by the CLI itself, using the file system
 
 ### CLI help
-You can type `help` in the CLI in order to display following output:
+If you type `help` in the CLI you'll see this:
 ```
 kata commands:
   <user name> -> <message>           -> post message to user timeline
@@ -81,18 +81,18 @@ You can find the **credentials** in the [/backend/.env](/backend/.env) file.
 - [Timelines](#timelines)
   - [API](#timelines-api)
     [**[inspect]**](http://localhost:11888/)
-  - [DB](#timelines-DB)
-  - [DB admin](#timelines-DB-admin)
+  - [DB](#timelines-db)
+  - [DB admin](#timelines-db-admin)
     [**[inspect]**](http://localhost:18888/)
 - [Followers](#followers)
   - [API](#followers-api)
     [**[inspect]**](http://localhost:18080/api/v1/users)
-  - [DB](#followers-DB)
-  - [DB admin](#followers-DB-admin)
+  - [DB](#followers-db)
+  - [DB admin](#followers-db-admin)
     [**[inspect]**](http://localhost:15050/)
 
 ### API gateway
-The API gateway exposes the **4 fundamental** API's using [Node-RED](https://nodered.org/) with [JSONata](https://jsonata.org/):
+The API gateway exposes the **4 kata requirements** using [Node-RED](https://nodered.org/) with [JSONata](https://jsonata.org/):
 - _posting_
   **POST** http://localhost:11881/posting?user=Alice `Hi!`
   routes to **timelines** _posting_
