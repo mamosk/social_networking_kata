@@ -210,7 +210,7 @@ kata () {
 ### ENTRY POINT IS DOWN HERE ###
 ################################
 
-# return if empty line
+# exit if missing api base url
 if [ -z "$API_BASE_URL" ]
 then 
   echo "Missing environment variable: API_BASE_URL" >&2
