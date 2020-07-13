@@ -77,6 +77,8 @@ ago() {
     # get difference in second
     local diff
     diff=$((now - ago))
+    # demo accepts only last 10 seconds
+    [ "$demo" = true ] && [ "$diff" -ge $((commands * 3)) ] && return
     # compute human-readable difference
     local i=0
     while [ $diff -ge 60 ] && [ $i -lt ${#TIMEWORDS[@]} ]
@@ -183,12 +185,12 @@ kata () {
     # normal execution
     "")
       # loop until 'exit' command
-      while read -r -e -p "$PREFIX"
+      while read -r -e -p "$PREFIX" command
       do
         # keep command in history to be reused
-        history -s "$REPLY"
+        history -s "$command"
         # check command
-        case "$REPLY" in
+        case "$command" in
           # exit command
           "exit")
             exit 0
@@ -203,10 +205,31 @@ kata () {
             ;;
           # command starting with user name
           *)
-            username $REPLY
+            username $command
             ;;
         esac
       done
+      ;;
+    # run demo
+    demo)
+      # it's just a demo, bro
+      demo=true
+      # loop demo files
+      set +o noglob
+      for file in demo/*.demo
+      do
+      set -o noglob
+      # count commands
+      commands=$(wc -l < "$file")
+        # loop demo file lines
+        while read -r line; do
+          echo "${PREFIX}$line"
+          username $line
+          sleep $((RANDOM % 2 + 1))
+        done < "$file"
+      done
+      # let user read a bit more
+      sleep 3
       ;;
     # unrecognized command
     *)
@@ -218,19 +241,15 @@ kata () {
 ################################
 ### ENTRY POINT IS DOWN HERE ###
 ################################
-
 # exit if missing api base url
 if [ -z "$API_BASE_URL" ]
 then 
   echo "${PREFIX}missing environment variable: API_BASE_URL" >&2
   exit 1
 fi
-
 # move to script directory
 pushd "$(dirname "$0")" > /dev/null
-
-# execute main cli function
-kata "$@"
-
+  # execute main cli function
+  kata "$@"
 # restore original directory
 popd > /dev/null

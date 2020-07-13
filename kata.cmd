@@ -26,7 +26,7 @@ PUSHD %~dp0
     docker-compose build
     ECHO.
     ECHO "Initializing cli, please wait..."
-    docker-compose run --rm cli /kata/cli.sh
+    docker-compose run --rm cli /kata/cli.sh %*
   POPD
   PUSHD backend
     docker-compose down

@@ -45,5 +45,7 @@ services:
     volumes:
       # script mounted as volume (edit made simple)
       - ./bash/katacli.sh:/kata/cli.sh:ro
+      # demo files
+      - ./bash/demo:/kata/demo:ro
     networks:
       gateway_api_network:

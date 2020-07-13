@@ -31,7 +31,7 @@ pushd "$(dirname "$0")" > /dev/null
     docker-compose build
     echo
     echo "Initializing cli, please wait..."
-    docker-compose run --rm cli /kata/cli.sh
+    docker-compose run --rm cli /kata/cli.sh "$@"
   popd > /dev/null
   pushd backend > /dev/null
     docker-compose down
