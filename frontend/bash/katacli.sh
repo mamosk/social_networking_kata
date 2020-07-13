@@ -66,6 +66,7 @@ varcheck() {
       ;;
     *)
       echo "${PREFIX}mode not available: $MODE" >&2
+      echo "${PREFIX}available modes are: full, mono" >&2
       exit 1
       ;;
   esac
