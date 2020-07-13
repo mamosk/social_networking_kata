@@ -116,6 +116,7 @@ Exposed endpoints are (more than necessary, for test purposes):
   > No validation is performed against data, as we focus on the sunny day scenarios.
 - _following_
   **PUT** http://localhost:18080/api/v1/users/Charlie `Alice`
+  > Everyone can follow anyone: users are addedd if missing.
 - _wall_
   **GET** http://localhost:18080/api/v1/users/Charlie
 - _listing_
