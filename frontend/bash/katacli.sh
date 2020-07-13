@@ -29,7 +29,7 @@ cli() {
 
 ### UNRECOGNIZED COMMAND ###
 unrecognized() {
-  echo "$KATA unrecognized command: $1" 1>&2
+  echo "${PREFIX}unrecognized command: $1" 1>&2
 }
 
 ### README COMMAND ###
@@ -179,31 +179,39 @@ username () {
 
 ### MAIN CLI FUNCTION ###
 kata () {
-  # loop until 'exit' command
-  while read -r -e -p "$PREFIX"
-  do
-    # keep command in history to be reused
-    history -s "$REPLY"
-    # check command
-    case "$REPLY" in
-      # exit command
-      "exit")
-        exit 0
-        ;;
-      # help command
-      "help")
-        help
-        ;;
-      # kata command to display github readme
-      "kata")
-        readme
-        ;;
-      # command starting with user name
-      *)
-        username $REPLY
-        ;;
-    esac
-  done
+  case $1 in
+    # normal execution
+    "")
+      # loop until 'exit' command
+      while read -r -e -p "$PREFIX"
+      do
+        # keep command in history to be reused
+        history -s "$REPLY"
+        # check command
+        case "$REPLY" in
+          # exit command
+          "exit")
+            exit 0
+            ;;
+          # help command
+          "help")
+            help
+            ;;
+          # kata command to display github readme
+          "kata")
+            readme
+            ;;
+          # command starting with user name
+          *)
+            username $REPLY
+            ;;
+        esac
+      done
+      ;;
+    *)
+      unrecognized "$1"
+      ;;
+  esac
 }
 
 ################################
@@ -213,7 +221,7 @@ kata () {
 # exit if missing api base url
 if [ -z "$API_BASE_URL" ]
 then 
-  echo "Missing environment variable: API_BASE_URL" >&2
+  echo "${PREFIX}missing environment variable: API_BASE_URL" >&2
   exit 1
 fi
 
