@@ -46,7 +46,7 @@ kata cli commands:
   <user name>                        -> read messages from user timeline
   <user name> follows <another user> -> subscribe user to another user timeline
   <user name> wall                   -> read messages from user timeline and subscriptions
-  
+
   exit -> exit the cli
   help -> read this help
   kata -> read full readme of kata requirements
@@ -104,13 +104,30 @@ ago() {
 #       $2 -> (not used)
 #       $3... message to be posted
 # resp: silent command (no feedback)
-posting_api() {
+posting_full() {
+  # using backend
   curl -s --location --request POST "${API_BASE_URL}posting?user=$1"\
     --header 'Content-Type: text/plain' \
     --data-raw "${*:3}"
 }
+posting_mono() {
+  # without backend
+  pushd "$MONO_PATH" > /dev/null
+    # make <user name> directory if missing
+    # user name not checked: assuming sunny day scenario :)
+    mkdir -p "$1"
+    # write post into <user name>/<epoch>.post file
+    echo "${*:3}" > "$1/$(date -u "+%s").post"
+  popd > /dev/null
+}
+posting_switch() {
+  case "$MODE" in
+    full) posting_full "$@";;
+    mono) posting_mono "$@";;
+  esac
+}
 posting() {
-   posting_api "$@" >/dev/null
+  posting_switch "$@"  >/dev/null
 }
 
 ### READING COMMAND ###
@@ -118,13 +135,69 @@ posting() {
 # info: reads messages from user timeline
 # args: $1 user name
 # resp: messages, from the most recent to the oldest, in the format:
-#       <user> - <message> (<n> <seconds|minutes|hours> ago)
-reading_api() {
+#       <user name> - <message> (<n> <seconds|minutes|hours> ago)
+reading_full() {
+  # using backend
   curl -s --location --request GET "${API_BASE_URL}reading?user=$1"
+}
+reading_mono() {
+  # without backend
+  pushd "$MONO_PATH" > /dev/null
+    if [ -d "$1" ]
+    then
+      # user found: cd into <user name> directory
+      pushd "$1" > /dev/null
+        set +o noglob
+          # file names are <epoch>.post
+          posts="*.post"
+          # mock real api JSON array
+          # open array
+          local jsons='['
+          for post in $posts
+          do
+            # user is the function argument
+            local user="$1"
+            # post is the file content
+            local text
+            text=$(<"$post")
+            # zulu timestamp from file name
+            local time
+            time=${post%".post"}
+            time=$(date -Iseconds -u -d "@$time")
+            time=${time/"+00:00"/Z}
+            # build json
+            local json
+            json=$( jq -n \
+              --arg u "$user" \
+              --arg p "$text" \
+              --arg t "$time" \
+              '{user: $u, post: $p, time: $t}' \
+              )
+            # append json to jsons array
+            jsons="$jsons$json,"
+          done
+          # remove trailing ','
+          jsons=${jsons::-1}
+          # close array
+          jsons="$jsons]"
+          echo "$jsons"
+        set -o noglob
+      popd > /dev/null
+    else
+      # missing user
+      echo '[]'
+    fi
+  popd > /dev/null
+}
+reading_switch() {
+  case "$MODE" in
+    full) reading_full "$@";;
+    mono) reading_mono "$@";;
+  esac
 }
 reading() {
   now
-  reading_api "$@" \
+  reading_switch "$@" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
     | ago \
@@ -137,13 +210,31 @@ reading() {
 # args: $1 user name (follower)
 #       $2 another user (followed)
 # resp: silent command (no feedback)
-following_api() {
+following_full() {
+  # using backend
   curl -s --location --request PUT "${API_BASE_URL}following?user=$1" \
     --header 'Content-Type: text/plain' \
     --data-raw "$2"
 }
+following_mono() {
+  pushd "$MONO_PATH" > /dev/null
+    # if missing, write <user name>.follows file
+    # user wall contains zir own posts, thus add user to file
+    local follows="$1.follows"
+    [[ -f "$follows" ]] || echo "$1" > "$follows"
+    # if missing, append followed user to <user name>.follows file
+    # user names not checked: assuming sunny day scenario :)
+    grep -qxF "$2" "$follows" || echo "$2" >> "$follows"
+  popd > /dev/null
+}
+following_switch() {
+  case "$MODE" in
+    full) following_full "$@";;
+    mono) following_mono "$@";;
+  esac
+}
 following() {
-  following_api "$@" >/dev/null
+  following_switch "$@" >/dev/null
 }
 
 ### WALL COMMAND ###
@@ -151,13 +242,30 @@ following() {
 # info: read messages from user timeline and subscriptions
 # args: $1 user name
 # resp: messages, from the most recent to the oldest, in the format:
-#       <user> - <message> (<n> <seconds|minutes|hours> ago)
-wall_api() {
+#       <user name> - <message> (<n> <seconds|minutes|hours> ago)
+wall_full() {
+  # using backend
   curl -s --location --request GET "${API_BASE_URL}wall?user=$1"
+}
+wall_mono() {
+  pushd "$MONO_PATH" > /dev/null
+    # loop <user name>.follows lines: they are followed users
+    local follows="$1.follows"
+    while read -r line
+    do
+      reading_mono "$line"
+    done < "$follows"
+  popd > /dev/null
+}
+wall_switch() {
+  case "$MODE" in
+    full) wall_full "$@";;
+    mono) wall_mono "$@";;
+  esac
 }
 wall() {
   now
-  wall_api "$@" \
+  wall_switch "$@" \
     | jq '. |= sort_by(.time) | reverse' \
     | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' \
     | ago \
@@ -194,6 +302,8 @@ kata () {
   case $1 in
     # normal execution
     "")
+      # make standalone directory if needed
+        [ "$MODE" = mono ] && mkdir -p .mono
       # loop until 'exit' command
       while read -r -e -p "$PREFIX" command
       do
@@ -231,8 +341,9 @@ kata () {
       set -o noglob
       # count commands
       commands=$(wc -l < "$file")
-        # loop demo file lines
-        while read -r line; do
+        # loop demo file lines: they are the commands
+        while read -r line
+        do
           echo "${PREFIX}$line"
           username $line
           sleep $((RANDOM % 2 + 1))
@@ -251,12 +362,31 @@ kata () {
 ################################
 ### ENTRY POINT IS DOWN HERE ###
 ################################
-# exit if missing api base url
-if [ -z "$API_BASE_URL" ]
-then 
-  echo "${PREFIX}missing environment variable: API_BASE_URL" >&2
+# check variables
+if [ -z "$MODE" ]
+then
+  echo "${PREFIX}missing environment variable: MODE" >&2
   exit 1
 fi
+case "$MODE" in
+  "full")
+    if [ -z "$API_BASE_URL" ]
+    then
+      echo "${PREFIX}missing environment variable: API_BASE_URL" >&2
+      exit 1
+    fi
+  ;;
+  "mono")
+    if [ -z "$MONO_PATH" ]
+    then
+      echo "${PREFIX}missing environment variable: MONO_PATH" >&2
+      exit 1
+    fi
+    ;;
+  *)
+    echo "${PREFIX}unrecognized mode: $MODE" >&2
+    exit 1;;
+esac
 # move to script directory
 pushd "$(dirname "$0")" > /dev/null
   # execute main cli function
