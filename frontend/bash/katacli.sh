@@ -136,6 +136,9 @@ ago() {
   done
 }
 
+# jq filter to transform
+JQ_FILTER='. |= sort_by(.time) | reverse | .[] | .user + " - " + .post + " (" + .time + ")"'
+
 ### POSTING COMMAND ###
 # cmd:  <user name> -> <message>
 # info: posts message to user timeline
@@ -236,7 +239,7 @@ reading_switch() {
 }
 reading() {
   now
-  reading_switch "$@" | jq '. |= sort_by(.time) | reverse' | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' | ago | cli
+  reading_switch "$@" | jq --raw-output "$JQ_FILTER" | ago | cli
 }
 
 ### FOLLOWING COMMAND ###
@@ -306,7 +309,7 @@ wall_switch() {
 wall() {
   case $4 in
     "") now
-        wall_switch "$@" | jq '. |= sort_by(.time) | reverse' | jq --raw-output '.[] | .user + " - " + .post + " (" + .time + ")"' | ago | cli;;
+        wall_switch "$@" | jq --raw-output "$JQ_FILTER" | ago | cli;;
     * ) unrecognized "$4";;
   esac
 }
