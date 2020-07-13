@@ -14,9 +14,16 @@ To spin up the services and run the CLI:
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
 
-It may take a while the first time, since it has to download several dependencies...
+The first run may take a few minutes...
+meanwhile you can have a look at:
+- [Architecture](#architecture)
+- [CLI](#cli)
+- [Services](#services)
+- [Tests](#tests)
+- [Example](#example)
 
-When the CLI is ready you can type `help` to display available commands. Enjoy!
+When the CLI is ready you can type `help` to display available commands.
+**Enjoy!**
 
 ---
 
@@ -43,7 +50,7 @@ Available modes are:
 - **`mono`** - user data is managed by the CLI itself, using the file system
 
 ### CLI help
-You can type `help` in the CLI in order to display following help:
+You can type `help` in the CLI in order to display following output:
 ```
 kata commands:
   <user name> -> <message>           -> post message to user timeline
@@ -150,6 +157,18 @@ The database is managed using [pgAdmin](https://www.pgadmin.org/).
 **Servers > pgkata > Databases > kata > Schemas > public > Tables**
 
 ---
+
+## Tests
+
+- Have a look to [these examples](/backend/java/src/test/java/it/mamosk/kata/apisocial)
+  of simple _unit tests_.
+- Import [this collection](/postman/kata.postman_collection.json)
+  in [Postman](https://www.postman.com/)
+  to run _functional_ and _integration_ tests.
+
+---
+
+## Example
 
 This is the output of a `demo` run:
 ```
