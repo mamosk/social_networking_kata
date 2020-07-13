@@ -123,7 +123,6 @@
             "6bdb8d1a.c1e044",
             "e2565e4f.2380a",
             "5253702d.8bf6e",
-            "a7ff2007.fd2b5",
             "310c5310.9cb4ec"
         ],
         "x": 234,
@@ -852,8 +851,8 @@
         "joiner": "\\n",
         "joinerType": "str",
         "accumulate": false,
-        "timeout": "",
-        "count": "3",
+        "timeout": "1",
+        "count": "",
         "reduceRight": false,
         "reduceExp": "",
         "reduceInit": "",
@@ -1080,8 +1079,8 @@
         "y": 360,
         "wires": [
             [
-                "a7ff2007.fd2b5",
-                "310c5310.9cb4ec"
+                "310c5310.9cb4ec",
+                "2c52d2c9.9d858e"
             ]
         ]
     },
@@ -1135,30 +1134,6 @@
         "wires": [
             [
                 "dc306ea2.4c4c7"
-            ]
-        ]
-    },
-    {
-        "id": "a7ff2007.fd2b5",
-        "type": "delay",
-        "z": "test",
-        "g": "cb13dcf5.e8e1c",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 540,
-        "y": 420,
-        "wires": [
-            [
-                "2c52d2c9.9d858e"
             ]
         ]
     },
@@ -1221,6 +1196,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
+        "payloadType": "str",
         "x": 370,
         "y": 780,
         "wires": [
