@@ -41,7 +41,7 @@ You can edit the _CLI mode_,
 it's the last line of the [/frontend/.env](/frontend/.env) file.
 Available modes are:
 - **`full`** - user data is managed by [services](#services)
-- **`mono`** - user data is managed by the CLI itself, using its file system
+- **`mono`** - user data is managed by the CLI itself, using the file system
 
 ### CLI help
 You can type `help` in the CLI in order to display following help:
