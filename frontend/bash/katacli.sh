@@ -208,6 +208,7 @@ kata () {
         esac
       done
       ;;
+    # unrecognized command
     *)
       unrecognized "$1"
       ;;
