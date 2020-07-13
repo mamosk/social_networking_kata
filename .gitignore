@@ -1,3 +1,8 @@
+### CLI ###
+
+# file system path to persist timelines and followers in 'mono' mode
+.mono
+
 # Created by https://www.toptal.com/developers/gitignore/api/macos,linux,windows,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,linux,windows,visualstudiocode
 
