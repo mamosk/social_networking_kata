@@ -210,7 +210,7 @@ The database is managed using [pgAdmin](https://www.pgadmin.org/).
 
 ## Tests
 
-- Have a look to [these examples](/backend/java/src/test/java/it/mamosk/kata/apisocial)
+- Take a look at [these examples](/backend/java/src/test/java/it/mamosk/kata/apisocial)
   of simple _unit tests_.
 - Import [this collection](/backend/postman/kata.postman_collection.json)
   in [Postman](https://www.postman.com/)
