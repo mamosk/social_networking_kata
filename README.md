@@ -6,7 +6,7 @@ This is an implementation of [the social networking kata](https://github.com/xpe
 
 ## Get started
 
-This runs in two modes:
+This kata runs in two modes:
 - [**mono**](#mono-mode) is the _quick as a snake, quiet as a shadow_ way:
   - a single script does everything
   - data is managed directly on the file system
