@@ -6,7 +6,7 @@ This is an implementation of [the social networking kata](https://github.com/xpe
 
 ## Get started
 
-This kata can be run in two ways:
+This runs in two modes:
 - [**mono**](#mono-mode) is the _quick as a snake, quiet as a shadow_ way:
   - a single script does everything
   - data is managed directly on the file system
@@ -38,7 +38,7 @@ To spin up the services in **full** mode:
 
 1. make sure you have [Docker](https://docs.docker.com/get-docker/) 1.12.0 or higher
 1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
-   - on **Windows** you'll have to [changle the end of line sequence](https://webstoked.com/vs-code-fix-end-of-line-character-is-invalid/#:~:text=Click%20on%20the%20CRLF%20button,see%20in%20the%20second%20step.&text=Click%20on%20LF%20at%20the,That's%20it!)
+   - on **Windows** you'll have to [change the end of line sequence](https://webstoked.com/vs-code-fix-end-of-line-character-is-invalid/#:~:text=Click%20on%20the%20CRLF%20button,see%20in%20the%20second%20step.&text=Click%20on%20LF%20at%20the,That's%20it!)
      from `CRLF` to `LF` in following files:
      - [/frontend/bash/katacli.sh](/frontend/bash/katacli.sh)
      - [/frontend/bash/demo/kata.demo](/frontend/bash/demo/kata.demo)
