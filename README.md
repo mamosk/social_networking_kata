@@ -42,9 +42,11 @@ To spin up the services in **full** mode:
      from `CRLF` to `LF` in following files:
      - [/frontend/bash/katacli.sh](/frontend/bash/katacli.sh)
      - [/frontend/bash/demo/kata.demo](/frontend/bash/demo/kata.demo)
-1. run the `kata` command[\*](#full-mode-fail) (adding `demo` to run a _non-interactive_ session):
+1. run the `kata` command (adding `demo` to run a _non-interactive_ session):
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
+
+If a **full** mode run fails, please try again as it may be due to [this](https://github.com/mamosk/social-network-kata/issues/5).
 
 The first run may take a few minutes...
 meanwhile you can have a look at:
@@ -213,10 +215,6 @@ The database is managed using [pgAdmin](https://www.pgadmin.org/).
 - Import [this collection](/backend/postman/kata.postman_collection.json)
   in [Postman](https://www.postman.com/)
   to run _functional_ and _integration_ tests.
-
----
-##### Full mode fail
-If a **full** mode run fails, please try again as it may be due to [this](https://github.com/mamosk/social-network-kata/issues/5).
 
 ---
 Made with ❤️ by [Fabio Michelini](https://www.linkedin.com/in/fabio-michelini/)
