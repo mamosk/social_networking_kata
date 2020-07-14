@@ -72,10 +72,47 @@ varcheck() {
   esac
 }
 
+# connection timeout
+CURL_TIMEOUT=1.0
+
+### CHECK API AVAILABLE ###
+apicheck() {
+  if [ "$MODE" = "full" ]
+  then
+    local ok=false
+    local i=0
+    local max=10 # retry max 10 times
+    until $ok || [ $i -ge $max ]
+    do
+      if curl -s --connect-timeout "$CURL_TIMEOUT" --location --request GET "${API_BASE_URL}reading?user=dummy" > /dev/null
+      then
+        ok=true
+        break
+      else
+        ok=false
+        i=$((i+1))
+      fi
+      if [ $ok = false ]
+      then
+        echo "${PREFIX}services unavaliable ($i/$max), please wait..."
+        sleep "$CURL_TIMEOUT"
+      else
+        break
+      fi
+    done
+    if [ $ok = false ]
+    then
+      echo "${PREFIX}services unavaliable"
+      exit 1
+    fi
+  fi
+}
+
 ### ALL-REQUIREMENTS CHECK ###
 reqcheck() {
   depcheck # check dependencies
   varcheck # check environment variables
+  apicheck # check api available
 }
 
 #############
@@ -153,7 +190,7 @@ JQ_FILTER='. | flatten | sort_by(.time) | reverse | .[] | .user + " - " + .post 
 # resp: silent command (no feedback)
 posting_full() {
   # using backend
-  curl -s --location --request POST "${API_BASE_URL}posting?user=$1"\
+  curl -s --max-time "$CURL_TIMEOUT" --location --request POST "${API_BASE_URL}posting?user=$1"\
     --header 'Content-Type: text/plain' \
     --data-raw "${*:3}"
 }
@@ -185,7 +222,7 @@ posting() {
 #       <user name> - <message> (<n> <seconds|minutes|hours> ago)
 reading_full() {
   # using backend
-  curl -s --location --request GET "${API_BASE_URL}reading?user=$1"
+  curl -s --max-time "$CURL_TIMEOUT" --location --request GET "${API_BASE_URL}reading?user=$1"
 }
 reading_mono() {
   # without backend
@@ -255,7 +292,7 @@ reading() {
 # resp: silent command (no feedback)
 following_full() {
   # using backend
-  curl -s --location --request PUT "${API_BASE_URL}following?user=$1" \
+  curl -s --max-time "$CURL_TIMEOUT" --location --request PUT "${API_BASE_URL}following?user=$1" \
     --header 'Content-Type: text/plain' \
     --data-raw "$3"
 }
@@ -292,7 +329,7 @@ following() {
 #       <user name> - <message> (<n> <seconds|minutes|hours> ago)
 wall_full() {
   # using backend
-  curl -s --location --request GET "${API_BASE_URL}wall?user=$1"
+  curl -s --max-time "$CURL_TIMEOUT" --location --request GET "${API_BASE_URL}wall?user=$1"
 }
 wall_mono() {
   # without backend
@@ -376,7 +413,7 @@ EOF
 
 ### KATA COMMAND ###
 kata() {
-  curl -s "https://raw.githubusercontent.com/xpeppers/social_networking_kata/master/README.md" | pandoc | lynx -stdin
+  curl -s --max-time "$CURL_TIMEOUT" "https://raw.githubusercontent.com/xpeppers/social_networking_kata/master/README.md" | pandoc | lynx -stdin
 }
 
 ### MODE COMMAND ###
