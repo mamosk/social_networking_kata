@@ -23,7 +23,11 @@ When the [CLI](#cli) is ready you can type `help` to display available commands.
 
 To execute the script in **mono** mode:
 
-1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository),
+1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+   - on **Windows** you'll have to [changle the end of line sequence](https://webstoked.com/vs-code-fix-end-of-line-character-is-invalid/#:~:text=Click%20on%20the%20CRLF%20button,see%20in%20the%20second%20step.&text=Click%20on%20LF%20at%20the,That's%20it!)
+     from `CRLF` to `LF` in following files:
+     - [/frontend/bash/katacli.sh](/frontend/bash/katacli.sh)
+     - [/frontend/bash/demo/kata.demo](/frontend/bash/demo/kata.demo)
 1. run the `kataq` command (adding `demo` to run a _non-interactive_ session):
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kataq.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kataq.sh [demo]`
@@ -32,8 +36,12 @@ To execute the script in **mono** mode:
 
 To spin up the services in **full** mode:
 
-1. make sure you have [Docker](https://docs.docker.com/get-docker/) 1.12.0 or higher,
-1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository),
+1. make sure you have [Docker](https://docs.docker.com/get-docker/) 1.12.0 or higher
+1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+   - on **Windows** you'll have to [changle the end of line sequence](https://webstoked.com/vs-code-fix-end-of-line-character-is-invalid/#:~:text=Click%20on%20the%20CRLF%20button,see%20in%20the%20second%20step.&text=Click%20on%20LF%20at%20the,That's%20it!)
+     from `CRLF` to `LF` in following files:
+     - [/frontend/bash/katacli.sh](/frontend/bash/katacli.sh)
+     - [/frontend/bash/demo/kata.demo](/frontend/bash/demo/kata.demo)
 1. run the `kata` command (adding `demo` to run a _non-interactive_ session):
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
