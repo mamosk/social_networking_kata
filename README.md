@@ -6,11 +6,35 @@ This is an implementation of [the social networking kata](https://github.com/xpe
 
 ## Get started
 
-To spin up the services and run the CLI:
+This kata can be run in two ways:
+- [**mono**](#mono-mode) is the _quick as a snake, quiet as a shadow_ way:
+  - a single script does everything
+  - data is managed directrly on the file system
+- [**full**](#full-mode) is the _calm like a giant tree in a storm_ way:
+  - some services work together to get the things done
+  - data is managed in distinct locations:
+    - _timelines_ in a time-series database
+    - _followers_ in a relational database
+
+When the [CLI](#cli) is ready you can type `help` to display available commands.
+**Enjoy!**
+
+### Mono mode
+
+To execute the script in **mono** mode:
+
+1. run the `kataq` command (adding `demo` to run a _non-interactive_ session):
+   - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kataq.cmd [demo]`
+   - on **Linux**: `/path/to/the/repo/kataq.sh [demo]`
+1. that's it!
+
+### Full mode
+
+To spin up the services in **full** mode:
 
 1. make sure you have [Docker](https://docs.docker.com/get-docker/) 1.12.0 or higher,
-5. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) if needed,
-3. run the `kata` script (adding `demo` to run a _non-interactive_ session):
+1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) if needed,
+1. run the `kata` command (adding `demo` to run a _non-interactive_ session):
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
 
@@ -22,34 +46,12 @@ meanwhile you can have a look at:
 - [Tests](#tests)
 - [Example](#example)
 
-When the CLI is ready you can type `help` to display available commands.
-**Enjoy!**
-
 ---
-
-## Architecture
->```
->                         Timelines API ---- Timelines DB ---- Timelines DB admin
->                       /
->                      /
->CLI ---- API gateway <
->                      \
->                       \
->                         Followers API ---- Followers DB ---- Timelines DB admin
->```
 
 ## CLI
 
 The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the [API gateway](#api-gateway).
 
-### CLI mode
-You can edit the _CLI mode_,
-it's the last line of the [/frontend/.env](/frontend/.env) file.
-Available modes are:
-- **`full`** - user data is managed by [services](#services)
-- **`mono`** - user data is managed by the CLI itself, using the file system
-
-### CLI help
 If you type `help` in the CLI you'll see this:
 ```
 kata commands:
@@ -68,6 +70,19 @@ utility commands:
 
 kata readme: https://github.com/xpeppers/social_networking_kata
 ```
+
+---
+
+## Architecture
+>```
+>                         Timelines API ---- Timelines DB ---- Timelines DB admin
+>                       /
+>                      /
+>CLI ---- API gateway <
+>                      \
+>                       \
+>                         Followers API ---- Followers DB ---- Timelines DB admin
+>```
 
 ---
 
