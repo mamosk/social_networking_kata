@@ -9,11 +9,11 @@ This is an implementation of [the social networking kata](https://github.com/xpe
 This kata can be run in two ways:
 - [**mono**](#mono-mode) is the _quick as a snake, quiet as a shadow_ way:
   - a single script does everything
-  - data is managed directrly on the file system
+  - data is managed directly on the file system
 - [**full**](#full-mode) is the _calm like a giant tree in a storm_ way:
   - some services work together to get the things done
   - data is managed in distinct locations:
-    - _timelines_ in a time-series database
+    - _timelines_ in a time series database
     - _followers_ in a relational database
 
 When the [CLI](#cli) is ready you can type `help` to display available commands.
@@ -23,17 +23,17 @@ When the [CLI](#cli) is ready you can type `help` to display available commands.
 
 To execute the script in **mono** mode:
 
+1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository),
 1. run the `kataq` command (adding `demo` to run a _non-interactive_ session):
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kataq.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kataq.sh [demo]`
-1. that's it!
 
 ### Full mode
 
 To spin up the services in **full** mode:
 
 1. make sure you have [Docker](https://docs.docker.com/get-docker/) 1.12.0 or higher,
-1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) if needed,
+1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository),
 1. run the `kata` command (adding `demo` to run a _non-interactive_ session):
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
@@ -41,7 +41,6 @@ To spin up the services in **full** mode:
 The first run may take a few minutes...
 meanwhile you can have a look at:
 - [Architecture](#architecture)
-- [CLI](#cli)
 - [Services](#services)
 - [Tests](#tests)
 - [Example](#example)
@@ -50,7 +49,7 @@ meanwhile you can have a look at:
 
 ## CLI
 
-The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the [API gateway](#api-gateway).
+The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the [API gateway](#api-gateway) when running in [full mode](#full-mode).
 
 If you type `help` in the CLI you'll see this:
 ```
@@ -69,6 +68,29 @@ utility commands:
           - 'mono' mode: handling user data using the file system
 
 kata readme: https://github.com/xpeppers/social_networking_kata
+```
+
+This is the output of a **demo** run:
+```
+> Alice -> I love the weather today
+> Bob -> Damn! We lost!
+> Bob -> Good game though.
+> Alice
+> Alice - I love the weather today (5 seconds ago)
+> Bob
+> Bob - Good game though. (4 seconds ago)
+> Bob - Damn! We lost! (6 seconds ago)
+> Charlie -> I'm in New York today! Anyone wants to have a coffee?
+> Charlie follows Alice
+> Charlie wall
+> Charlie - I'm in New York today! Anyone wants to have a coffee? (4 seconds ago)
+> Alice - I love the weather today (14 seconds ago)
+> Charlie follows Bob
+> Charlie wall
+> Charlie - I'm in New York today! Anyone wants to have a coffee? (7 seconds ago)
+> Bob - Good game though. (14 seconds ago)
+> Bob - Damn! We lost! (16 seconds ago)
+> Alice - I love the weather today (17 seconds ago)
 ```
 
 ---
@@ -130,7 +152,7 @@ Users timelines are written (_posting_ kata) and read (_reading_ and _wall_ kata
 Exposed endpoints are:
 - _reading_/_wall_
   **GET** http://localhost:11888/api/v1/reading?users=Alice,Bob,Charlie
-  > Only last 50 posts within last week are returned for each user
+  > Only last 50 posts within last week are returned for each user.
 - _posting_
   **POST** http://localhost:11888/api/v1/posting
   `{"user":"Alice","text":"Hi!"}`
@@ -142,7 +164,9 @@ Exposed endpoints are:
 Users posts are stored into a _time serie_ using [InfluxDB](https://www.influxdata.com/products/influxDB-overview/), with `infinite` _retention policy_ and `1s` _precision_.
 
 #### Timelines DB admin
-The _time serie_ database server is managed using [Chronograf](https://www.influxdata.com/time-series-platform/chronograf/). You can query the timelines [here](http://localhost:18888/sources/0/chronograf/data-explorer?query=SELECT%20%22post%22%20FROM%20%22kata%22.%22autogen%22.%22timeline%22%20WHERE%20time%20%3E%3D%20now%28%29%20-%207d%20GROUP%20BY%20%22user%22).
+The _time series_ database server is managed using [Chronograf](https://www.influxdata.com/time-series-platform/chronograf/).
+You can query the timelines [here](http://localhost:18888/sources/0/chronograf/data-explorer?query=SELECT%20%22post%22%20FROM%20%22kata%22.%22autogen%22.%22timeline%22%20WHERE%20time%20%3E%3D%20now%28%29%20-%207d%20GROUP%20BY%20%22user%22).
+
 All different timelines are stored into the same `timeline` _measurement_, indexed by the `user` _tag_.
 
 ### Followers
@@ -164,6 +188,7 @@ Exposed endpoints are (more than necessary, for test purposes):
 
 #### Followers DB
 The information about "who-follows-who" is stored into a [PostgreSQL](https://www.postgresql.org/) relational database.
+
 The **user** entity "follows" other **user** entities in an _unidirectional many-to-many_ relationship.
 
 #### Followers DB admin
@@ -180,35 +205,6 @@ The database is managed using [pgAdmin](https://www.pgadmin.org/).
 - Import [this collection](/backend/postman/kata.postman_collection.json)
   in [Postman](https://www.postman.com/)
   to run _functional_ and _integration_ tests.
-
----
-
-## Example
-
-This is the output of a `demo` run:
-```
-> Alice -> I love the weather today
-> Bob -> Damn! We lost!
-> Bob -> Good game though.
-> Alice
-> Alice - I love the weather today (5 seconds ago)
-> Bob
-> Bob - Good game though. (4 seconds ago)
-> Bob - Damn! We lost! (6 seconds ago)
-> Charlie -> I'm in New York today! Anyone wants to have a coffee?
-> Charlie follows Alice
-> Charlie wall
-> Charlie - I'm in New York today! Anyone wants to have a coffee? (4 seconds ago)
-> Bob - Good game though. (11 seconds ago)
-> Bob - Damn! We lost! (13 seconds ago)
-> Alice - I love the weather today (14 seconds ago)
-> Charlie follows Bob
-> Charlie wall
-> Charlie - I'm in New York today! Anyone wants to have a coffee? (7 seconds ago)
-> Bob - Good game though. (14 seconds ago)
-> Bob - Damn! We lost! (16 seconds ago)
-> Alice - I love the weather today (17 seconds ago)
-```
 
 ---
 Made with ❤️ by [Fabio Michelini](https://www.linkedin.com/in/fabio-michelini/)
