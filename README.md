@@ -162,7 +162,7 @@ The database is managed using [pgAdmin](https://www.pgadmin.org/).
 
 - Have a look to [these examples](/backend/java/src/test/java/it/mamosk/kata/apisocial)
   of simple _unit tests_.
-- Import [this collection](/postman/kata.postman_collection.json)
+- Import [this collection](/backend/postman/kata.postman_collection.json)
   in [Postman](https://www.postman.com/)
   to run _functional_ and _integration_ tests.
 
