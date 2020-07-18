@@ -13,8 +13,8 @@ This kata runs in two modes:
 - [**full**](#full-mode) is the _calm like a giant tree in a storm_ way:
   - some services work together to get the things done
   - data is managed in distinct locations:
-    - _timelines_ in a time series database
-    - _followers_ in a relational database
+    - _timelines_ in a [time series database](https://en.wikipedia.org/wiki/Time_series_database)
+    - _followers_ in an [object database](https://en.wikipedia.org/wiki/Object_database)
 
 When the [CLI](#cli) is ready you can type `help` to display available commands.
 **Enjoy!**
@@ -197,7 +197,7 @@ Exposed endpoints are (more than necessary, for test purposes):
   **GET** http://localhost:18080/api/v1/users
 
 #### Followers DB
-The information about "who-follows-who" is stored into a [PostgreSQL](https://www.postgresql.org/) relational database.
+The information about "who-follows-who" is stored into a [PostgreSQL](https://www.postgresql.org/) database.
 
 The **user** entity "follows" other **user** entities in an _unidirectional many-to-many_ relationship.
 
