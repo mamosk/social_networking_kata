@@ -46,6 +46,10 @@ To spin up the services in **full** mode:
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
 
+When the [CLI](#cli) is ready you can open `kata.html` in a **recent browser** to inspect services.
+
+#### First run
+
 If a **full** mode run fails, please try again as it may be due to [this](https://github.com/mamosk/social-network-kata/issues/5).
 
 The first run may take a few minutes...
