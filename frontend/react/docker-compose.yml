@@ -1,0 +1,57 @@
+version: "2.1"
+
+##############################
+### default configurations ###
+##############################
+
+# docker logging
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: 5m
+
+# containers restart policy
+x-restart: &restart-policy on-failure
+
+# aliases for hosts in docker networks
+x-networks:
+  api-network:
+    - &react
+      aliases:
+        - react
+
+##########################
+### segmented networks ###
+##########################
+networks:
+  # network for backend api access
+  gateway_api_network:
+
+###############################
+### docker-compose services ###
+###############################
+services:
+  # react service
+  react:
+    image: mamosk/node-react:${NODE_VERSION:-14.5.0-alpine}
+    container_name: ${KATA}_react
+    restart: *restart-policy
+    build:
+      # TODO context: ./react
+      context: ./
+      args:
+        - NODE_VERSION=${NODE_VERSION:-14.5.0-alpine}
+    env_file: .env
+    stdin_open: true # keep listening
+    logging: *logging
+    volumes:
+      # app mounted as volume
+      # TODO ./react:/kata
+      - ./:/kata
+      # node_modules anonymous volume
+      # (would not be overwritten by the mounting of the host directory at runtime)
+      - /kata/node_modules
+    networks:
+      gateway_api_network: *react
+    ports:
+      - 13000:3000
