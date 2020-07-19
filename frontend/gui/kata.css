@@ -1,0 +1,112 @@
+body,
+    html {
+      height: 100%;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 22px;
+      text-align: center;
+      color: #66757f;
+      background-color: #141616;
+      overflow: hidden;
+    }
+
+    /* YELLOW STUFF */
+    .yellow {
+      color: #ffdc5d;
+    }
+
+    /* GRID CONTAINER */
+    .container {
+      height: 100%;
+      display: grid;
+      grid-column-gap: 50px;
+      grid-template-columns: auto repeat(5, 200px) auto;
+      grid-template-rows: auto 1fr repeat(5, 60px) auto 0px;
+      grid-auto-flow: row;
+    }
+
+    .item {
+      grid-row-start: 2;
+      text-align: center;
+    }
+
+    /* TITLE */
+    .item-title {
+      grid-column: 1 / 8;
+      grid-row: 1;
+    }
+
+    .title {
+      font-family: 'Knewave', cursive;
+      font-size: 555%;
+    }
+
+    /* FOOTER LOVE */
+    .item-footer {
+      position: fixed;
+      padding: 10px;
+      bottom: 0;
+      left: 0;
+    }
+
+    .heart {
+      font-size: 120%;
+    }
+
+    .mamosk {
+      transition: 300ms;
+    }
+
+    .mamosk:hover {
+      color: #ffdc5d;
+    }
+
+    /* FOOTER NINJA */
+    .logo {
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+    }
+
+    .logo img {
+      align-self: flex-end;
+      max-height: 230px;
+      width: auto;
+      height: auto;
+    }
+
+    /* FONT AWESOME STACK */
+    .fa-stack {
+      color: #292f33;
+    }
+
+    /* LINKS */
+    a:link {
+      color: #66757f;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: #66757f;
+      text-decoration: none;
+    }
+
+    .link {
+      display: inline-block;
+      font-style: italic;
+    }
+
+    .link::after {
+      content: '';
+      width: 0px;
+      height: 2px;
+      display: block;
+      background: #ffdc5d;
+      transition: 300ms;
+    }
+
+    .link:hover::after {
+      width: 100%;
+    }
+    
