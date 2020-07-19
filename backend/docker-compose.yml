@@ -15,7 +15,7 @@ x-restart: &restart-policy on-failure
 
 # aliases for hosts in docker networks
 x-networks:
-  api-netwok:
+  api-network:
     - &gateway
       aliases:
         - gateway
