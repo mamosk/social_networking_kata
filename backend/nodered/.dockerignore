@@ -1,3 +1,7 @@
-# do not load volume to context
-gateway/
-timelines/
+# ignore everything
+**
+# do not ignore package files
+!gateway/package*.json
+!timelines/package*.json
+# do not ignore healthceck file
+!healthcheck.js

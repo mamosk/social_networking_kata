@@ -1,5 +1,4 @@
 ARG NODERED_VERSION
-ARG KATA_PATH_FLOWS_HOST
 FROM nodered/node-red:${NODERED_VERSION:-1.1.2}
 LABEL maintainer="fabio.michelini@gmail.com"
 
@@ -11,7 +10,10 @@ RUN mkdir -p ${KATA_PATH_FLOWS} && \
 USER node-red
 
 # install flows dependencies
-COPY ${KATA_PATH_FLOWS_HOST}/package.json ${KATA_PATH_FLOWS_HOST}/package-lock.json ${KATA_PATH_FLOWS}/
+ARG KATA_PATH_FLOWS_HOST
+# COPY "${KATA_PATH_FLOWS_HOST}/package.json" "${KATA_PATH_FLOWS_HOST}/package-lock.json" "${KATA_PATH_FLOWS}"/
+# COPY "${KATA_PATH_FLOWS_HOST}"/ "${KATA_PATH_FLOWS}"/
+COPY "${KATA_PATH_FLOWS_HOST}"/package*.json "${KATA_PATH_FLOWS}"/
 RUN npm i \
     --unsafe-perm \
     --no-update-notifier \

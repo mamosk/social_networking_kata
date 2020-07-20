@@ -38,7 +38,6 @@ x-networks:
 
 # node-red is used for two services
 x-nodered:
-  image: &nodered-image mamosk/nodered:${NODERED_VERSION:-1.1.2}
   build: &nodered-build
     context: ./nodered
     args:
@@ -63,14 +62,14 @@ networks:
 services:
   # api gateway service
   api_gateway:
-    image: *nodered-image
+    image: mamosk/nodered-gateway:${NODERED_VERSION:-1.1.2}
     container_name: ${KATA}_nodered_gateway
     restart: *restart-policy
     build:
       <<: *nodered-build
       args:
         - *nodered-version
-        - KATA_PATH_FLOWS_HOST:./nodered/timelines
+        - KATA_PATH_FLOWS_HOST=./timelines
     env_file: .env
     environment:
       - TIMELINES_API=http://timelines:1881/api/v1/
@@ -91,14 +90,14 @@ services:
 
   # timelines api service
   timelines_api:
-    image: *nodered-image
+    image: mamosk/nodered-timelines:${NODERED_VERSION:-1.1.2}
     container_name: ${KATA}_nodered_timelines
     restart: *restart-policy
     build:
       <<: *nodered-build
       args:
         - *nodered-version
-        - KATA_PATH_FLOWS_HOST:./nodered/timelines
+        - KATA_PATH_FLOWS_HOST=./timelines
     env_file: .env
     environment:
       - INFLUXDB_HOST=db
