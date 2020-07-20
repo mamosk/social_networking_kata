@@ -2,6 +2,24 @@ Social Networking Kata
 ======================
 This is an implementation of [the social networking kata](https://github.com/xpeppers/social_networking_kata) proposed by [_Xpeppers_](https://www.xpeppers.com/en/) team.
 
+This kata is implemented using:
+- [Docker](https://www.docker.com/)
+- [PostgreSQL](https://www.postgresql.org/) 
+- [InfluxDB](https://www.influxdata.com/products/influxDB-overview/)
+- [Bash](https://www.gnu.org/software/bash/)
+  - [curl](https://curl.haxx.se/)
+  - [jq](https://stedolan.github.io/jq/)
+- [HTML](https://www.w3.org/html/) + [CSS](https://www.w3.org/Style/CSS/)
+- [JavaScript](https://www.ecma-international.org/publications/standards/Ecma-262.htm)
+  - [React](https://reactjs.org/)
+  - [Node-RED](https://nodered.org/)
+    - [JSONata](https://jsonata.org/)
+- [Java](https://www.java.com/)
+  - [Lombok](https://projectlombok.org/)
+  - [Spring Boot](https://spring.io/projects/spring-boot)
+  - [JPA](https://spring.io/projects/spring-data-jpa)
+    - [Hibernate](http://hibernate.org/)
+
 ---
 
 ## Get started
@@ -70,6 +88,10 @@ meanwhile you can have a look at:
 ---
 
 ## Frontend
+
+Frontend _user interfaces_ include:
+- a [CLI](#cli) as required by the kata
+- a [Web UI](#web-ui) to inspect [services](#backend)
 
 ### CLI
 
@@ -195,7 +217,7 @@ All different timelines are stored into the same `timeline` _measurement_, index
 ### Followers
 
 #### Followers API
-The information about "who-follows-who" is written (_following_ kata) and read (_wall_ kata) using a [Spring Boot](https://spring.io/projects/spring-boot) application with [Hibernate](https://hibernate.org/) and [JPA](https://spring.io/projects/spring-data-jpa)-based data repository access.
+The information about "who-follows-who" is written (_following_ kata) and read (_wall_ kata) using a [Spring Boot](https://spring.io/projects/spring-boot) application with [Lombok](https://projectlombok.org/) and [JPA](https://spring.io/projects/spring-data-jpa).
 
 Exposed endpoints are (more than necessary, for test purposes):
 - _posting_
