@@ -9,27 +9,9 @@ IF %ERRORLEVEL% NEQ 0 ECHO Error: docker-compose is not installed. Get it at bit
 PUSHD %~dp0
   TYPE ascii\intro.art
   TIMEOUT 3 >nul
-  PUSHD backend
-    ECHO.
-    ECHO "Building services, please wait..."
-    TIMEOUT 1 >nul
-    docker-compose up -d --build --force-recreate
-    ECHO.
-    ECHO "Initializing services, please wait..."
-    TIMEOUT 3 >nul
-    docker-compose ps
-  POPD
-  PUSHD frontend
-    ECHO.
-    ECHO "Building cli, please wait..."
-    TIMEOUT 1 >nul
-    docker-compose build
-    ECHO.
-    ECHO "Initializing cli, please wait..."
-    docker-compose run --rm cli /kata/cli.sh %*
-  POPD
-  PUSHD backend
-    docker-compose down
-  POPD
+  docker-compose up -d --build --force-recreate
+  docker-compose ps
+  docker-compose exec cli /kata/cli.sh %*
+  docker-compose down -v --rmi all
   TYPE ascii\outro.art
 POPD

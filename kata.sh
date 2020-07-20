@@ -14,27 +14,9 @@ fi
 pushd "$(dirname "$0")" > /dev/null
   cat ascii/intro.art
   sleep 3
-  pushd backend > /dev/null
-    echo
-    echo "Building services, please wait..."
-    sleep 1
-    docker-compose up -d --build --force-recreate
-    echo
-    echo "Initializing services, please wait..."
-    sleep 3
-    docker-compose ps
-  popd > /dev/null
-  pushd frontend > /dev/null
-    echo
-    echo "Building cli, please wait..."
-    sleep 1
-    docker-compose build
-    echo
-    echo "Initializing cli, please wait..."
-    docker-compose run --rm cli /kata/cli.sh "$@"
-  popd > /dev/null
-  pushd backend > /dev/null
-    docker-compose down
-  popd > /dev/null
+  docker-compose up -d --build --force-recreate
+  docker-compose ps
+  docker-compose exec cli /kata/cli.sh "$@"
+  docker-compose down -v --rmi all
   cat ascii/outro.art
 popd > /dev/null

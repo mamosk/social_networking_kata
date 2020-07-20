@@ -46,22 +46,43 @@ To spin up the services in **full** mode:
    - on **Windows**: `%SYSTEMDRIVE%:\path\to\the\repo\kata.cmd [demo]`
    - on **Linux**: `/path/to/the/repo/kata.sh [demo]`
 
-When the [CLI](#cli) is ready you can open `kata.html` in a **recent browser** to inspect services.
-
-#### First run
-
-If a **full** mode run fails, please try again as it may be due to [this](https://github.com/mamosk/social-network-kata/issues/5).
-
 The first run may take a few minutes...
 meanwhile you can have a look at:
 - [Architecture](#architecture)
-- [Services](#services)
+- [Frontend](#frontend)
+- [Backend](#backend)
 - [Tests](#tests)
 - [Example](#example)
 
 ---
 
-## CLI
+## Architecture
+>```
+>                         Timelines API ---- Timelines DB ---- Timelines DB admin
+>                       /               \                    /
+>                      /                 \                  /
+>CLI ---- API gateway <                   >---- Web UI ----<
+>                      \                 /                  \
+>                       \               /                    \
+>                         Followers API ---- Followers DB ---- Timelines DB admin
+>```
+
+---
+
+## Frontend
+
+### Web UI
+
+The _web user interface_ is implemented in
+[HTML](https://www.w3.org/html/),
+[CSS](https://www.w3.org/Style/CSS/) and
+[JavaScript](https://www.ecma-international.org/publications/standards/Ecma-262.htm) using
+[React](https://reactjs.org/).
+
+When the [CLI](#cli) is ready you can open
+the web UI [**here**](http://localhost:13000/).
+
+### CLI
 
 The _command line interface_ is implemented in [Bash](https://www.gnu.org/software/bash/) using [curl](https://curl.haxx.se/) and [jq](https://stedolan.github.io/jq/) to interact with the [API gateway](#api-gateway) when running in [full mode](#full-mode).
 
@@ -109,21 +130,8 @@ This is the output of a **demo** run:
 
 ---
 
-## Architecture
->```
->                         Timelines API ---- Timelines DB ---- Timelines DB admin
->                       /
->                      /
->CLI ---- API gateway <
->                      \
->                       \
->                         Followers API ---- Followers DB ---- Timelines DB admin
->```
-
----
-
-## Services
-Once the services are up and running, you can **[inspect]** them.
+## Backend
+Once the backend services are up and running, you can **[inspect]** them.
 
 You can find the **credentials** in the [/backend/.env](/backend/.env) file.
 
