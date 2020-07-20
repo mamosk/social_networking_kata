@@ -9,3 +9,7 @@
   font-family: 'Knewave', cursive;
   font-size: 555%;
 }
+
+.kata-name {
+  color: var(--theme-color-highlight);
+}

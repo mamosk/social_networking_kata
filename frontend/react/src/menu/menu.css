@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+.slash {
+  color: var(--theme-color-highlight);
+}
+
 .link {
   display: inline-block;
   font-style: italic;

@@ -9,14 +9,13 @@ function App(props) {
   return (
     // App is a css grid container
     <div className="App">
-      <Kata themeColor={props.themeColor} kata="Social Network" />
+      <Kata kata="Social Network" />
       <Dummy />
       {/* <Item
-        themeColor={props.themeColor}
         href="https://github.com/xpeppers/social_networking_kata/blob/master/README.md"
         text="specs"
       /> */}
-      <MadeWithLove themeColor={props.themeColor}/>
+      <MadeWithLove />
       <Ninja />
     </div>
   );
