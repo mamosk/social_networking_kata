@@ -38,11 +38,10 @@ x-networks:
 
 # node-red is used for two services
 x-nodered:
-  image: &nodered-image mamosk/nodered:${NODERED_VERSION:-1.1.2}
   build: &nodered-build
     context: ./nodered
     args:
-      - NODERED_VERSION=${NODERED_VERSION:-1.1.2}
+      - &nodered-version NODERED_VERSION=${NODERED_VERSION:-1.1.2}
 
 ##########################
 ### segmented networks ###
@@ -63,10 +62,14 @@ networks:
 services:
   # api gateway service
   api_gateway:
-    image: *nodered-image
+    image: mamosk/nodered-gateway:${NODERED_VERSION:-1.1.2}
     container_name: ${KATA}_nodered_gateway
     restart: *restart-policy
-    build: *nodered-build
+    build:
+      <<: *nodered-build
+      args:
+        - *nodered-version
+        - KATA_PATH_FLOWS_HOST=./timelines
     env_file: .env
     environment:
       - TIMELINES_API=http://timelines:1881/api/v1/
@@ -77,6 +80,7 @@ services:
     logging: *logging
     volumes:
       - ./nodered/gateway:/kata/flows
+      - /kata/flows/node_modules
     networks:
       gateway_api_network: *gateway
       timelines_api_network: *gateway
@@ -86,10 +90,14 @@ services:
 
   # timelines api service
   timelines_api:
-    image: *nodered-image
+    image: mamosk/nodered-timelines:${NODERED_VERSION:-1.1.2}
     container_name: ${KATA}_nodered_timelines
     restart: *restart-policy
-    build: *nodered-build
+    build:
+      <<: *nodered-build
+      args:
+        - *nodered-version
+        - KATA_PATH_FLOWS_HOST=./timelines
     env_file: .env
     environment:
       - INFLUXDB_HOST=db
@@ -102,6 +110,7 @@ services:
     logging: *logging
     volumes:
       - ./nodered/timelines:/kata/flows
+      - /kata/flows/node_modules
     networks:
       timelines_api_network: *timelines
       timelines_db_network: *api
