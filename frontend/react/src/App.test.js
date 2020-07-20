@@ -2,9 +2,11 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders menu', () => {
   const { getByText } = render(<App />);
-  const links =[/specs/i, /gateway/i, /timelines/i, /followers/i, /code/i, /db/i];
-  links.map((link) => getByText(link))
-    .forEach((linkElement) => expect(linkElement).toBeInTheDocument());
+  expect(getByText(/specs/i)).toBeInTheDocument();
+  expect(getByText(/gateway/i)).toBeInTheDocument();
+  expect(getByText(/timelines/i)).toBeInTheDocument();
+  expect(getByText(/followers/i)).toBeInTheDocument();
+  expect(getByText(/code/i)).toBeInTheDocument();
 });
