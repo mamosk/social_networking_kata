@@ -77,11 +77,11 @@ meanwhile you can have a look at:
 ## Architecture
 >```
 >                         Timelines API ---- Timelines DB ---- Timelines DB admin
->                       /               \                    /
->                      /                 \                  /
->CLI ---- API gateway <                   >---- Web UI ----<
->                      \                 /                  \
->                       \               /                    \
+>                        /              \                    /
+>                       /                \                  /
+>CLI ---- API gateway <                  >---- Web UI ----<
+>                       \                /                  \
+>                        \              /                    \
 >                         Followers API ---- Followers DB ---- Timelines DB admin
 >```
 
