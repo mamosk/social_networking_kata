@@ -3,6 +3,17 @@
   text-align: center;
 }
 
+/* ICON */
+.item-square {
+  border-radius: 20px;
+  background: var(--theme-color-ninja);
+  --side: 80px;
+  width: var(--side);
+  height: var(--side);
+  display: inline-block;
+}
+
+/* TEXT */
 .slash {
   color: var(--theme-color-highlight);
 }
