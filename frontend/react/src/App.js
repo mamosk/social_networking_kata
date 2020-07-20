@@ -6,7 +6,7 @@ import Ninja from './footer/Ninja';
 import './App.css';
 
 const menu = require('./menu/menu').map((item) =>
-<Item icon={item.icon} links={item.links} />
+  <Item icon={item.icon} links={item.links} />
 );
 function App() {
   return (
