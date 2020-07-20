@@ -1,22 +1,25 @@
 import React from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../fontawesome';
 import './menu.css';
 
 const Item = (props) => {
+  const links = props.links.map((link) =>
+    <a href={link.href}>
+      <span class='slash' aria-hidden='true'> /</span>
+      <span class='link'>{link.text}</span>
+    </a>
+  );
   return (
-    <div class="item">
+    <div class='item'>
       <FontAwesomeIcon
-        aria-hidden="true"
-        icon={['fas', 'book']}
-        transform="grow-10"
+        aria-hidden='true'
+        icon={props.icon}
+        transform='grow-10'
         fixedWidth
       />
       <p>
-        <a href={props.href}>
-          <span class="slash" aria-hidden="true">/</span>
-          <span class="link">{props.text}</span>
-        </a>
+        {links}
       </p>
     </div>
   );
