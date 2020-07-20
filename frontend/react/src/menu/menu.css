@@ -1,0 +1,22 @@
+.item {
+  grid-row-start: 2;
+  text-align: center;
+}
+
+.link {
+  display: inline-block;
+  font-style: italic;
+}
+
+.link::after {
+  content: '';
+  width: 0px;
+  height: 2px;
+  display: block;
+  background: var(--theme-color-highlight);
+  transition: 300ms;
+}
+
+.link:hover::after {
+  width: 100%;
+}
