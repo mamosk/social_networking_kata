@@ -3,7 +3,7 @@ import './Ninja.css';
 
 const Ninja = (props) => {
   return (
-    <div class='logo'>
+    <div className='logo'>
       <img src={`${process.env.PUBLIC_URL}/logo512.png`} alt='There should be a ninja here!' />
     </div>
   );

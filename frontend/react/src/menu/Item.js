@@ -6,15 +6,15 @@ import './menu.css';
 const Item = (props) => {
   const links = props.links?.map((link) =>
     <a href={link.href}>
-      <span class='slash' aria-hidden='true'> /</span>
-      <span class='link'>{link.text}</span>
+      <span className='slash' aria-hidden='true'> /</span>
+      <span className='link'>{link.text}</span>
     </a>
   );
   let content;
   if (Array.isArray(links) && links.length) {
     content = (
       <>
-        <div class='item-square'>
+        <div className='item-square'>
           <FontAwesomeIcon
             aria-hidden='true'
             icon={props.icon}
@@ -30,7 +30,7 @@ const Item = (props) => {
   }
   ;
   return (
-    <div class='item'>
+    <div className='item'>
       {content}
     </div>
   );

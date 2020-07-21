@@ -5,7 +5,7 @@ import './MadeWithLove.css'
 
 const MadeWithLove = (props) => {
   return (
-    <div class='item-footer'>
+    <div className='item-footer'>
       <span>made</span>
       <span aria-hidden='true'>&nbsp;with&nbsp;<FontAwesomeIcon
         icon={['fas', 'heart']}
@@ -13,7 +13,7 @@ const MadeWithLove = (props) => {
         fixedWidth
       /></span>
       <span>&nbsp;by&nbsp;</span>
-      <a class='mamosk' href='https://github.com/mamosk'>mamosk</a>
+      <a className='mamosk' href='https://github.com/mamosk'>mamosk</a>
     </div>
   );
 };
