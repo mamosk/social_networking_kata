@@ -5,7 +5,7 @@ import './menu.css';
 
 const Item = (props) => {
   const links = props.links?.map((link) =>
-    <a href={link.href}>
+    <a href={link.href} key={link.text}>
       <span className='slash' aria-hidden='true'> /</span>
       <span className='link'>{link.text}</span>
     </a>

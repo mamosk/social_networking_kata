@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import Kata from './header/Kata';
 import Item from './menu/Item';
@@ -6,7 +7,11 @@ import Ninja from './footer/Ninja';
 import './App.css';
 
 const menu = require('./menu/menu').map((item) =>
-  <Item icon={item.icon} links={item.links} />
+  <Item
+    key={item.icon?.join('-') || uuidv4()}
+    icon={item.icon}
+    links={item.links}
+  />
 );
 function App() {
   return (
