@@ -1,6 +1,8 @@
 Social Networking Kata
 ======================
-This is an implementation of [the social networking kata](https://github.com/xpeppers/social_networking_kata) proposed by [_Xpeppers_](https://www.xpeppers.com/en/) team.
+This is a _complex_ implementation of [the social networking kata](https://github.com/xpeppers/social_networking_kata) proposed by [_Xpeppers_](https://www.xpeppers.com/en/) team.
+
+A _simple_ implementation can be found [here](https://github.com/mamosk/social-network-kata-sharp).
 
 This kata is implemented using:
 - [Docker](https://www.docker.com/)
@@ -42,7 +44,7 @@ When the [CLI](#cli) is ready you can type `help` to display available commands.
 To execute the script in **mono** mode:
 
 1. clone the repo — follow [this guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
-   - on **Windows** you'll have to [changle the end of line sequence](https://webstoked.com/vs-code-fix-end-of-line-character-is-invalid/#:~:text=Click%20on%20the%20CRLF%20button,see%20in%20the%20second%20step.&text=Click%20on%20LF%20at%20the,That's%20it!)
+   - on **Windows** you'll have to [change the end of line sequence](https://webstoked.com/vs-code-fix-end-of-line-character-is-invalid/#:~:text=Click%20on%20the%20CRLF%20button,see%20in%20the%20second%20step.&text=Click%20on%20LF%20at%20the,That's%20it!)
      from `CRLF` to `LF` in following files:
      - [/frontend/bash/katacli.sh](/frontend/bash/katacli.sh)
      - [/frontend/bash/demo/kata.demo](/frontend/bash/demo/kata.demo)
