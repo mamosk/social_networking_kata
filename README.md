@@ -252,7 +252,7 @@ The database is managed using [pgAdmin](https://www.pgadmin.org/).
 - Import [this collection](/backend/postman/kata.postman_collection.json)
   in [Postman](https://www.postman.com/)
   to run _functional_ and _integration_ tests.
-- Execute `npm test` in `frontend/react` to run a minimal _ui test_.
+- Run `npm test` command in `frontend/react` directory to run a minimal _ui test_.
 
 ---
 Made with ❤️ by [Fabio Michelini](https://www.linkedin.com/in/fabio-michelini/)
